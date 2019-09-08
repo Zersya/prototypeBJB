@@ -156,47 +156,53 @@ class _ScreenFormState extends State<ScreenForm> {
       key: _formKey,
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            CircleAvatar(
-                backgroundColor: Color(COLOR_MAIN),
-                radius: 70.0,
-                child: _provider.profile == null
-                    ? Icon(
-                        Icons.person,
-                        color: Colors.white,
-                        size: MediaQuery.of(context).size.width / 5,
-                      )
-                    : Text(
-                        '${_provider.profile.nama[0].toUpperCase()} ${_provider.profile.nama[_provider.profile.nama.length - 1].toUpperCase()}',
-                        style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.width / 8),
-                      )),
-            SizedBox(
-              height: MediaQuery.of(context).size.width / 8,
+        child: SingleChildScrollView(
+          child: SafeArea(
+            top: true,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                CircleAvatar(
+                    backgroundColor: Color(COLOR_MAIN),
+                    radius: 70.0,
+                    child: _provider.profile == null
+                        ? Icon(
+                            Icons.person,
+                            color: Colors.white,
+                            size: MediaQuery.of(context).size.width / 5,
+                          )
+                        : Text(
+                            '${_provider.profile.nama[0].toUpperCase()} ${_provider.profile.nama[_provider.profile.nama.length - 1].toUpperCase()}',
+                            style: TextStyle(
+                                fontSize:
+                                    MediaQuery.of(context).size.width / 8),
+                          )),
+                SizedBox(
+                  height: MediaQuery.of(context).size.width / 8,
+                ),
+                TextFormField(
+                  controller: _provider.controllerNama,
+                  decoration: InputDecoration(labelText: 'Nama'),
+                ),
+                TextFormField(
+                  controller: _provider.controllerAlamat,
+                  decoration: InputDecoration(labelText: 'Alamat'),
+                ),
+                TextFormField(
+                  controller: _provider.controllerNIK,
+                  decoration: InputDecoration(labelText: 'NIK'),
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+                ),
+                TextFormField(
+                  controller: _provider.controllerNPWP,
+                  decoration: InputDecoration(labelText: 'NPWP'),
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+                )
+              ],
             ),
-            TextFormField(
-              controller: _provider.controllerNama,
-              decoration: InputDecoration(labelText: 'Nama'),
-            ),
-            TextFormField(
-              controller: _provider.controllerAlamat,
-              decoration: InputDecoration(labelText: 'Alamat'),
-            ),
-            TextFormField(
-              controller: _provider.controllerNIK,
-              decoration: InputDecoration(labelText: 'NIK'),
-              keyboardType: TextInputType.number,
-              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-            ),
-            TextFormField(
-              controller: _provider.controllerNPWP,
-              decoration: InputDecoration(labelText: 'NPWP'),
-              keyboardType: TextInputType.number,
-              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-            )
-          ],
+          ),
         ),
       ),
     );
@@ -348,7 +354,23 @@ class _ScreenKTPNpwpState extends State<ScreenKTPNpwp> {
 
   Future getImage(ImageSource _imageSource) async {
     final image = await ImagePicker.pickImage(source: _imageSource);
+    retrieveLostData();
     return image;
+  }
+
+  Future<void> retrieveLostData() async {
+    final LostDataResponse response = await ImagePicker.retrieveLostData();
+    if (response == null) {
+      return;
+    }
+    if (response.file != null) {
+      setState(() {
+        if (response.type == RetrieveType.video) {
+        } else {
+          _imageNPWP = response.file;
+        }
+      });
+    } else {}
   }
 
   Future showChoices(TypeImage _type) {
