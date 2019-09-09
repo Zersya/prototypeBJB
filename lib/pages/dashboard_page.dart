@@ -37,10 +37,12 @@ class _DashboardPageState extends State<DashboardPage> {
               content: FlatButton(
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
+                  onPressed: () async {
+                    await Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => Provider.value(
                             value: _provider, child: ProfilePage())));
+                    Profile _profile = await _provider.getAccount();
+                    if (_profile != null) Navigator.of(context).pop();
                   },
                   child: Text('Silahkan isi data profil')),
             );
@@ -67,7 +69,8 @@ class _DashboardPageState extends State<DashboardPage> {
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => Provider.value(value:_provider,child: ProfilePage())));
+                            builder: (context) => Provider.value(
+                                value: _provider, child: ProfilePage())));
                       },
                       child: RichText(
                         text: TextSpan(
