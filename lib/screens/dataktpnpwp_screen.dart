@@ -17,9 +17,6 @@ class DataKtpNpwpScreen extends StatefulWidget {
 class _DataKtpNpwpScreenState extends State<DataKtpNpwpScreen> {
   ProfileProvider _provider;
 
-  File _imageKTP;
-  File _imageNPWP;
-
   Uint8List bytesKTP;
   Uint8List bytesNPWP;
 
@@ -29,14 +26,16 @@ class _DataKtpNpwpScreenState extends State<DataKtpNpwpScreen> {
     _provider = Provider.of<ProfileProvider>(context, listen: false);
 
     if (_provider.profile != null) {
-      bytesKTP = base64Decode(_provider.profile.imgktp);
-      bytesNPWP = base64Decode(_provider.profile.imgnpwp);
+      if (_provider.profile.imgktp != null)
+        bytesKTP = base64Decode(_provider.profile.imgktp);
+      if (_provider.profile.imgnpwp != null)
+        bytesNPWP = base64Decode(_provider.profile.imgnpwp);
     }
   }
 
   _ktpWidget() {
-    if (bytesKTP == null) {
-      return _imageKTP == null
+    if (_provider.imageKtp == null) {
+      return bytesKTP == null
           ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -47,15 +46,15 @@ class _DataKtpNpwpScreenState extends State<DataKtpNpwpScreen> {
                 Text('KTP anda')
               ],
             )
-          : Image.file(_imageKTP, fit: BoxFit.cover);
+          : Image.memory(bytesKTP, fit: BoxFit.cover);
     } else {
-      return Image.memory(bytesKTP, fit: BoxFit.cover);
+      return Image.file(_provider.imageKtp, fit: BoxFit.cover);
     }
   }
 
   _npwpWidget() {
-    if (bytesKTP == null) {
-      return _imageKTP == null
+    if (_provider.imageNpwp == null) {
+      return bytesNPWP == null
           ? Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
@@ -66,9 +65,9 @@ class _DataKtpNpwpScreenState extends State<DataKtpNpwpScreen> {
                 Text('NPWP anda')
               ],
             )
-          : Image.file(_imageNPWP, fit: BoxFit.cover);
+          : Image.memory(bytesNPWP, fit: BoxFit.cover);
     } else {
-      return Image.memory(bytesKTP, fit: BoxFit.cover);
+      return Image.file(_provider.imageNpwp, fit: BoxFit.cover);
     }
   }
 
@@ -82,24 +81,24 @@ class _DataKtpNpwpScreenState extends State<DataKtpNpwpScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Align(
-              alignment: Alignment.topRight,
-              child: FloatingActionButton(
-                elevation: 4.0,
-                mini: true,
-                child: Icon(Icons.help),
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        content: Text('Silahkan upload KTP dan NPWP anda'),
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
+            // Align(
+            //   alignment: Alignment.topRight,
+            //   child: FloatingActionButton(
+            //     elevation: 4.0,
+            //     mini: true,
+            //     child: Icon(Icons.help),
+            //     onPressed: () {
+            //       showDialog(
+            //         context: context,
+            //         builder: (context) {
+            //           return AlertDialog(
+            //             content: Text('Silahkan upload KTP dan NPWP anda'),
+            //           );
+            //         },
+            //       );
+            //     },
+            //   ),
+            // ),
             Text(
               'Upload KTP dan NPWP',
               textAlign: TextAlign.center,
@@ -118,7 +117,10 @@ class _DataKtpNpwpScreenState extends State<DataKtpNpwpScreen> {
                 onTap: () async {
                   await showChoices(TypeImage.ktp);
                 },
-                child: Center(child: _ktpWidget()),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Center(child: _ktpWidget()),
+                ),
               ),
             ),
             Card(
@@ -127,7 +129,10 @@ class _DataKtpNpwpScreenState extends State<DataKtpNpwpScreen> {
                 onTap: () async {
                   await showChoices(TypeImage.npwp);
                 },
-                child: Center(child: _npwpWidget()),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Center(child: _npwpWidget()),
+                ),
               ),
             )
           ],
@@ -138,25 +143,9 @@ class _DataKtpNpwpScreenState extends State<DataKtpNpwpScreen> {
 
   Future getImage(ImageSource _imageSource) async {
     final image = await ImagePicker.pickImage(source: _imageSource);
-    retrieveLostData();
     return image;
   }
-
-  Future<void> retrieveLostData() async {
-    final LostDataResponse response = await ImagePicker.retrieveLostData();
-    if (response == null) {
-      return;
-    }
-    if (response.file != null) {
-      setState(() {
-        if (response.type == RetrieveType.video) {
-        } else {
-          _imageNPWP = response.file;
-        }
-      });
-    } else {}
-  }
-
+  
   Future showChoices(TypeImage _type) {
     return showDialog(
       context: context,
@@ -174,11 +163,9 @@ class _DataKtpNpwpScreenState extends State<DataKtpNpwpScreen> {
                   Navigator.of(context).pop();
 
                   if (_type == TypeImage.ktp) {
-                    _imageKTP = await getImage(ImageSource.camera);
-                    _provider.decodeImage(_imageKTP, TypeImage.ktp);
+                    _provider.setImageKtp = await getImage(ImageSource.camera);
                   } else if (_type == TypeImage.npwp) {
-                    _imageNPWP = await getImage(ImageSource.camera);
-                    _provider.decodeImage(_imageNPWP, TypeImage.npwp);
+                    _provider.setImageNpwp = await getImage(ImageSource.camera);
                   }
                   setState(() {});
                 },
@@ -192,11 +179,10 @@ class _DataKtpNpwpScreenState extends State<DataKtpNpwpScreen> {
                   Navigator.of(context).pop();
 
                   if (_type == TypeImage.ktp) {
-                    _imageKTP = await getImage(ImageSource.gallery);
-                    _provider.decodeImage(_imageKTP, TypeImage.ktp);
+                    _provider.setImageKtp = await getImage(ImageSource.gallery);
                   } else if (_type == TypeImage.npwp) {
-                    _imageNPWP = await getImage(ImageSource.gallery);
-                    _provider.decodeImage(_imageNPWP, TypeImage.npwp);
+                    _provider.setImageNpwp =
+                        await getImage(ImageSource.gallery);
                   }
 
                   setState(() {});

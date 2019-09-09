@@ -51,6 +51,10 @@ class _ProfilePageState extends State<ProfilePage> {
             children: <Widget>[
               DataKtpNpwpScreen(),
               DataPemohonScreen(),
+              Container(),
+              Container(),
+              Container(),
+
             ],
             sizing: StackFit.loose,
           ),
