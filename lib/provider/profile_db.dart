@@ -17,6 +17,11 @@ final String columnNPWP = 'npwp';
 final String columnNamaIbu = 'nama_ibu';
 final String columnAlamatDomisil = 'alamat_domisil';
 final String columnTelepon = 'telepon';
+final String columnPekerjaan = 'pekerjaan';
+final String columnNIP = 'nip';
+final String columnNamaInstansi = 'nama_instansi';
+final String columnalamatKantor = 'alamat_kantor';
+final String columnTeleponKantor = 'telepon_kantor';
 
 final String columnImgtKtp = 'imgktp';
 final String columnImgNpwp = 'imgnpwp';
@@ -29,12 +34,30 @@ class Profile {
   final String namaIbu;
   final String alamatDomisil;
   final String telepon;
+  final String pekerjaan;
+  final String nip;
+  final String namaInstansi;
+  final String alamatKantor;
+  final String teleponKantor;
 
   String imgktp;
   String imgnpwp;
 
-  Profile(this.nama, this.alamat, this.nik, this.npwp, this.imgktp,
-      this.imgnpwp, this.namaIbu, this.alamatDomisil, this.telepon);
+  Profile(
+      {this.nama,
+      this.alamat,
+      this.nik,
+      this.npwp,
+      this.imgktp,
+      this.imgnpwp,
+      this.namaIbu,
+      this.alamatDomisil,
+      this.telepon,
+      this.pekerjaan,
+      this.nip,
+      this.namaInstansi,
+      this.alamatKantor,
+      this.teleponKantor});
 
   set imageKtp(String base64) {
     imgktp = base64;
@@ -54,18 +77,28 @@ class Profile {
         columnTelepon: this.telepon,
         columnImgNpwp: this.imgnpwp,
         columnImgtKtp: this.imgktp,
+        columnTeleponKantor: this.teleponKantor,
+        columnPekerjaan: this.pekerjaan,
+        columnNIP: this.nip,
+        columnNamaInstansi: this.namaInstansi,
+        columnalamatKantor: this.alamatKantor
       };
 
   factory Profile.fromMap(Map _map) => Profile(
-      _map[columnNama],
-      _map[columnAlamat],
-      _map[columnNIK],
-      _map[columnNPWP],
-      _map[columnImgtKtp],
-      _map[columnImgNpwp],
-      _map[columnNamaIbu],
-      _map[columnAlamatDomisil],
-      _map[columnTelepon]);
+      nama: _map[columnNama],
+      alamat: _map[columnAlamat],
+      nik: _map[columnNIK],
+      npwp: _map[columnNPWP],
+      imgktp: _map[columnImgtKtp],
+      imgnpwp: _map[columnImgNpwp],
+      namaIbu: _map[columnNamaIbu],
+      alamatDomisil: _map[columnAlamatDomisil],
+      telepon: _map[columnTelepon],
+      alamatKantor: _map[columnalamatKantor],
+      namaInstansi: _map[columnNamaInstansi],
+      nip: _map[columnNIP],
+      pekerjaan: _map[columnPekerjaan],
+      teleponKantor: _map[columnTeleponKantor]);
 }
 
 class ProfileProvider {
@@ -80,6 +113,12 @@ class ProfileProvider {
   final controllerIbuKandung = TextEditingController();
   final controllerAlamatDomisil = TextEditingController();
   final controllerTelepon = TextEditingController();
+
+  final controllerPekerjaan = TextEditingController();
+  final controllerNIP = TextEditingController();
+  final controllerNamaInstansi = TextEditingController();
+  final controllerAlamatKantor = TextEditingController();
+  final controllerTeleponKantor = TextEditingController();
 
   File _imageKTP;
   File get imageKtp => _imageKTP;
@@ -104,9 +143,13 @@ class ProfileProvider {
     controllerTelepon.text = profile?.telepon ?? '';
     controllerIbuKandung.text = profile?.namaIbu ?? '';
     controllerAlamatDomisil.text = profile?.alamatDomisil ?? '';
-    imageKtpStr = profile.imgktp;
-    imageNpwpStr = profile.imgnpwp;
-
+    controllerAlamatKantor.text = profile?.alamatKantor ?? '';
+    controllerNamaInstansi.text = profile?.namaInstansi ?? '';
+    controllerNIP.text = profile?.nip ?? '';
+    controllerPekerjaan.text = profile?.pekerjaan ?? '';
+    controllerTeleponKantor.text = profile?.teleponKantor ?? '';
+    imageKtpStr = profile?.imgktp ?? null;
+    imageNpwpStr = profile?.imgnpwp ?? null;
   }
 
   Future<String> encodeImage(File _image, TypeImage _type) async {
@@ -135,6 +178,11 @@ class ProfileProvider {
           $columnNamaIbu text,
           $columnAlamatDomisil text,
           $columnTelepon text,
+          $columnalamatKantor text,
+          $columnNamaInstansi text,
+          $columnNIP text,
+          $columnPekerjaan text,
+          $columnTeleponKantor text,
           $columnImgNpwp text,
           $columnImgtKtp text)''');
     });
@@ -146,15 +194,20 @@ class ProfileProvider {
     if (_imageKTP != null) await encodeImage(_imageKTP, TypeImage.ktp);
 
     profile = Profile(
-        controllerNama.text,
-        controllerAlamat.text,
-        controllerNIK.text,
-        controllerNPWP.text,
-        imageKtpStr,
-        imageNpwpStr,
-        controllerIbuKandung.text,
-        controllerAlamatDomisil.text,
-        controllerTelepon.text);
+        nama: controllerNama.text,
+        alamat: controllerAlamat.text,
+        nik: controllerNIK.text,
+        npwp: controllerNPWP.text,
+        imgktp: imageKtpStr,
+        imgnpwp: imageNpwpStr,
+        namaIbu: controllerIbuKandung.text,
+        alamatDomisil: controllerAlamatDomisil.text,
+        telepon: controllerTelepon.text,
+        alamatKantor: controllerAlamatKantor.text,
+        namaInstansi: controllerNamaInstansi.text,
+        nip: controllerNIP.text,
+        pekerjaan: controllerPekerjaan.text,
+        teleponKantor: controllerTeleponKantor.text);
 
     int id = await db.insert(tableProfile, profile.toMap());
     print(id);
@@ -174,6 +227,11 @@ class ProfileProvider {
         columnTelepon,
         columnNamaIbu,
         columnAlamatDomisil,
+        columnalamatKantor,
+        columnNIP,
+        columnPekerjaan,
+        columnTeleponKantor,
+        columnNamaInstansi,
         columnImgNpwp,
         columnImgtKtp
       ],

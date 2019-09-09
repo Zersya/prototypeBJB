@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:prototype_bjb/screens/datainstansi_screen.dart';
 import 'package:prototype_bjb/screens/dataktpnpwp_screen.dart';
 import 'package:prototype_bjb/screens/datapemohon_screen.dart';
 import 'package:prototype_bjb/utils/constant.dart';
@@ -51,10 +52,9 @@ class _ProfilePageState extends State<ProfilePage> {
             children: <Widget>[
               DataKtpNpwpScreen(),
               DataPemohonScreen(),
+              DataInstansiScreen(),
               Container(),
               Container(),
-              Container(),
-
             ],
             sizing: StackFit.loose,
           ),
@@ -74,23 +74,28 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Container(
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
-                border: Border(
-                    top: BorderSide(
-                      color: Colors.black26,
-                      width: 0.5,
-                    ),
-                    bottom: BorderSide(
-                      color: isActive ? Colors.white : Colors.black12,
-                      width: 0.5,
-                    ),
-                    left: BorderSide(
-                      color: Colors.black26,
-                      width: 0.5,
-                    ),
-                    right: BorderSide(
-                      color: Colors.black26,
-                      width: 0.5,
-                    )),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15),
+                    topRight: Radius.circular(15)),
+                border: Border.all(
+                    color: Colors.black26, width: isActive ? 1 : 1.25),
+                // border: Border(
+                //     top: BorderSide(
+                //       color: Colors.black26,
+                //       width: 1.25,
+                //     ),
+                //     bottom: BorderSide(
+                //       color: isActive ? Colors.white : Colors.black12,
+                //       width: 1.25,
+                //     ),
+                //     left: BorderSide(
+                //       color: Colors.black26,
+                //       width: 1.25,
+                //     ),
+                //     right: BorderSide(
+                //       color: Colors.black26,
+                //       width: 1.25,
+                //     )),
                 color: isActive ? Colors.white : Colors.black12),
             child: Icon(_icon)),
       ),

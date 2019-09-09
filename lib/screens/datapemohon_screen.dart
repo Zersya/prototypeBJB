@@ -56,7 +56,7 @@ class _DataPemohonScreenState extends State<DataPemohonScreen> {
                     : Text(
                         '${_provider.profile.nama[0].toUpperCase()} ${_provider.profile.nama[_provider.profile.nama.length - 1].toUpperCase()}',
                         style: TextStyle(
-                            fontSize: MediaQuery.of(context).size.width / 8),
+                            fontSize: MediaQuery.of(context).size.width / 8, color: Colors.white),
                       )),
             SizedBox(
               height: MediaQuery.of(context).size.width / 8,
