@@ -30,6 +30,7 @@ dependencies:
   url_launcher: ^5.1.2
   path_provider: any
   provider: ^3.1.0
+  shifting_tabbar: ^0.3.1
 
 
 dev_dependencies:

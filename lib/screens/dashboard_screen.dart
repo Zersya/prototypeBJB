@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:prototype_bjb/pages/profile_page.dart';
 import 'package:prototype_bjb/provider/profile_db.dart';
-import 'package:prototype_bjb/screens/profile_screen.dart';
 import 'package:prototype_bjb/utils/constant.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +40,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   onPressed: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => Provider.value(
-                            value: _provider, child: ProfileScreen())));
+                            value: _provider, child: ProfilePage())));
                   },
                   child: Text('Silahkan isi data profil')),
             );
@@ -67,7 +67,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     GestureDetector(
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => Provider.value(value:_provider,child: ProfileScreen())));
+                            builder: (context) => Provider.value(value:_provider,child: ProfilePage())));
                       },
                       child: RichText(
                         text: TextSpan(

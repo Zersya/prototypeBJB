@@ -19,7 +19,7 @@ class _SplashScreenState extends State<SplashScreen> {
     _provider.open().whenComplete(() async {
       await _provider.getAccount();
 
-      Navigator.of(context).push(
+      Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) =>
               Provider.value(value: _provider, child: DashboardScreen()),
