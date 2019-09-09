@@ -25,6 +25,8 @@ final String columnalamatKantor = 'alamat_kantor';
 final String columnTeleponKantor = 'telepon_kantor';
 final String columnPenghasilanBersih = 'penghasilan_bersih';
 final String columnTunjangan = 'tunjangan';
+final String columnnNoRekTabungan = 'no_rek_tabungan';
+final String columnNoRekKredit = 'no_rek_kredit';
 
 final String columnImgtKtp = 'imgktp';
 final String columnImgNpwp = 'imgnpwp';
@@ -44,6 +46,8 @@ class Profile {
   final String teleponKantor;
   final String penghasilanBersih;
   final String tunjangan;
+  final String noRekTabungan;
+  final String noRekKredit;
 
   String imgktp;
   String imgnpwp;
@@ -65,6 +69,8 @@ class Profile {
     this.teleponKantor,
     this.penghasilanBersih,
     this.tunjangan,
+    this.noRekTabungan,
+    this.noRekKredit,
   });
 
   set imageKtp(String base64) {
@@ -91,7 +97,9 @@ class Profile {
         columnNamaInstansi: this.namaInstansi,
         columnalamatKantor: this.alamatKantor,
         columnTunjangan: this.tunjangan,
-        columnPenghasilanBersih: this.penghasilanBersih
+        columnPenghasilanBersih: this.penghasilanBersih,
+        columnNoRekKredit: this.noRekKredit,
+        columnnNoRekTabungan: this.noRekTabungan
       };
 
   factory Profile.fromMap(Map _map) => Profile(
@@ -110,7 +118,9 @@ class Profile {
       pekerjaan: _map[columnPekerjaan],
       teleponKantor: _map[columnTeleponKantor],
       penghasilanBersih: _map[columnPenghasilanBersih],
-      tunjangan: _map[columnTunjangan]);
+      tunjangan: _map[columnTunjangan],
+      noRekKredit: _map[columnNoRekKredit],
+      noRekTabungan: _map[columnnNoRekTabungan]);
 }
 
 class ProfileProvider {
@@ -131,6 +141,10 @@ class ProfileProvider {
   final controllerNamaInstansi = TextEditingController();
   final controllerAlamatKantor = TextEditingController();
   final controllerTeleponKantor = TextEditingController();
+
+  final controllerNoRekTabungan = TextEditingController();
+  final controllerNoRekKredit =
+      new MaskedTextController(mask: '000-0000000000');
 
   final controllerPenghasilan = new MoneyMaskedTextController(
       leftSymbol: 'IDR ',
@@ -173,6 +187,8 @@ class ProfileProvider {
     controllerTeleponKantor.text = profile?.teleponKantor ?? '';
     controllerTunjangan.text = profile?.tunjangan ?? '0';
     controllerPenghasilan.text = profile?.penghasilanBersih ?? '0';
+    controllerNoRekKredit.text = profile?.noRekKredit ?? '';
+    controllerNoRekTabungan.text = profile?.noRekTabungan ?? '';
 
     imageKtpStr = profile?.imgktp ?? null;
     imageNpwpStr = profile?.imgnpwp ?? null;
@@ -211,6 +227,8 @@ class ProfileProvider {
           $columnTeleponKantor text,
           $columnPenghasilanBersih text,
           $columnTunjangan text,
+          $columnnNoRekTabungan text,
+          $columnNoRekKredit text,
           $columnImgNpwp text,
           $columnImgtKtp text)''');
     });
@@ -237,7 +255,9 @@ class ProfileProvider {
         pekerjaan: controllerPekerjaan.text,
         teleponKantor: controllerTeleponKantor.text,
         tunjangan: controllerTunjangan.text,
-        penghasilanBersih: controllerPenghasilan.text);
+        penghasilanBersih: controllerPenghasilan.text,
+        noRekTabungan: controllerNoRekTabungan.text,
+        noRekKredit: controllerNoRekKredit.text);
 
     int id = await db.insert(tableProfile, profile.toMap());
     print(id);
@@ -264,6 +284,8 @@ class ProfileProvider {
         columnNamaInstansi,
         columnTunjangan,
         columnPenghasilanBersih,
+        columnNoRekKredit,
+        columnnNoRekTabungan,
         columnImgNpwp,
         columnImgtKtp
       ],

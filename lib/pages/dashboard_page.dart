@@ -7,13 +7,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class DashboardScreen extends StatefulWidget {
-  DashboardScreen({Key key}) : super(key: key);
+class DashboardPage extends StatefulWidget {
+  DashboardPage({Key key}) : super(key: key);
 
-  _DashboardScreenState createState() => _DashboardScreenState();
+  _DashboardPageState createState() => _DashboardPageState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
+class _DashboardPageState extends State<DashboardPage> {
   ProfileProvider _provider;
   bool isAlreadyshowed = false;
 

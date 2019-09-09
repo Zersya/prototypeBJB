@@ -3,6 +3,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:prototype_bjb/screens/datainstansi_screen.dart';
 import 'package:prototype_bjb/screens/dataktpnpwp_screen.dart';
 import 'package:prototype_bjb/screens/datapemohon_screen.dart';
+import 'package:prototype_bjb/screens/datarekening_screen.dart';
 import 'package:prototype_bjb/screens/penghasilan_screen.dart';
 import 'package:prototype_bjb/utils/constant.dart';
 
@@ -46,20 +47,17 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
         ),
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: IndexedStack(
-            index: indexPage,
-            alignment: Alignment.topCenter,
-            children: <Widget>[
-              DataKtpNpwpScreen(),
-              DataPemohonScreen(),
-              DataInstansiScreen(),
-              PenghasilanScreen(),
-              Container(),
-            ],
-            sizing: StackFit.loose,
-          ),
+        body: IndexedStack(
+          index: indexPage,
+          alignment: Alignment.topCenter,
+          children: <Widget>[
+            DataKtpNpwpScreen(),
+            DataPemohonScreen(),
+            DataInstansiScreen(),
+            PenghasilanScreen(),
+            DataRekeningScreen(),
+          ],
+          sizing: StackFit.loose,
         ));
   }
 

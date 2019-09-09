@@ -4,14 +4,22 @@ import 'package:prototype_bjb/provider/profile_db.dart';
 import 'package:prototype_bjb/utils/constant.dart';
 import 'package:provider/provider.dart';
 
-class DataInstansiScreen extends StatefulWidget {
-  DataInstansiScreen({Key key}) : super(key: key);
+class DataRekeningScreen extends StatefulWidget {
+  DataRekeningScreen({Key key}) : super(key: key);
 
-  _DataInstansiScreenState createState() => _DataInstansiScreenState();
+  _DataRekeningScreenState createState() => _DataRekeningScreenState();
 }
 
-class _DataInstansiScreenState extends State<DataInstansiScreen> {
+class _DataRekeningScreenState extends State<DataRekeningScreen> {
   ProfileProvider _provider;
+
+  @override
+  void initState() {
+    super.initState();
+    _provider = Provider.of<ProfileProvider>(context, listen: false);
+
+    _provider.setController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +52,7 @@ class _DataInstansiScreenState extends State<DataInstansiScreen> {
                 height: 25,
               ),
               Text(
-                'Data Instansi Pemohon',
+                'Data Rekening',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black54,
@@ -56,40 +64,27 @@ class _DataInstansiScreenState extends State<DataInstansiScreen> {
                 height: 30.0,
               ),
               CircleAvatar(
-                backgroundColor: Color(COLOR_MAIN),
-                radius: 70.0,
-                child: Icon(
-                  Icons.business,
-                  color: Colors.white,
-                  size: MediaQuery.of(context).size.width / 5,
-                ),
-              ),
+                  backgroundColor: Color(COLOR_MAIN),
+                  radius: 70.0,
+                  child: Icon(
+                    Icons.account_balance,
+                    color: Colors.white,
+                    size: MediaQuery.of(context).size.width / 5,
+                  )),
               SizedBox(
                 height: MediaQuery.of(context).size.width / 8,
               ),
               TextFormField(
-                controller: _provider.controllerPekerjaan,
-                decoration: InputDecoration(labelText: 'Pekerjaan'),
-              ),
-              TextFormField(
-                controller: _provider.controllerNIP,
-                decoration: InputDecoration(labelText: 'NIP'),
+                controller: _provider.controllerNoRekTabungan,
+                decoration: InputDecoration(labelText: 'No Rekening Tabungan'),
                 keyboardType: TextInputType.number,
                 inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
               ),
               TextFormField(
-                controller: _provider.controllerNamaInstansi,
-                decoration: InputDecoration(
-                    labelText: 'Nama Instansi Dinas / Perusahaan'),
-              ),
-              TextFormField(
-                controller: _provider.controllerAlamatKantor,
-                decoration: InputDecoration(labelText: 'Alamat Kantor'),
-              ),
-              TextFormField(
-                controller: _provider.controllerTeleponKantor,
-                decoration: InputDecoration(labelText: 'Telepon'),
-                keyboardType: TextInputType.phone,
+                controller: _provider.controllerNoRekKredit,
+                decoration:
+                    InputDecoration(labelText: 'No Rekening Kredit Lama'),
+                keyboardType: TextInputType.number,
                 inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
               ),
               Divider(

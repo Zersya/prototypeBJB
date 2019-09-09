@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:prototype_bjb/pages/dashboard_page.dart';
 import 'package:prototype_bjb/provider/profile_db.dart';
 import 'package:prototype_bjb/utils/constant.dart';
 import 'package:provider/provider.dart';
-
-import 'dashboard_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -22,7 +21,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) =>
-              Provider.value(value: _provider, child: DashboardScreen()),
+              Provider.value(value: _provider, child: DashboardPage()),
         ),
       );
     });
