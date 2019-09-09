@@ -25,99 +25,81 @@ class _DataPemohonScreenState extends State<DataPemohonScreen> {
   Widget build(BuildContext context) {
     _provider = Provider.of<ProfileProvider>(context);
 
-    return Scaffold(
-      bottomNavigationBar: Container(
-        width: double.infinity,
-        color: Color(COLOR_MAIN),
-        child: SafeArea(
-          bottom: true,
-          child: FlatButton(
-            child: Text(
-              'SIMPAN',
-              style: TextStyle(color: Colors.white),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+              height: 25,
             ),
-            onPressed: () {
-              _provider.insert();
-            },
-          ),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                height: 25,
+            Text(
+              'Data Pemohon',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 21.0,
               ),
-              Text(
-                'Data Pemohon',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.black54,
-                  fontSize: 21.0,
-                ),
-              ),
-              Divider(
-                color: Colors.black,
-                height: 30.0,
-              ),
-              CircleAvatar(
-                  backgroundColor: Color(COLOR_MAIN),
-                  radius: 70.0,
-                  child: _provider.profile == null
-                      ? Icon(
-                          Icons.person,
-                          color: Colors.white,
-                          size: MediaQuery.of(context).size.width / 5,
-                        )
-                      : Text(
-                          '${_provider.profile.nama[0].toUpperCase()} ${_provider.profile.nama[_provider.profile.nama.length - 1].toUpperCase()}',
-                          style: TextStyle(
-                              fontSize: MediaQuery.of(context).size.width / 8,
-                              color: Colors.white),
-                        )),
-              SizedBox(
-                height: MediaQuery.of(context).size.width / 8,
-              ),
-              TextFormField(
-                controller: _provider.controllerNIK,
-                decoration: InputDecoration(labelText: 'Nomor NIK'),
-                keyboardType: TextInputType.number,
-                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                readOnly: true,
-              ),
-              TextFormField(
-                controller: _provider.controllerNPWP,
-                decoration: InputDecoration(labelText: 'Nomor NPWP'),
-                keyboardType: TextInputType.number,
-                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-                readOnly: true,
-              ),
-              TextFormField(
-                controller: _provider.controllerNama,
-                decoration: InputDecoration(labelText: 'Nama Lengkap'),
-              ),
-              TextFormField(
-                controller: _provider.controllerIbuKandung,
-                decoration: InputDecoration(labelText: 'Nama Ibu Kandung'),
-              ),
-              TextFormField(
-                controller: _provider.controllerAlamatDomisil,
-                decoration: InputDecoration(labelText: 'Alamat Domisil'),
-              ),
-              TextFormField(
-                controller: _provider.controllerTelepon,
-                decoration: InputDecoration(labelText: 'Telepon/Handphone'),
-                keyboardType: TextInputType.phone,
-                inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
-              ),
-              Divider(
-                height: 20,
-              ),
-            ],
-          ),
+            ),
+            Divider(
+              color: Colors.black,
+              height: 30.0,
+            ),
+            CircleAvatar(
+                backgroundColor: Color(COLOR_MAIN),
+                radius: 70.0,
+                child: _provider.profile == null
+                    ? Icon(
+                        Icons.person,
+                        color: Colors.white,
+                        size: MediaQuery.of(context).size.width / 5,
+                      )
+                    : Text(
+                        '${_provider.profile.nama[0].toUpperCase()} ${_provider.profile.nama[_provider.profile.nama.length - 1].toUpperCase()}',
+                        style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width / 8,
+                            color: Colors.white),
+                      )),
+            SizedBox(
+              height: MediaQuery.of(context).size.width / 8,
+            ),
+            TextFormField(
+              controller: _provider.controllerNIK,
+              decoration: InputDecoration(labelText: 'Nomor NIK'),
+              keyboardType: TextInputType.number,
+              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+              readOnly: true,
+            ),
+            TextFormField(
+              controller: _provider.controllerNPWP,
+              decoration: InputDecoration(labelText: 'Nomor NPWP'),
+              keyboardType: TextInputType.number,
+              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+              readOnly: true,
+            ),
+            TextFormField(
+              controller: _provider.controllerNama,
+              decoration: InputDecoration(labelText: 'Nama Lengkap'),
+            ),
+            TextFormField(
+              controller: _provider.controllerIbuKandung,
+              decoration: InputDecoration(labelText: 'Nama Ibu Kandung'),
+            ),
+            TextFormField(
+              controller: _provider.controllerAlamatDomisil,
+              decoration: InputDecoration(labelText: 'Alamat Domisil'),
+            ),
+            TextFormField(
+              controller: _provider.controllerTelepon,
+              decoration: InputDecoration(labelText: 'Telepon/Handphone'),
+              keyboardType: TextInputType.phone,
+              inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+            ),
+            Divider(
+              height: 20,
+            ),
+          ],
         ),
       ),
     );

@@ -25,24 +25,7 @@ class _DataRekeningScreenState extends State<DataRekeningScreen> {
   Widget build(BuildContext context) {
     _provider = Provider.of<ProfileProvider>(context);
 
-    return Scaffold(
-      bottomNavigationBar: Container(
-        width: double.infinity,
-        color: Color(COLOR_MAIN),
-        child: SafeArea(
-          bottom: true,
-          child: FlatButton(
-            child: Text(
-              'SIMPAN',
-              style: TextStyle(color: Colors.white),
-            ),
-            onPressed: () {
-              _provider.insert();
-            },
-          ),
-        ),
-      ),
-      body: Padding(
+    return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: SingleChildScrollView(
           child: Column(
@@ -93,7 +76,6 @@ class _DataRekeningScreenState extends State<DataRekeningScreen> {
             ],
           ),
         ),
-      ),
     );
   }
 }

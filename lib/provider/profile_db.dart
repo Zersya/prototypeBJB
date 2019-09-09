@@ -169,6 +169,12 @@ class ProfileProvider {
     _imageNPWP = image;
   }
 
+  bool _isTermsAgree = false;
+  bool get isTermsAgree => _isTermsAgree;
+  set setIsTermAgree(bool val){
+    _isTermsAgree = val;
+  }
+
   String imageKtpStr;
   String imageNpwpStr;
 

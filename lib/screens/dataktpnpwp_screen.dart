@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -145,7 +144,7 @@ class _DataKtpNpwpScreenState extends State<DataKtpNpwpScreen> {
     final image = await ImagePicker.pickImage(source: _imageSource);
     return image;
   }
-  
+
   Future showChoices(TypeImage _type) {
     return showDialog(
       context: context,

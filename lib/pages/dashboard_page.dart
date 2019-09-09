@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:prototype_bjb/pages/pengajuan_page.dart';
 import 'package:prototype_bjb/pages/profile_page.dart';
 import 'package:prototype_bjb/provider/profile_db.dart';
 import 'package:prototype_bjb/utils/constant.dart';
@@ -144,42 +145,68 @@ class _DashboardPageState extends State<DashboardPage> {
                 ],
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'FITUR UTAMA',
-                    style: TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold),
-                  ),
-                  ListView(
-                    physics: ScrollPhysics(),
-                    shrinkWrap: true,
+            Builder(
+              builder: (context) {
+                return Container(
+                  padding: EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      ListTile(
-                        leading: Icon(MdiIcons.fileDocumentOutline),
-                        title: Text('Pengajuan kredit',
-                            style: TextStyle(color: Colors.black54)),
-                        trailing: Icon(Icons.arrow_forward_ios),
+                      Text(
+                        'FITUR UTAMA',
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
                       ),
-                      Divider(
-                        color: Colors.black87,
-                      ),
-                      ListTile(
-                        leading: Icon(MdiIcons.viewList),
-                        title: Text('Daftar pengajuan kredit',
-                            style: TextStyle(color: Colors.black54)),
-                        trailing: Icon(Icons.arrow_forward_ios),
-                      ),
-                      Divider(
-                        color: Colors.black87,
-                      ),
+                      ListView(
+                        physics: ScrollPhysics(),
+                        shrinkWrap: true,
+                        children: <Widget>[
+                          ListTile(
+                            leading: Icon(MdiIcons.fileDocumentOutline),
+                            title: Text('Pengajuan kredit',
+                                style: TextStyle(color: Colors.black54)),
+                            trailing: Icon(Icons.arrow_forward_ios),
+                            onTap: () async {
+                              if (_provider.profile != null) {
+                                final isInsert =
+                                    await Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => Provider.value(
+                                        value: _provider,
+                                        child: PengajuanPage()),
+                                  ),
+                                );
+                                if (isInsert != null)
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                    content: Text(
+                                        'Berhasil mengajukan kredit, silahkan lihat pada daftar pengajuan kredit'),
+                                  ));
+                              } else {
+                                Scaffold.of(context).showSnackBar(SnackBar(
+                                  content: Text(
+                                      'Silahkan lengkapi profil terlebih dahulu'),
+                                ));
+                              }
+                            },
+                          ),
+                          Divider(
+                            color: Colors.black87,
+                          ),
+                          ListTile(
+                            leading: Icon(MdiIcons.viewList),
+                            title: Text('Daftar pengajuan kredit',
+                                style: TextStyle(color: Colors.black54)),
+                            trailing: Icon(Icons.arrow_forward_ios),
+                          ),
+                          Divider(
+                            color: Colors.black87,
+                          ),
+                        ],
+                      )
                     ],
-                  )
-                ],
-              ),
+                  ),
+                );
+              },
             )
           ],
         ),

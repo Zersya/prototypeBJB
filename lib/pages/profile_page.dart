@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:prototype_bjb/provider/profile_db.dart';
 import 'package:prototype_bjb/screens/datainstansi_screen.dart';
 import 'package:prototype_bjb/screens/dataktpnpwp_screen.dart';
 import 'package:prototype_bjb/screens/datapemohon_screen.dart';
 import 'package:prototype_bjb/screens/datarekening_screen.dart';
 import 'package:prototype_bjb/screens/penghasilan_screen.dart';
 import 'package:prototype_bjb/utils/constant.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key key}) : super(key: key);
@@ -14,9 +15,13 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  ProfileProvider _provider;
+
   int indexPage = 0;
   @override
   Widget build(BuildContext context) {
+    _provider = Provider.of<ProfileProvider>(context);
+
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -24,13 +29,14 @@ class _ProfilePageState extends State<ProfilePage> {
             style: TextStyle(color: Colors.black),
           ),
           leading: GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Icon(
-                Icons.arrow_back_ios,
-                color: Colors.black,
-              )),
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.black,
+            ),
+          ),
           backgroundColor: Colors.transparent,
           elevation: 0,
           bottom: PreferredSize(
@@ -42,8 +48,23 @@ class _ProfilePageState extends State<ProfilePage> {
                 itemMenu(Icons.business, 2),
                 itemMenu(Icons.account_balance_wallet, 3),
                 itemMenu(Icons.account_balance, 4),
-
               ],
+            ),
+          ),
+        ),
+        bottomNavigationBar: Container(
+          width: double.infinity,
+          color: Color(COLOR_MAIN),
+          child: SafeArea(
+            bottom: true,
+            child: FlatButton(
+              child: Text(
+                'SIMPAN',
+                style: TextStyle(color: Colors.white),
+              ),
+              onPressed: () {
+                _provider.insert();
+              },
             ),
           ),
         ),
