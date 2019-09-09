@@ -31,6 +31,8 @@ dependencies:
   path_provider: any
   provider: ^3.1.0
   shifting_tabbar: ^0.3.1
+  flutter_money_formatter: ^0.8.3
+  flutter_masked_text: ^0.8.0
 
 
 dev_dependencies:

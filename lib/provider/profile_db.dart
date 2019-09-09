@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:prototype_bjb/screens/dataktpnpwp_screen.dart';
 import 'package:sqflite/sqflite.dart';
@@ -22,6 +23,8 @@ final String columnNIP = 'nip';
 final String columnNamaInstansi = 'nama_instansi';
 final String columnalamatKantor = 'alamat_kantor';
 final String columnTeleponKantor = 'telepon_kantor';
+final String columnPenghasilanBersih = 'penghasilan_bersih';
+final String columnTunjangan = 'tunjangan';
 
 final String columnImgtKtp = 'imgktp';
 final String columnImgNpwp = 'imgnpwp';
@@ -39,25 +42,30 @@ class Profile {
   final String namaInstansi;
   final String alamatKantor;
   final String teleponKantor;
+  final String penghasilanBersih;
+  final String tunjangan;
 
   String imgktp;
   String imgnpwp;
 
-  Profile(
-      {this.nama,
-      this.alamat,
-      this.nik,
-      this.npwp,
-      this.imgktp,
-      this.imgnpwp,
-      this.namaIbu,
-      this.alamatDomisil,
-      this.telepon,
-      this.pekerjaan,
-      this.nip,
-      this.namaInstansi,
-      this.alamatKantor,
-      this.teleponKantor});
+  Profile({
+    this.nama,
+    this.alamat,
+    this.nik,
+    this.npwp,
+    this.imgktp,
+    this.imgnpwp,
+    this.namaIbu,
+    this.alamatDomisil,
+    this.telepon,
+    this.pekerjaan,
+    this.nip,
+    this.namaInstansi,
+    this.alamatKantor,
+    this.teleponKantor,
+    this.penghasilanBersih,
+    this.tunjangan,
+  });
 
   set imageKtp(String base64) {
     imgktp = base64;
@@ -81,7 +89,9 @@ class Profile {
         columnPekerjaan: this.pekerjaan,
         columnNIP: this.nip,
         columnNamaInstansi: this.namaInstansi,
-        columnalamatKantor: this.alamatKantor
+        columnalamatKantor: this.alamatKantor,
+        columnTunjangan: this.tunjangan,
+        columnPenghasilanBersih: this.penghasilanBersih
       };
 
   factory Profile.fromMap(Map _map) => Profile(
@@ -98,7 +108,9 @@ class Profile {
       namaInstansi: _map[columnNamaInstansi],
       nip: _map[columnNIP],
       pekerjaan: _map[columnPekerjaan],
-      teleponKantor: _map[columnTeleponKantor]);
+      teleponKantor: _map[columnTeleponKantor],
+      penghasilanBersih: _map[columnPenghasilanBersih],
+      tunjangan: _map[columnTunjangan]);
 }
 
 class ProfileProvider {
@@ -119,6 +131,17 @@ class ProfileProvider {
   final controllerNamaInstansi = TextEditingController();
   final controllerAlamatKantor = TextEditingController();
   final controllerTeleponKantor = TextEditingController();
+
+  final controllerPenghasilan = new MoneyMaskedTextController(
+      leftSymbol: 'IDR ',
+      thousandSeparator: '.',
+      precision: 0,
+      decimalSeparator: '');
+  final controllerTunjangan = new MoneyMaskedTextController(
+      leftSymbol: 'IDR ',
+      thousandSeparator: '.',
+      precision: 0,
+      decimalSeparator: '');
 
   File _imageKTP;
   File get imageKtp => _imageKTP;
@@ -148,6 +171,9 @@ class ProfileProvider {
     controllerNIP.text = profile?.nip ?? '';
     controllerPekerjaan.text = profile?.pekerjaan ?? '';
     controllerTeleponKantor.text = profile?.teleponKantor ?? '';
+    controllerTunjangan.text = profile?.tunjangan ?? '0';
+    controllerPenghasilan.text = profile?.penghasilanBersih ?? '0';
+
     imageKtpStr = profile?.imgktp ?? null;
     imageNpwpStr = profile?.imgnpwp ?? null;
   }
@@ -183,6 +209,8 @@ class ProfileProvider {
           $columnNIP text,
           $columnPekerjaan text,
           $columnTeleponKantor text,
+          $columnPenghasilanBersih text,
+          $columnTunjangan text,
           $columnImgNpwp text,
           $columnImgtKtp text)''');
     });
@@ -207,7 +235,9 @@ class ProfileProvider {
         namaInstansi: controllerNamaInstansi.text,
         nip: controllerNIP.text,
         pekerjaan: controllerPekerjaan.text,
-        teleponKantor: controllerTeleponKantor.text);
+        teleponKantor: controllerTeleponKantor.text,
+        tunjangan: controllerTunjangan.text,
+        penghasilanBersih: controllerPenghasilan.text);
 
     int id = await db.insert(tableProfile, profile.toMap());
     print(id);
@@ -232,6 +262,8 @@ class ProfileProvider {
         columnPekerjaan,
         columnTeleponKantor,
         columnNamaInstansi,
+        columnTunjangan,
+        columnPenghasilanBersih,
         columnImgNpwp,
         columnImgtKtp
       ],

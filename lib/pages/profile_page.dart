@@ -3,6 +3,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:prototype_bjb/screens/datainstansi_screen.dart';
 import 'package:prototype_bjb/screens/dataktpnpwp_screen.dart';
 import 'package:prototype_bjb/screens/datapemohon_screen.dart';
+import 'package:prototype_bjb/screens/penghasilan_screen.dart';
 import 'package:prototype_bjb/utils/constant.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -40,6 +41,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 itemMenu(Icons.business, 2),
                 itemMenu(Icons.account_balance_wallet, 3),
                 itemMenu(Icons.account_balance, 4),
+
               ],
             ),
           ),
@@ -53,7 +55,7 @@ class _ProfilePageState extends State<ProfilePage> {
               DataKtpNpwpScreen(),
               DataPemohonScreen(),
               DataInstansiScreen(),
-              Container(),
+              PenghasilanScreen(),
               Container(),
             ],
             sizing: StackFit.loose,
