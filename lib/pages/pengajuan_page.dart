@@ -4,6 +4,7 @@ import 'package:prototype_bjb/screens/datainstansi_screen.dart';
 import 'package:prototype_bjb/screens/datapemohon_screen.dart';
 import 'package:prototype_bjb/screens/datarekening_screen.dart';
 import 'package:prototype_bjb/screens/penghasilan_screen.dart';
+import 'package:prototype_bjb/screens/rekap_screen.dart';
 import 'package:prototype_bjb/screens/termsandcondition_screen.dart';
 import 'package:prototype_bjb/utils/constant.dart';
 import 'package:provider/provider.dart';
@@ -34,11 +35,11 @@ class _PengajuanPageState extends State<PengajuanPage> {
                   bottom: true,
                   child: FlatButton(
                     child: Text(
-                      indexScreen == 4 ? 'Simpan' : 'Selanjutnya',
+                      indexScreen == 5 ? 'Ajukan' : 'Selanjutnya',
                       style: TextStyle(color: Colors.white),
                     ),
                     onPressed: () {
-                      if (indexScreen == 4) {
+                      if (indexScreen == 5) {
                         if (!_provider.isTermsAgree)
                           Scaffold.of(context).showSnackBar(SnackBar(
                             content:
@@ -49,9 +50,15 @@ class _PengajuanPageState extends State<PengajuanPage> {
                           Navigator.of(context).pop(true);
                         }
                       } else {
-                        _pageController.nextPage(
-                            duration: Duration(milliseconds: 200),
-                            curve: Curves.easeInOut);
+                        if (indexScreen == 4 && !_provider.isTermsAgree)
+                          Scaffold.of(context).showSnackBar(SnackBar(
+                            content:
+                                Text('Silahkan setujui syarat dan ketentuan'),
+                          ));
+                        else
+                          _pageController.nextPage(
+                              duration: Duration(milliseconds: 200),
+                              curve: Curves.easeInOut);
                       }
                     },
                   ),
@@ -72,7 +79,8 @@ class _PengajuanPageState extends State<PengajuanPage> {
               DataInstansiScreen(),
               PenghasilanScreen(),
               DataRekeningScreen(),
-              TermsAndConditionScreen()
+              TermsAndConditionScreen(),
+              RekapScreen()
             ],
           ),
         ));
