@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prototype_bjb/provider/pengajuan_db.dart';
 import 'package:prototype_bjb/provider/profile_db.dart';
 import 'package:prototype_bjb/screens/datainstansi_screen.dart';
 import 'package:prototype_bjb/screens/datapemohon_screen.dart';
@@ -18,12 +19,15 @@ class PengajuanPage extends StatefulWidget {
 class _PengajuanPageState extends State<PengajuanPage> {
   PageController _pageController =
       PageController(initialPage: 0, keepPage: true);
-  ProfileProvider _provider;
+  ProfileProvider _profileProvider;
+  PengajuanProvider _pengajuanProvider;
+
   int indexScreen = 0;
 
   @override
   Widget build(BuildContext context) {
-    _provider = Provider.of<ProfileProvider>(context);
+    _profileProvider = Provider.of<ProfileProvider>(context);
+    _pengajuanProvider = Provider.of<PengajuanProvider>(context);
 
     return Scaffold(
         bottomNavigationBar: Container(
@@ -38,27 +42,30 @@ class _PengajuanPageState extends State<PengajuanPage> {
                       indexScreen == 5 ? 'Ajukan' : 'Selanjutnya',
                       style: TextStyle(color: Colors.white),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       if (indexScreen == 5) {
-                        if (!_provider.isTermsAgree)
+                        if (!_profileProvider.isTermsAgree)
                           Scaffold.of(context).showSnackBar(SnackBar(
                             content:
                                 Text('Silahkan setujui syarat dan ketentuan'),
                           ));
                         else {
-                          _provider.insert();
+                          _pengajuanProvider.insert(_profileProvider.profile);
                           Navigator.of(context).pop(true);
                         }
                       } else {
-                        if (indexScreen == 4 && !_provider.isTermsAgree)
+                        if (indexScreen == 4 && !_profileProvider.isTermsAgree)
                           Scaffold.of(context).showSnackBar(SnackBar(
                             content:
                                 Text('Silahkan setujui syarat dan ketentuan'),
                           ));
-                        else
+                        else {
+                          await _profileProvider.update();
+
                           _pageController.nextPage(
                               duration: Duration(milliseconds: 200),
                               curve: Curves.easeInOut);
+                        }
                       }
                     },
                   ),

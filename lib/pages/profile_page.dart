@@ -63,7 +63,10 @@ class _ProfilePageState extends State<ProfilePage> {
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
-                _provider.insert();
+                if (_provider.profile == null)
+                  _provider.insert();
+                else
+                  _provider.update();
               },
             ),
           ),

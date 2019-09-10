@@ -9,6 +9,8 @@ import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 import 'package:path/path.dart';
 
+import 'pengajuan_db.dart';
+
 final String tableProfile = 'profile';
 final String columnId = '_id';
 final String columnNama = 'nama';
@@ -32,6 +34,7 @@ final String columnImgtKtp = 'imgktp';
 final String columnImgNpwp = 'imgnpwp';
 
 class Profile {
+  final int id;
   final String nama;
   final String alamat;
   final String nik;
@@ -53,6 +56,7 @@ class Profile {
   String imgnpwp;
 
   Profile({
+    this.id,
     this.nama,
     this.alamat,
     this.nik,
@@ -103,6 +107,7 @@ class Profile {
       };
 
   factory Profile.fromMap(Map _map) => Profile(
+      id: _map[columnId],
       nama: _map[columnNama],
       alamat: _map[columnAlamat],
       nik: _map[columnNIK],
@@ -171,7 +176,7 @@ class ProfileProvider {
 
   bool _isTermsAgree = false;
   bool get isTermsAgree => _isTermsAgree;
-  set setIsTermAgree(bool val){
+  set setIsTermAgree(bool val) {
     _isTermsAgree = val;
   }
 
@@ -181,8 +186,8 @@ class ProfileProvider {
   void setController() {
     controllerNama.text = profile?.nama ?? '';
     controllerAlamat.text = profile?.alamat ?? '';
-    controllerNIK.text = profile?.nik ?? '';
-    controllerNPWP.text = profile?.npwp ?? '';
+    controllerNIK.text = profile?.nik ?? '123';
+    controllerNPWP.text = profile?.npwp ?? '123';
     controllerTelepon.text = profile?.telepon ?? '';
     controllerIbuKandung.text = profile?.namaIbu ?? '';
     controllerAlamatDomisil.text = profile?.alamatDomisil ?? '';
@@ -237,6 +242,14 @@ class ProfileProvider {
           $columnNoRekKredit text,
           $columnImgNpwp text,
           $columnImgtKtp text)''');
+
+      await db.execute('''
+      create table $tablePengajuan ( 
+          $columnIdPengajuan integer primary key autoincrement, 
+          $columnNikProfile text,
+          $columnStatusPengajuan text,
+          $columnWaktuDiajukan text)
+        ''');
     });
   }
 
@@ -267,7 +280,36 @@ class ProfileProvider {
 
     int id = await db.insert(tableProfile, profile.toMap());
     print(id);
-    profile = profile;
+    return profile;
+  }
+
+  Future<Profile> update() async {
+    if (_imageNPWP != null) await encodeImage(_imageNPWP, TypeImage.npwp);
+
+    if (_imageKTP != null) await encodeImage(_imageKTP, TypeImage.ktp);
+
+    profile = Profile(
+        nama: controllerNama.text,
+        alamat: controllerAlamat.text,
+        nik: controllerNIK.text,
+        npwp: controllerNPWP.text,
+        imgktp: imageKtpStr,
+        imgnpwp: imageNpwpStr,
+        namaIbu: controllerIbuKandung.text,
+        alamatDomisil: controllerAlamatDomisil.text,
+        telepon: controllerTelepon.text,
+        alamatKantor: controllerAlamatKantor.text,
+        namaInstansi: controllerNamaInstansi.text,
+        nip: controllerNIP.text,
+        pekerjaan: controllerPekerjaan.text,
+        teleponKantor: controllerTeleponKantor.text,
+        tunjangan: controllerTunjangan.text,
+        penghasilanBersih: controllerPenghasilan.text,
+        noRekTabungan: controllerNoRekTabungan.text,
+        noRekKredit: controllerNoRekKredit.text);
+
+    int id = await db.update(tableProfile, profile.toMap(), where: '$columnId = ?', whereArgs: [profile.id]);
+    print(id);
     return profile;
   }
 

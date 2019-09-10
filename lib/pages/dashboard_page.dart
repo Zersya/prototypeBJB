@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:prototype_bjb/pages/pengajuan_page.dart';
 import 'package:prototype_bjb/pages/profile_page.dart';
+import 'package:prototype_bjb/provider/pengajuan_db.dart';
 import 'package:prototype_bjb/provider/profile_db.dart';
 import 'package:prototype_bjb/utils/constant.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -15,19 +16,22 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  ProfileProvider _provider;
+  ProfileProvider _profileProvider;
+  PengajuanProvider _pengajuanProvider = PengajuanProvider();
   bool isAlreadyshowed = false;
 
   @override
   void initState() {
     super.initState();
-    _provider = Provider.of<ProfileProvider>(context, listen: false);
+    _profileProvider = Provider.of<ProfileProvider>(context, listen: false);
+
+    _pengajuanProvider.open();
   }
 
   @override
   Widget build(BuildContext context) {
     Future.delayed(Duration.zero, () async {
-      if (_provider.profile == null && !isAlreadyshowed)
+      if (_profileProvider.profile == null && !isAlreadyshowed)
         showDialog(
           context: context,
           builder: (context) {
@@ -41,8 +45,8 @@ class _DashboardPageState extends State<DashboardPage> {
                   onPressed: () async {
                     await Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => Provider.value(
-                            value: _provider, child: ProfilePage())));
-                    Profile _profile = await _provider.getAccount();
+                            value: _profileProvider, child: ProfilePage())));
+                    Profile _profile = await _profileProvider.getAccount();
                     if (_profile != null) Navigator.of(context).pop();
                   },
                   child: Text('Silahkan isi data profil')),
@@ -71,7 +75,8 @@ class _DashboardPageState extends State<DashboardPage> {
                       onTap: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => Provider.value(
-                                value: _provider, child: ProfilePage())));
+                                value: _profileProvider,
+                                child: ProfilePage())));
                       },
                       child: RichText(
                         text: TextSpan(
@@ -79,7 +84,7 @@ class _DashboardPageState extends State<DashboardPage> {
                           children: [
                             TextSpan(text: 'Selamat datang\n'),
                             TextSpan(
-                              text: _provider.profile?.nama ?? '-',
+                              text: _profileProvider.profile?.nama ?? '-',
                               style: TextStyle(fontWeight: FontWeight.bold),
                             ),
                           ],
@@ -167,13 +172,19 @@ class _DashboardPageState extends State<DashboardPage> {
                                 style: TextStyle(color: Colors.black54)),
                             trailing: Icon(Icons.arrow_forward_ios),
                             onTap: () async {
-                              if (_provider.profile != null) {
+                              if (_profileProvider.profile != null) {
                                 final isInsert =
                                     await Navigator.of(context).push(
                                   MaterialPageRoute(
-                                    builder: (context) => Provider.value(
-                                        value: _provider,
-                                        child: PengajuanPage()),
+                                    builder: (context) =>
+                                        MultiProvider(providers: [
+                                      Provider.value(
+                                        value: _profileProvider,
+                                      ),
+                                      Provider.value(
+                                        value: _pengajuanProvider,
+                                      )
+                                    ], child: PengajuanPage()),
                                   ),
                                 );
                                 if (isInsert != null)
