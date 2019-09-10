@@ -6,6 +6,8 @@ import 'package:prototype_bjb/provider/pengajuan_db.dart';
 import 'package:prototype_bjb/utils/constant.dart';
 import 'package:provider/provider.dart';
 
+import 'manajemen_pinjaman_page.dart';
+
 class DaftarPengajuanPage extends StatefulWidget {
   DaftarPengajuanPage({Key key}) : super(key: key);
 
@@ -65,13 +67,63 @@ class _DaftarPengajuanPageState extends State<DaftarPengajuanPage> {
                                 int.parse(data[index].waktuDiajukan))
                             .toString();
                         return ListTile(
-                          leading: Container(
-                            color: Color(COLOR_MAIN),
-                            width: MediaQuery.of(context).size.width / 30,
+                          trailing: Card(
+                            color: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30)),
+                            elevation: 4,
+                            child: GestureDetector(
+                              onTap: () {
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text('Menu'),
+                                        content: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            ListTile(
+                                              title: Text('Manajemen Pinjaman'),
+                                            ),
+                                            Divider(color: Colors.black87,),
+                                            ListTile(
+                                              title: Text('Progress Pengajuan'),
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Color(COLOR_MAIN),
+                                    borderRadius: BorderRadius.circular(30)),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Icon(
+                                    Icons.more_vert,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          leading: Material(
+                            elevation: 4,
+                            child: Container(
+                              color: Color(COLOR_MAIN),
+                              width: MediaQuery.of(context).size.width / 40,
+                            ),
                           ),
                           title: Text(data[index].statusPengajuan.toString()),
                           subtitle:
                               Text(_dateFormater.format(DateTime.parse(date))),
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ManajemenPinjamanPage(
+                                      pengajuan: data[index],
+                                    )));
+                          },
                         );
                       },
                     );
