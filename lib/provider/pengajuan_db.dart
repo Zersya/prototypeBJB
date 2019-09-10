@@ -90,6 +90,6 @@ class PengajuanProvider {
 
       return _listPengajuan;
     }
-    return null;
+    return List();
   }
 }

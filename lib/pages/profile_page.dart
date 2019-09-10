@@ -52,24 +52,32 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
         ),
-        bottomNavigationBar: Container(
-          width: double.infinity,
-          color: Color(COLOR_MAIN),
-          child: SafeArea(
-            bottom: true,
-            child: FlatButton(
-              child: Text(
-                'SIMPAN',
-                style: TextStyle(color: Colors.white),
+        bottomNavigationBar: Builder(
+          builder: (context) {
+            return Container(
+              width: double.infinity,
+              color: Color(COLOR_MAIN),
+              child: SafeArea(
+                bottom: true,
+                child: FlatButton(
+                  child: Text(
+                    'SIMPAN',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () {
+                    if (_provider.profile == null)
+                      _provider.insert();
+                    else
+                      _provider.update(_provider.profile.id);
+
+                    Scaffold.of(context).showSnackBar(SnackBar(
+                      content: Text('Berhasil Memperbaharui Profile'),
+                    ));
+                  },
+                ),
               ),
-              onPressed: () {
-                if (_provider.profile == null)
-                  _provider.insert();
-                else
-                  _provider.update(_provider.profile.id);
-              },
-            ),
-          ),
+            );
+          },
         ),
         body: IndexedStack(
           index: indexPage,

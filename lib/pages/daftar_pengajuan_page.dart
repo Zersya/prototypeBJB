@@ -26,6 +26,7 @@ class _DaftarPengajuanPageState extends State<DaftarPengajuanPage> {
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: SafeArea(
           top: true,
+          bottom: true,
           child: SingleChildScrollView(
             physics: ScrollPhysics(),
             child: Column(
@@ -55,6 +56,7 @@ class _DaftarPengajuanPageState extends State<DaftarPengajuanPage> {
                               AlwaysStoppedAnimation<Color>(Color(COLOR_MAIN)),
                         );
                       }
+                      if(data.length == 0) return Container(child: Center(child: Text('Tidak ada data'),),);
                       return ListView.separated(
                         physics: ScrollPhysics(),
                         separatorBuilder: (context, index) {

@@ -18,39 +18,52 @@ class _ProgressPengajuanPageState extends State<ProgressPengajuanPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        top: true,
-        bottom: true,
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: customPadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(
-                height: 25,
-              ),
-              Text(
-                'Progress Pengajuan',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.black54,
-                  fontSize: 21.0,
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SafeArea(
+            top: true,
+            bottom: true,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: customPadding),
+              child: SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                      minWidth: constraints.maxWidth,
+                      minHeight: constraints.maxHeight),
+                  child: IntrinsicHeight(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        SizedBox(
+                          height: 25,
+                        ),
+                        Text(
+                          'Progress Pengajuan',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontSize: 21.0,
+                          ),
+                        ),
+                        Divider(
+                          color: Colors.black,
+                          height: 30.0,
+                        ),
+                        _step('Pengajuan dibuat', 1),
+                        _line(),
+                        _step('Pengajuan direview', 2),
+                        _line(),
+                        _step('Pengajuan dalam proses vertfikasi', 3),
+                        _line(),
+                        _step('Pengajuan berhasil', 4),
+                      ],
+                    ),
+                  ),
                 ),
               ),
-              Divider(
-                color: Colors.black,
-                height: 30.0,
-              ),
-              _step('Pengajuan dibuat', 1),
-              _line(),
-              _step('Pengajuan direview', 2),
-              _line(),
-              _step('Pengajuan dalam proses vertfikasi', 3),
-              _line(),
-              _step('Pengajuan berhasil', 4),
-            ],
-          ),
-        ),
+            ),
+          );
+        },
       ),
     );
   }
