@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:prototype_bjb/pages/progress_pengajuan_page.dart';
 import 'package:prototype_bjb/provider/pengajuan_db.dart';
 import 'package:prototype_bjb/utils/constant.dart';
 import 'package:provider/provider.dart';
@@ -107,6 +108,17 @@ class _DaftarPengajuanPageState extends State<DaftarPengajuanPage> {
                                               ListTile(
                                                 title:
                                                     Text('Progress Pengajuan'),
+                                                onTap: () {
+                                                  Navigator.of(context).pop();
+                                                  Navigator.of(context).push(
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ProgressPengajuanPage(
+                                                        pengajuan: data[index],
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
                                               )
                                             ],
                                           ),

@@ -62,16 +62,19 @@ class PengajuanProvider {
   }
   String pickStatus(int rand){
     if(rand == 0)
-      return 'Proses Diajukan';
+      return 'Pengajuan dibuat';
     if(rand == 1)
-      return 'Pengajuan Berhasil';
+      return 'Pengajuan direview';
     if(rand == 2)
-      return 'Pengajuan Ditolak';
-    return '-';
+      return 'Pengajuan dalam proses vertfikasi';
+    if(rand == 3)
+      return 'Pengajuan berhasil';
+
+    return 'Pengajuan Ditolak';
   } 
   Future<Pengajuan> insert(Profile _profile) async {
     pengajuan = Pengajuan(
-        _profile.nik, pickStatus(Random().nextInt(3)), DateTime.now().millisecondsSinceEpoch.toString());
+        _profile.nik, pickStatus(Random().nextInt(5)), DateTime.now().millisecondsSinceEpoch.toString());
 
     int id = await db.insert(tablePengajuan, pengajuan.toMap());
     print(id);
