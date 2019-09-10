@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:prototype_bjb/provider/pengajuan_db.dart';
 import 'package:prototype_bjb/provider/profile_db.dart';
 import 'package:prototype_bjb/screens/datainstansi_screen.dart';
 import 'package:prototype_bjb/screens/datapemohon_screen.dart';
@@ -20,7 +19,6 @@ class _PengajuanPageState extends State<PengajuanPage> {
   PageController _pageController =
       PageController(initialPage: 0, keepPage: true);
   ProfileProvider _profileProvider;
-  PengajuanProvider _pengajuanProvider;
 
   int indexScreen = 0;
   Widget _step(
@@ -46,7 +44,6 @@ class _PengajuanPageState extends State<PengajuanPage> {
   @override
   Widget build(BuildContext context) {
     _profileProvider = Provider.of<ProfileProvider>(context);
-    _pengajuanProvider = Provider.of<PengajuanProvider>(context);
 
     return Scaffold(
       bottomNavigationBar: Column(
@@ -122,7 +119,7 @@ class _PengajuanPageState extends State<PengajuanPage> {
           content: Text('Silahkan setujui syarat dan ketentuan'),
         ));
       else {
-        _pengajuanProvider.insert(_profileProvider.profile);
+        // _pengajuanProvider.insert(_profileProvider.profile);
         Navigator.of(context).pop(true);
       }
     } else {

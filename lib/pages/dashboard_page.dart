@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:prototype_bjb/pages/daftar_pengajuan_page.dart';
-import 'package:prototype_bjb/pages/pengajuan_page.dart';
 import 'package:prototype_bjb/pages/profile_page.dart';
+import 'package:prototype_bjb/pages/revisi_pengajuan_page.dart';
 import 'package:prototype_bjb/provider/pengajuan_db.dart';
 import 'package:prototype_bjb/provider/profile_db.dart';
 import 'package:prototype_bjb/utils/constant.dart';
@@ -187,7 +187,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                       Provider.value(
                                         value: _pengajuanProvider,
                                       )
-                                    ], child: PengajuanPage()),
+                                    ], child: RevisiPengajuanPage()),
                                   ),
                                 );
                                 if (isInsert != null)

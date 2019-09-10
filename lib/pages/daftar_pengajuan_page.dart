@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:prototype_bjb/pages/progress_pengajuan_page.dart';
 import 'package:prototype_bjb/provider/pengajuan_db.dart';
 import 'package:prototype_bjb/utils/constant.dart';
@@ -15,7 +14,6 @@ class DaftarPengajuanPage extends StatefulWidget {
 
 class _DaftarPengajuanPageState extends State<DaftarPengajuanPage> {
   PengajuanProvider _pengajuanProvider;
-  final _dateFormater = new DateFormat('dd MMMM yyyy', 'id');
 
   @override
   Widget build(BuildContext context) {
@@ -148,9 +146,8 @@ class _DaftarPengajuanPageState extends State<DaftarPengajuanPage> {
                                 width: MediaQuery.of(context).size.width / 40,
                               ),
                             ),
-                            title: Text(data[index].statusPengajuan.toString()),
-                            subtitle: Text(
-                                _dateFormater.format(DateTime.parse(date))),
+                            title: Text(data[index].product.toString()),
+                            subtitle: Text(data[index].statusPengajuan),
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => ManajemenPinjamanPage(

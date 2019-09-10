@@ -248,7 +248,11 @@ class ProfileProvider {
           $columnIdPengajuan integer primary key autoincrement, 
           $columnNikProfile text,
           $columnStatusPengajuan text,
-          $columnWaktuDiajukan text)
+          $columnWaktuDiajukan text,
+          $columnTujuanPinjaman text,
+          $columnNominalPinjaman text,
+          $columnProductPinjaman text,
+          $columnImgRekeningKoran text)
         ''');
     });
   }
@@ -308,7 +312,9 @@ class ProfileProvider {
         noRekTabungan: controllerNoRekTabungan.text,
         noRekKredit: controllerNoRekKredit.text);
 
-    int id = await db.update(tableProfile, profile.toMap(), where: '$columnId = ?', whereArgs: [_id]);
+    int id = await db.update(tableProfile, profile.toMap(),
+        where: '$columnId = ?', whereArgs: [_id]);
+    print(id);
     return profile;
   }
 
