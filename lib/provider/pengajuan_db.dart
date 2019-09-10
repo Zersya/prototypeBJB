@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -41,6 +42,7 @@ class Pengajuan {
 class PengajuanProvider {
   Database db;
   Pengajuan pengajuan;
+  List<Pengajuan> _listPengajuan;
 
   Future open() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
@@ -58,13 +60,33 @@ class PengajuanProvider {
         ''');
     });
   }
-
+  String pickStatus(int rand){
+    if(rand == 0)
+      return 'Proses Diajukan';
+    if(rand == 1)
+      return 'Pengajuan Berhasil';
+    if(rand == 2)
+      return 'Pengajuan Ditolak';
+    return '-';
+  } 
   Future<Pengajuan> insert(Profile _profile) async {
     pengajuan = Pengajuan(
-        _profile.nik, 'Proses Diajukan', DateTime.now().toLocal().toString());
+        _profile.nik, pickStatus(Random().nextInt(3)), DateTime.now().millisecondsSinceEpoch.toString());
 
     int id = await db.insert(tablePengajuan, pengajuan.toMap());
     print(id);
     return pengajuan;
+  }
+
+  Future<List<Pengajuan>> getPengajuan() async {
+    List<Map> maps = await db.query(
+      tablePengajuan,
+    );
+    if (maps.length > 0) {
+      _listPengajuan = maps.map((val) => Pengajuan.fromMap(val)).toList();
+
+      return _listPengajuan;
+    }
+    return null;
   }
 }

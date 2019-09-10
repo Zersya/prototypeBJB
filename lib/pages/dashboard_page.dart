@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:prototype_bjb/pages/daftar_pengajuan_page.dart';
 import 'package:prototype_bjb/pages/pengajuan_page.dart';
 import 'package:prototype_bjb/pages/profile_page.dart';
 import 'package:prototype_bjb/provider/pengajuan_db.dart';
@@ -26,6 +28,7 @@ class _DashboardPageState extends State<DashboardPage> {
     _profileProvider = Provider.of<ProfileProvider>(context, listen: false);
 
     _pengajuanProvider.open();
+    initializeDateFormatting();
   }
 
   @override
@@ -208,6 +211,13 @@ class _DashboardPageState extends State<DashboardPage> {
                             title: Text('Daftar pengajuan kredit',
                                 style: TextStyle(color: Colors.black54)),
                             trailing: Icon(Icons.arrow_forward_ios),
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Provider.value(
+                                        value: _pengajuanProvider,
+                                        child: DaftarPengajuanPage(),
+                                      )));
+                            },
                           ),
                           Divider(
                             color: Colors.black87,

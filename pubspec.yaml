@@ -33,6 +33,7 @@ dependencies:
   shifting_tabbar: ^0.3.1
   flutter_money_formatter: ^0.8.3
   flutter_masked_text: ^0.8.0
+  intl: ^0.15.8
 
 
 dev_dependencies:
