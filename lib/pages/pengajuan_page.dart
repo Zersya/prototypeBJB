@@ -60,7 +60,7 @@ class _PengajuanPageState extends State<PengajuanPage> {
                                 Text('Silahkan setujui syarat dan ketentuan'),
                           ));
                         else {
-                          await _profileProvider.update();
+                          await _profileProvider.update(_profileProvider.profile.id);
 
                           _pageController.nextPage(
                               duration: Duration(milliseconds: 200),

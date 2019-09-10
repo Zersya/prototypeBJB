@@ -66,7 +66,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 if (_provider.profile == null)
                   _provider.insert();
                 else
-                  _provider.update();
+                  _provider.update(_provider.profile.id);
               },
             ),
           ),

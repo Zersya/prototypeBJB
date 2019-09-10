@@ -283,7 +283,7 @@ class ProfileProvider {
     return profile;
   }
 
-  Future<Profile> update() async {
+  Future<Profile> update(_id) async {
     if (_imageNPWP != null) await encodeImage(_imageNPWP, TypeImage.npwp);
 
     if (_imageKTP != null) await encodeImage(_imageKTP, TypeImage.ktp);
@@ -308,8 +308,7 @@ class ProfileProvider {
         noRekTabungan: controllerNoRekTabungan.text,
         noRekKredit: controllerNoRekKredit.text);
 
-    int id = await db.update(tableProfile, profile.toMap(), where: '$columnId = ?', whereArgs: [profile.id]);
-    print(id);
+    int id = await db.update(tableProfile, profile.toMap(), where: '$columnId = ?', whereArgs: [_id]);
     return profile;
   }
 
@@ -340,7 +339,7 @@ class ProfileProvider {
     );
     if (maps.length > 0) {
       profile = Profile.fromMap(maps.last);
-
+      print(profile.id);
       return profile;
     }
     return null;
