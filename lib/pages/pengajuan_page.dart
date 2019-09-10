@@ -52,7 +52,8 @@ class _PengajuanPageState extends State<PengajuanPage> {
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Padding(
+          Container(
+            color: Colors.black12,
             padding: const EdgeInsets.all(16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -71,7 +72,6 @@ class _PengajuanPageState extends State<PengajuanPage> {
               ],
             ),
           ),
-          SizedBox(height: 20,),
           Container(
               width: double.infinity,
               color: Color(COLOR_MAIN),
