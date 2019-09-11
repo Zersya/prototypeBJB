@@ -5,8 +5,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:prototype_bjb/pages/daftar_pengajuan_page.dart';
 import 'package:prototype_bjb/pages/pengajuan_page.dart';
 import 'package:prototype_bjb/pages/profile_page.dart';
-import 'package:prototype_bjb/pages/revisi_pengajuan_page.dart';
-import 'package:prototype_bjb/provider/pengajuan_db.dart';
 import 'package:prototype_bjb/provider/profile_db.dart';
 import 'package:prototype_bjb/utils/constant.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -21,7 +19,6 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   ProfileProvider _profileProvider;
-  PengajuanProvider _pengajuanProvider = PengajuanProvider();
   bool isAlreadyshowed = false;
 
   @override
@@ -29,7 +26,6 @@ class _DashboardPageState extends State<DashboardPage> {
     super.initState();
     _profileProvider = Provider.of<ProfileProvider>(context, listen: false);
 
-    _pengajuanProvider.open();
     initializeDateFormatting();
   }
 
@@ -207,9 +203,6 @@ class _DashboardPageState extends State<DashboardPage> {
                                       Provider.value(
                                         value: _profileProvider,
                                       ),
-                                      Provider.value(
-                                        value: _pengajuanProvider,
-                                      )
                                     ], child: PengajuanPage()),
                                   ),
                                 );
@@ -236,10 +229,7 @@ class _DashboardPageState extends State<DashboardPage> {
                             trailing: Icon(Icons.arrow_forward_ios),
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => Provider.value(
-                                        value: _pengajuanProvider,
-                                        child: DaftarPengajuanPage(),
-                                      )));
+                                  builder: (context) => DaftarPengajuanPage()));
                             },
                           ),
                           Divider(

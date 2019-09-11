@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:prototype_bjb/provider/pengajuan_db.dart';
+import 'package:prototype_bjb/provider/pinjaman_db.dart';
 import 'package:prototype_bjb/provider/profile_db.dart';
 import 'package:provider/provider.dart';
 
@@ -14,16 +14,13 @@ class Halaman2Screen extends StatefulWidget {
 
 class _Halaman2ScreenState extends State<Halaman2Screen> {
   ProfileProvider _profileProvider;
-  PengajuanProvider _pengajuanProvider;
+  PinjamanProvider _pinjamanProvider;
 
-  File rekeningKoran;
-  File suratKeterangan;
-  File suratIzinUsaha;
 
   @override
   Widget build(BuildContext context) {
     _profileProvider = Provider.of<ProfileProvider>(context);
-    _pengajuanProvider = Provider.of<PengajuanProvider>(context);
+    _pinjamanProvider = Provider.of<PinjamanProvider>(context);
 
     return Scaffold(
       body: SafeArea(
@@ -77,7 +74,7 @@ class _Halaman2ScreenState extends State<Halaman2Screen> {
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Center(
-                              child: rekeningKoran == null
+                              child: _pinjamanProvider.rekeningKoran == null
                                   ? Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -89,7 +86,7 @@ class _Halaman2ScreenState extends State<Halaman2Screen> {
                                         Text('Rekening Koran Anda')
                                       ],
                                     )
-                                  : Image.file(rekeningKoran,
+                                  : Image.file(_pinjamanProvider.rekeningKoran,
                                       fit: BoxFit.cover),
                             ),
                           ),
@@ -126,7 +123,7 @@ class _Halaman2ScreenState extends State<Halaman2Screen> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
-                    'Unggah Surat Keterangan',
+                    'Unggah Surat Keterangan Usaha',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black54,
@@ -152,7 +149,7 @@ class _Halaman2ScreenState extends State<Halaman2Screen> {
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Center(
-                              child: suratKeterangan == null
+                              child: _pinjamanProvider.suratKeterangan == null
                                   ? Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -161,10 +158,10 @@ class _Halaman2ScreenState extends State<Halaman2Screen> {
                                         SizedBox(
                                           height: 15.0,
                                         ),
-                                        Text('Surat Keterangan Anda')
+                                        Text('Surat Keterangan Usaha Anda')
                                       ],
                                     )
-                                  : Image.file(suratKeterangan,
+                                  : Image.file(_pinjamanProvider.suratKeterangan,
                                       fit: BoxFit.cover),
                             ),
                           ),
@@ -205,7 +202,7 @@ class _Halaman2ScreenState extends State<Halaman2Screen> {
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Center(
-                              child: suratIzinUsaha == null
+                              child: _pinjamanProvider.suratIzinUsaha == null
                                   ? Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -217,7 +214,7 @@ class _Halaman2ScreenState extends State<Halaman2Screen> {
                                         Text('Surat Ijin Usaha anda')
                                       ],
                                     )
-                                  : Image.file(suratIzinUsaha,
+                                  : Image.file(_pinjamanProvider.suratIzinUsaha,
                                       fit: BoxFit.cover),
                             ),
                           ),
@@ -256,13 +253,13 @@ class _Halaman2ScreenState extends State<Halaman2Screen> {
                   Navigator.of(context).pop();
                   switch (type) {
                     case 0:
-                      rekeningKoran = await getImage(ImageSource.camera);
+                      _pinjamanProvider.rekeningKoran = await getImage(ImageSource.camera);
                       break;
                     case 1:
-                      suratKeterangan = await getImage(ImageSource.camera);
+                      _pinjamanProvider.suratKeterangan = await getImage(ImageSource.camera);
                       break;
                     case 2:
-                      suratIzinUsaha = await getImage(ImageSource.camera);
+                      _pinjamanProvider.suratIzinUsaha = await getImage(ImageSource.camera);
                       break;
                   }
 
@@ -279,13 +276,13 @@ class _Halaman2ScreenState extends State<Halaman2Screen> {
 
                   switch (type) {
                     case 0:
-                      rekeningKoran = await getImage(ImageSource.gallery);
+                      _pinjamanProvider.rekeningKoran = await getImage(ImageSource.gallery);
                       break;
                     case 1:
-                      suratKeterangan = await getImage(ImageSource.gallery);
+                      _pinjamanProvider.suratKeterangan = await getImage(ImageSource.gallery);
                       break;
                     case 2:
-                      suratIzinUsaha = await getImage(ImageSource.gallery);
+                      _pinjamanProvider.suratIzinUsaha = await getImage(ImageSource.gallery);
                       break;
                   }
 

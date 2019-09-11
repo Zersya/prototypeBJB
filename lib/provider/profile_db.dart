@@ -4,12 +4,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:prototype_bjb/provider/pinjaman_db.dart';
 import 'package:prototype_bjb/screens/dataktpnpwp_screen.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 import 'package:path/path.dart';
 
-import 'pengajuan_db.dart';
 
 final String tableProfile = 'profile';
 final String columnId = '_id';
@@ -243,16 +243,21 @@ class ProfileProvider {
           $columnImgNpwp text,
           $columnImgtKtp text)''');
 
-      await db.execute('''
-      create table $tablePengajuan ( 
-          $columnIdPengajuan integer primary key autoincrement, 
+     await db.execute('''
+      create table $tablePinjaman ( 
+          $columnIdPinjaman integer primary key autoincrement, 
           $columnNikProfile text,
-          $columnStatusPengajuan text,
-          $columnWaktuDiajukan text,
-          $columnTujuanPinjaman text,
+          $columnJenisPeminjam text,
+          $columnJenisPinjaman text,
+          $columnTujuanPinjam text,
+          $columnPengajuanPinjaman text,
+          $columnStatusPinjaman text,
+          $columnWaktuPengajuanPinjaman text,
           $columnNominalPinjaman text,
-          $columnProductPinjaman text,
-          $columnImgRekeningKoran text)
+          $columnBulanPinjaman text,
+          $columnImgSuratIzinUsaha text,
+          $columnImgRekeningKoran text,
+          $columnImgSuratKeterangan text)
         ''');
     });
   }

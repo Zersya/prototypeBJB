@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prototype_bjb/provider/pinjaman_db.dart';
 import 'package:prototype_bjb/provider/profile_db.dart';
 import 'package:prototype_bjb/utils/constant.dart';
 import 'package:provider/provider.dart';
@@ -11,10 +12,12 @@ class RekapScreen extends StatefulWidget {
 
 class _RekapScreenState extends State<RekapScreen> {
   ProfileProvider _provider;
+  PinjamanProvider _pinjamanProvider;
 
   @override
   Widget build(BuildContext context) {
     _provider = Provider.of<ProfileProvider>(context);
+    _pinjamanProvider = Provider.of<PinjamanProvider>(context);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -35,26 +38,122 @@ class _RekapScreenState extends State<RekapScreen> {
               color: Colors.black,
               height: 50.0,
             ),
-            _dataPemohon(),
+            _dataPinjaman(),
             SizedBox(
               height: MediaQuery.of(context).size.width / 10,
             ),
-            _dataInstansi(),
+            _nominalPinjam(),
             SizedBox(
               height: MediaQuery.of(context).size.width / 10,
             ),
-            _dataPenghasilan(),
-            SizedBox(
-              height: MediaQuery.of(context).size.width / 10,
-            ),
-            _dataRekening()
+            _berkas()
           ],
         ),
       ),
     );
   }
 
-  Column _dataRekening() {
+  Column _berkas() {
+    return Column(
+      children: <Widget>[
+        Text(
+          'Rekening Koran',
+          style: TextStyle(
+            color: Colors.black54,
+            fontSize: 18.0,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Card(
+            elevation: 4.0,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Center(
+                child: _pinjamanProvider.rekeningKoran == null
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.close),
+                          SizedBox(
+                            height: 15.0,
+                          ),
+                          Text('Rekening koran belum di unggah')
+                        ],
+                      )
+                    : Image.file(_pinjamanProvider.rekeningKoran,
+                        fit: BoxFit.cover),
+              ),
+            ),
+          ),
+        ),
+        Text(
+          'Surat Keterangan Usaha',
+          style: TextStyle(
+            color: Colors.black54,
+            fontSize: 18.0,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Card(
+            elevation: 4.0,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Center(
+                child: _pinjamanProvider.suratKeterangan == null
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.close),
+                          SizedBox(
+                            height: 15.0,
+                          ),
+                          Text('Surat keterangan usaha belum di unggah')
+                        ],
+                      )
+                    : Image.file(_pinjamanProvider.suratKeterangan,
+                        fit: BoxFit.cover),
+              ),
+            ),
+          ),
+        ),
+        Text(
+          'Surat Izin Usaha',
+          style: TextStyle(
+            color: Colors.black54,
+            fontSize: 18.0,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Card(
+            elevation: 4.0,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Center(
+                child: _pinjamanProvider.suratIzinUsaha == null
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(Icons.close),
+                          SizedBox(
+                            height: 15.0,
+                          ),
+                          Text('Suran izin usaha belum di unggah')
+                        ],
+                      )
+                    : Image.file(_pinjamanProvider.suratIzinUsaha,
+                        fit: BoxFit.cover),
+              ),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  Column _nominalPinjam() {
     return Column(
       children: <Widget>[
         Container(
@@ -66,7 +165,7 @@ class _RekapScreenState extends State<RekapScreen> {
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              'Data Rekening',
+              'Nominal Pinjaman',
               textAlign: TextAlign.start,
               style: TextStyle(
                 color: Colors.white,
@@ -87,14 +186,14 @@ class _RekapScreenState extends State<RekapScreen> {
               children: <Widget>[
                 ListTile(
                   title: Text(
-                    'No Rekening Tabungan',
+                    'Jumlah Pinjam',
                     style: TextStyle(
                       color: Colors.black54,
                       fontSize: 18.0,
                     ),
                   ),
                   subtitle: Text(
-                    _provider.profile.noRekTabungan,
+                    _pinjamanProvider?.controllerNominal?.text ?? '-',
                     style: TextStyle(
                       color: Colors.black54,
                       fontWeight: FontWeight.bold,
@@ -108,14 +207,14 @@ class _RekapScreenState extends State<RekapScreen> {
                 ),
                 ListTile(
                   title: Text(
-                    'No Rekening Kredit Lama',
+                    'Jangka Waktu',
                     style: TextStyle(
                       color: Colors.black54,
                       fontSize: 18.0,
                     ),
                   ),
                   subtitle: Text(
-                    _provider.profile.noRekKredit,
+                    '${_pinjamanProvider?.controllerBulan?.text} Bulan' ?? '-',
                     style: TextStyle(
                       color: Colors.black54,
                       fontWeight: FontWeight.bold,
@@ -131,7 +230,7 @@ class _RekapScreenState extends State<RekapScreen> {
     );
   }
 
-  Column _dataPenghasilan() {
+  Column _dataPinjaman() {
     return Column(
       children: <Widget>[
         Container(
@@ -143,7 +242,7 @@ class _RekapScreenState extends State<RekapScreen> {
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              'Data Penghasilan',
+              'Data Pinjaman',
               textAlign: TextAlign.start,
               style: TextStyle(
                 color: Colors.white,
@@ -164,14 +263,14 @@ class _RekapScreenState extends State<RekapScreen> {
               children: <Widget>[
                 ListTile(
                   title: Text(
-                    'Penghasilan Bersih',
+                    'Jenis Peminjam',
                     style: TextStyle(
                       color: Colors.black54,
                       fontSize: 18.0,
                     ),
                   ),
                   subtitle: Text(
-                    _provider.profile.penghasilanBersih,
+                    _pinjamanProvider?.jenisPeminjam ?? '-',
                     style: TextStyle(
                       color: Colors.black54,
                       fontWeight: FontWeight.bold,
@@ -185,70 +284,14 @@ class _RekapScreenState extends State<RekapScreen> {
                 ),
                 ListTile(
                   title: Text(
-                    'Tunjangan Sertifikasi',
+                    'Tujuan Pinjam',
                     style: TextStyle(
                       color: Colors.black54,
                       fontSize: 18.0,
                     ),
                   ),
                   subtitle: Text(
-                    _provider.profile.tunjangan,
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        )
-      ],
-    );
-  }
-
-  Column _dataInstansi() {
-    return Column(
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.0),
-            color: Color(COLOR_MAIN),
-          ),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Data Instansi Pemohon',
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-              ),
-            ),
-          ),
-        ),
-        Divider(
-          color: Colors.transparent,
-          height: 10.0,
-        ),
-        Container(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                ListTile(
-                  title: Text(
-                    'Pekerjaan: ',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  subtitle: Text(
-                    _provider.profile.pekerjaan,
+                    _pinjamanProvider?.tujuanPinjaman ?? '-',
                     style: TextStyle(
                       color: Colors.black54,
                       fontWeight: FontWeight.bold,
@@ -262,14 +305,14 @@ class _RekapScreenState extends State<RekapScreen> {
                 ),
                 ListTile(
                   title: Text(
-                    'NIP',
+                    'Jenis Pinjam',
                     style: TextStyle(
                       color: Colors.black54,
                       fontSize: 18.0,
                     ),
                   ),
                   subtitle: Text(
-                    _provider.profile.nip,
+                    _pinjamanProvider?.jenisPinjaman ?? '-',
                     style: TextStyle(
                       color: Colors.black54,
                       fontWeight: FontWeight.bold,
@@ -283,217 +326,14 @@ class _RekapScreenState extends State<RekapScreen> {
                 ),
                 ListTile(
                   title: Text(
-                    'Nama Instansi',
+                    'Pengajuan Pinjam',
                     style: TextStyle(
                       color: Colors.black54,
                       fontSize: 18.0,
                     ),
                   ),
                   subtitle: Text(
-                    _provider.profile.namaInstansi,
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                ),
-                Divider(
-                  color: Colors.black26,
-                  height: 30.0,
-                ),
-                ListTile(
-                  title: Text(
-                    'Alamat Kantor',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  subtitle: Text(
-                    _provider.profile.alamatKantor,
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                ),
-                Divider(
-                  color: Colors.black26,
-                  height: 30.0,
-                ),
-                ListTile(
-                  title: Text(
-                    'Telepon',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  subtitle: Text(
-                    _provider.profile.teleponKantor,
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        )
-      ],
-    );
-  }
-
-  Column _dataPemohon() {
-    return Column(
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.0),
-            color: Color(COLOR_MAIN),
-          ),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Data Pemohon',
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-              ),
-            ),
-          ),
-        ),
-        Divider(
-          color: Colors.transparent,
-          height: 10.0,
-        ),
-        Container(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                ListTile(
-                  title: Text(
-                    'No. NIK',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  subtitle: Text(
-                    _provider.profile?.nik ?? '-',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                ),
-                Divider(
-                  color: Colors.black26,
-                  height: 30.0,
-                ),
-                ListTile(
-                  title: Text(
-                    'No. NPWP',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  subtitle: Text(
-                    _provider.profile?.npwp ?? '-',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                ),
-                Divider(
-                  color: Colors.black26,
-                  height: 30.0,
-                ),
-                ListTile(
-                  title: Text(
-                    'Nama Lengkap',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  subtitle: Text(
-                    _provider.profile.nama,
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                ),
-                Divider(
-                  color: Colors.black26,
-                  height: 30.0,
-                ),
-                ListTile(
-                  title: Text(
-                    'Nama Ibu Kandung',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  subtitle: Text(
-                    _provider.profile.namaIbu,
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                ),
-                Divider(
-                  color: Colors.black26,
-                  height: 30.0,
-                ),
-                ListTile(
-                  title: Text(
-                    'Alamat Domisil',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  subtitle: Text(
-                    _provider.profile.alamatDomisil,
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                ),
-                Divider(
-                  color: Colors.black26,
-                  height: 30.0,
-                ),
-                ListTile(
-                  title: Text(
-                    'Telepon/Handphone',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  subtitle: Text(
-                    _provider.profile.telepon,
+                    _pinjamanProvider?.pengajuanPinjaman ?? '-',
                     style: TextStyle(
                       color: Colors.black54,
                       fontWeight: FontWeight.bold,

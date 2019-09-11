@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prototype_bjb/provider/pinjaman_db.dart';
 import 'package:prototype_bjb/provider/profile_db.dart';
-import 'package:prototype_bjb/provider/pengajuan_db.dart';
-
 import 'package:provider/provider.dart';
 
 class Halaman1Screen extends StatefulWidget {
@@ -12,18 +11,14 @@ class Halaman1Screen extends StatefulWidget {
 
 class _Halaman1ScreenState extends State<Halaman1Screen> {
   ProfileProvider _profileProvider;
-  PengajuanProvider _pengajuanProvider;
+  PinjamanProvider _pinjamanProvider;
 
 
-  String jenisPinjaman;
-  String jenisPeminjam;
-  String tujuanPinjaman;
-  String pengajuanPinjaman;
 
   @override
   Widget build(BuildContext context) {
     _profileProvider = Provider.of<ProfileProvider>(context);
-    _pengajuanProvider = Provider.of<PengajuanProvider>(context);
+    _pinjamanProvider = Provider.of<PinjamanProvider>(context);
 
     return Scaffold(
       body: SafeArea(
@@ -65,11 +60,11 @@ class _Halaman1ScreenState extends State<Halaman1Screen> {
           height: 30.0,
         ),
         TextFormField(
-          controller: _pengajuanProvider.controllerNominal,
+          controller: _pinjamanProvider.controllerNominal,
           decoration: InputDecoration(labelText: 'Jumlah yang diajukan'),
         ),
         TextFormField(
-          controller: _pengajuanProvider.controllerBulan,
+          controller: _pinjamanProvider.controllerBulan,
           decoration:
               InputDecoration(labelText: 'Jangka waktu', hintText: 'Bulan'),
         )
@@ -107,20 +102,20 @@ class _Halaman1ScreenState extends State<Halaman1Screen> {
             RadioListTile(
               value: 'Perorangan',
               title: Text('Perorangan'),
-              groupValue: jenisPeminjam,
+              groupValue: _pinjamanProvider.jenisPeminjam,
               onChanged: (String value) {
                 setState(() {
-                  jenisPeminjam = value;
+                  _pinjamanProvider.jenisPeminjam = value;
                 });
               },
             ),
             RadioListTile(
               value: 'Badan Usaha',
               title: Text('Badan Usaha'),
-              groupValue: jenisPeminjam,
+              groupValue: _pinjamanProvider.jenisPeminjam,
               onChanged: (String value) {
                 setState(() {
-                  jenisPeminjam = value;
+                  _pinjamanProvider.jenisPeminjam = value;
                 });
               },
             ),
@@ -147,10 +142,10 @@ class _Halaman1ScreenState extends State<Halaman1Screen> {
               hint: Text('Pilih Tujuan'),
               onChanged: (value) {
                 setState(() {
-                  tujuanPinjaman = value;
+                  _pinjamanProvider.tujuanPinjaman = value;
                 });
               },
-              value: tujuanPinjaman,
+              value: _pinjamanProvider.tujuanPinjaman,
               items: [
                 DropdownMenuItem(
                   child: Text('Pendidikan'),
@@ -197,10 +192,10 @@ class _Halaman1ScreenState extends State<Halaman1Screen> {
               hint: Text('Pilih Jenis'),
               onChanged: (value) {
                 setState(() {
-                  jenisPinjaman = value;
+                  _pinjamanProvider.jenisPinjaman = value;
                 });
               },
-              value: jenisPinjaman,
+              value: _pinjamanProvider.jenisPinjaman,
               items: [
                 DropdownMenuItem(
                   child: Text('BJB Kredit Mikro Utama'),
@@ -239,10 +234,10 @@ class _Halaman1ScreenState extends State<Halaman1Screen> {
               hint: Text('Pilih Pengajuan'),
               onChanged: (value) {
                 setState(() {
-                  pengajuanPinjaman = value;
+                  _pinjamanProvider.pengajuanPinjaman = value;
                 });
               },
-              value: pengajuanPinjaman,
+              value: _pinjamanProvider.pengajuanPinjaman,
               items: [
                 DropdownMenuItem(
                   child: Text('Baru'),

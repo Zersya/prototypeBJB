@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prototype_bjb/provider/pengajuan_db.dart';
+import 'package:prototype_bjb/provider/pinjaman_db.dart';
 import 'package:prototype_bjb/provider/profile_db.dart';
 import 'package:prototype_bjb/screens/pengajuan/halaman_1_screen.dart';
 import 'package:prototype_bjb/screens/pengajuan/halaman_2_screen.dart';
@@ -17,7 +17,8 @@ class PengajuanPage extends StatefulWidget {
 class _PengajuanPageState extends State<PengajuanPage> {
   PageController _pageController =
       PageController(initialPage: 0, keepPage: true);
-  PengajuanProvider _pengajuanProvider;
+  ProfileProvider _profileProvider;
+  PinjamanProvider _pinjamanProvider = PinjamanProvider();
 
   int indexScreen = 0;
   Widget _step(
@@ -42,8 +43,14 @@ class _PengajuanPageState extends State<PengajuanPage> {
   }
 
   @override
+  void initState() {
+    _pinjamanProvider.open();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    _pengajuanProvider = Provider.of<PengajuanProvider>(context);
+    _profileProvider = Provider.of<ProfileProvider>(context);
 
     return Scaffold(
       bottomNavigationBar: Column(
@@ -96,59 +103,90 @@ class _PengajuanPageState extends State<PengajuanPage> {
           },
           controller: _pageController,
           children: <Widget>[
-            Halaman1Screen(),
-            Halaman2Screen(),
-            TermsAndConditionScreen(),
-            RekapScreen()
+            Provider.value(
+              value: _pinjamanProvider,
+              child: Halaman1Screen(),
+            ),
+            Provider.value(
+              value: _pinjamanProvider,
+              child: Halaman2Screen(),
+            ),
+            Provider.value(
+              value: _pinjamanProvider,
+              child: TermsAndConditionScreen(),
+            ),
+            Provider.value(
+              value: _pinjamanProvider,
+              child: RekapScreen(),
+            ),
           ],
         ),
       ),
     );
   }
 
-  _showDialog(context) async {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            title: Text('Konfirmasi'),
-            content: Text('Apakah anda yakin ?'),
-            actions: <Widget>[
-              FlatButton(
-                child: Text('Tidak'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-              FlatButton(
-                child: Text('Iya'),
-                onPressed: () {
-                  if (indexScreen == 3) {
-                    if (!_pengajuanProvider.isTermsAgree)
-                      Scaffold.of(context).showSnackBar(SnackBar(
+  _showDialog(_context) async {
+    if (indexScreen == 3) {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30)),
+              title: Text('Konfirmasi'),
+              content: Text('Apakah anda yakin ?'),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('Tidak'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                FlatButton(
+                  child: Text('Iya'),
+                  onPressed: () {
+                    if (!_pinjamanProvider.isTermsAgree) {
+                      Navigator.of(context).pop();
+
+                      Scaffold.of(_context).showSnackBar(SnackBar(
                         content: Text('Silahkan setujui syarat dan ketentuan'),
                       ));
-                    else {
-                      // _pengajuanProvider.insert(_profileProvider.profile);
-                      _pengajuanProvider.isTermsAgree = false;
+                    } else if (_pinjamanProvider.suratIzinUsaha == null &&
+                        _pinjamanProvider.rekeningKoran == null &&
+                        _pinjamanProvider.suratKeterangan == null) {
+                      Navigator.of(context).pop();
+                      Scaffold.of(_context).showSnackBar(SnackBar(
+                        content: Text('Harap lengkapi berkas'),
+                      ));
+                    } else {
+                      _pinjamanProvider.insert(
+                          _profileProvider.profile,
+                          _pinjamanProvider.jenisPinjaman,
+                          _pinjamanProvider.jenisPeminjam,
+                          _pinjamanProvider.tujuanPinjaman,
+                          _pinjamanProvider.pengajuanPinjaman,
+                          _pinjamanProvider.rekeningKoran,
+                          _pinjamanProvider.suratKeterangan,
+                          _pinjamanProvider.suratIzinUsaha);
+
+                      _pinjamanProvider.isTermsAgree = false;
+                      Navigator.of(context).pop();
                       Navigator.of(context).pop(true);
                     }
-                  } else {
-                    if (indexScreen == 2 && !_pengajuanProvider.isTermsAgree)
-                      Scaffold.of(context).showSnackBar(SnackBar(
-                        content: Text('Silahkan setujui syarat dan ketentuan'),
-                      ));
-                    else {
-                      _pageController.nextPage(
-                          duration: Duration(milliseconds: 200),
-                          curve: Curves.easeInOut);
-                    }
-                  }
-                },
-              )
-            ],
-          );
-        });
+                  },
+                )
+              ],
+            );
+          });
+    } else {
+      if (indexScreen == 2 && !_pinjamanProvider.isTermsAgree)
+        Scaffold.of(_context).showSnackBar(SnackBar(
+          content: Text('Silahkan setujui syarat dan ketentuan'),
+        ));
+      else {
+        _pageController.nextPage(
+            duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
+      }
+    }
   }
 }
