@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -26,9 +27,12 @@ class _DataKtpNpwpScreenState extends State<DataKtpNpwpScreen> {
 
     if (_provider.profile != null) {
       if (_provider.profile.imgktp != null)
-        bytesKTP = base64Decode(_provider.profile.imgktp);
+        // bytesKTP = base64Decode(_provider.profile.imgktp);
+        _provider.setImageKtp = File(_provider.profile.imgktp);
       if (_provider.profile.imgnpwp != null)
-        bytesNPWP = base64Decode(_provider.profile.imgnpwp);
+        _provider.setImageNpwp = File(_provider.profile.imgktp);
+        print(_provider.profile.imgktp);
+        // bytesNPWP = base64Decode(_provider.profile.imgnpwp);
     }
   }
 
@@ -45,7 +49,7 @@ class _DataKtpNpwpScreenState extends State<DataKtpNpwpScreen> {
                 Text('KTP anda')
               ],
             )
-          : Image.memory(bytesKTP, fit: BoxFit.cover);
+          : Image.file(_provider.imageKtp, fit: BoxFit.cover);
     } else {
       return Image.file(_provider.imageKtp, fit: BoxFit.cover);
     }
@@ -64,7 +68,7 @@ class _DataKtpNpwpScreenState extends State<DataKtpNpwpScreen> {
                 Text('NPWP anda')
               ],
             )
-          : Image.memory(bytesNPWP, fit: BoxFit.cover);
+          : Image.file(_provider.imageNpwp, fit: BoxFit.cover);
     } else {
       return Image.file(_provider.imageNpwp, fit: BoxFit.cover);
     }

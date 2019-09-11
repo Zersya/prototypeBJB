@@ -10,7 +10,6 @@ import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 import 'package:path/path.dart';
 
-
 final String tableProfile = 'profile';
 final String columnId = '_id';
 final String columnNama = 'nama';
@@ -206,12 +205,13 @@ class ProfileProvider {
   }
 
   Future<String> encodeImage(File _image, TypeImage _type) async {
-    List<int> imageBytes = await _image.readAsBytes();
-    String base64Image = base64Encode(imageBytes);
+    // List<int> imageBytes = await _image.readAsBytes();
+    // String base64Image = base64Encode(imageBytes);
     if (_type == TypeImage.ktp)
-      imageKtpStr = base64Image;
-    else if (_type == TypeImage.npwp) imageNpwpStr = base64Image;
-    return base64Image;
+      imageKtpStr = _image.uri.toFilePath();
+    else if (_type == TypeImage.npwp) imageNpwpStr = _image.uri.toFilePath();
+
+    return '';
   }
 
   Future open() async {
@@ -243,7 +243,7 @@ class ProfileProvider {
           $columnImgNpwp text,
           $columnImgtKtp text)''');
 
-     await db.execute('''
+      await db.execute('''
       create table $tablePinjaman ( 
           $columnIdPinjaman integer primary key autoincrement, 
           $columnNikProfile text,

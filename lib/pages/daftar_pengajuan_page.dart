@@ -83,11 +83,7 @@ class _DaftarPengajuanPageState extends State<DaftarPengajuanPage> {
                               shrinkWrap: true,
                               itemCount: data.length,
                               itemBuilder: (context, index) {
-                                String date =
-                                    DateTime.fromMillisecondsSinceEpoch(
-                                            int.parse(
-                                                data[index].waktuDiajukan))
-                                        .toString();
+                                
                                 return ListTile(
                                   trailing: Card(
                                     color: Colors.transparent,

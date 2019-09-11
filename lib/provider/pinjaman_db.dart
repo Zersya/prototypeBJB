@@ -186,10 +186,11 @@ class PinjamanProvider {
   }
 
   Future<String> encodeImage(File _image) async {
-    List<int> imageBytes = await _image.readAsBytes();
-    String base64Image = base64Encode(imageBytes);
+    String _img = _image.uri.toFilePath();
+    // List<int> imageBytes = await _image.readAsBytes();
+    // String base64Image = base64Encode(imageBytes);
 
-    return base64Image;
+    return _img;
   }
 
   Future<List<Pinjaman>> getPinjaman() async {

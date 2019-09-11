@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:prototype_bjb/provider/pinjaman_db.dart';
 import 'package:prototype_bjb/provider/profile_db.dart';
 import 'package:provider/provider.dart';
@@ -12,8 +13,6 @@ class Halaman1Screen extends StatefulWidget {
 class _Halaman1ScreenState extends State<Halaman1Screen> {
   ProfileProvider _profileProvider;
   PinjamanProvider _pinjamanProvider;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -61,10 +60,14 @@ class _Halaman1ScreenState extends State<Halaman1Screen> {
         ),
         TextFormField(
           controller: _pinjamanProvider.controllerNominal,
+          keyboardType: TextInputType.number,
+          inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
           decoration: InputDecoration(labelText: 'Jumlah yang diajukan'),
         ),
         TextFormField(
           controller: _pinjamanProvider.controllerBulan,
+          keyboardType: TextInputType.number,
+          inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
           decoration:
               InputDecoration(labelText: 'Jangka waktu', hintText: 'Bulan'),
         )

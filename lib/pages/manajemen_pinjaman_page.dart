@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -128,7 +129,7 @@ class _ManajemenPinjamanPageState extends State<ManajemenPinjamanPage> {
                           Text('Rekening koran belum di unggah')
                         ],
                       )
-                    : Image.memory(base64Decode(widget.pinjaman.imgRekeningKoran),
+                    : Image.file(File(widget.pinjaman.imgRekeningKoran),
                         fit: BoxFit.cover),
               ),
             ),
@@ -159,7 +160,7 @@ class _ManajemenPinjamanPageState extends State<ManajemenPinjamanPage> {
                           Text('Surat keterangan usaha belum di unggah')
                         ],
                       )
-                    : Image.memory(base64Decode(widget.pinjaman.imgSuratKeterangan),
+                    : Image.file(File(widget.pinjaman.imgSuratKeterangan),
                         fit: BoxFit.cover),
               ),
             ),
@@ -190,7 +191,7 @@ class _ManajemenPinjamanPageState extends State<ManajemenPinjamanPage> {
                           Text('Suran izin usaha belum di unggah')
                         ],
                       )
-                    : Image.memory(base64Decode(widget.pinjaman.imgSuratIzinUsaha),
+                    : Image.file(File(widget.pinjaman.imgSuratIzinUsaha),
                         fit: BoxFit.cover),
               ),
             ),
