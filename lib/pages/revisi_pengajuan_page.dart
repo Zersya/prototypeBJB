@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:prototype_bjb/provider/pengajuan_db.dart';
 import 'package:prototype_bjb/provider/profile_db.dart';
-import 'package:prototype_bjb/screens/termsandcondition_screen.dart';
+import 'package:prototype_bjb/screens/pengajuan/termsandcondition_screen.dart';
 import 'package:prototype_bjb/utils/constant.dart';
 import 'package:provider/provider.dart';
 
@@ -20,6 +20,7 @@ class _RevisiPengajuanPageState extends State<RevisiPengajuanPage> {
   final _controllerTujuan = TextEditingController();
 
   int currentStep = 0;
+  bool isTermsAgree = false;
 
   Future getImage(ImageSource _imageSource) async {
     final image = await ImagePicker.pickImage(source: _imageSource);
@@ -103,7 +104,7 @@ class _RevisiPengajuanPageState extends State<RevisiPengajuanPage> {
                       FlatButton(
                         onPressed: currentStep == 4
                             ? () {
-                                if (_pengajuanProvider.isTermsAgree) {
+                                if (isTermsAgree) {
                                   showDialog(
                                       context: context,
                                       builder: (context) {
@@ -301,10 +302,10 @@ class _RevisiPengajuanPageState extends State<RevisiPengajuanPage> {
                             Checkbox(
                               onChanged: (bool value) {
                                 setState(() {
-                                  _pengajuanProvider.isTermsAgree = value;
+                                  isTermsAgree = value;
                                 });
                               },
-                              value: _pengajuanProvider.isTermsAgree,
+                              value: isTermsAgree,
                             ),
                             Text('Saya setuju dengan syarat dan ketentuan')
                           ],

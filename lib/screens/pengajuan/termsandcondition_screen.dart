@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prototype_bjb/provider/pengajuan_db.dart';
 import 'package:prototype_bjb/provider/profile_db.dart';
 import 'package:provider/provider.dart';
 
@@ -10,11 +11,11 @@ class TermsAndConditionScreen extends StatefulWidget {
 }
 
 class _TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
-  ProfileProvider _provider;
+  PengajuanProvider _pengajuanProvider;
 
   @override
   Widget build(BuildContext context) {
-    _provider = Provider.of<ProfileProvider>(context);
+    _pengajuanProvider = Provider.of<PengajuanProvider>(context);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -50,10 +51,10 @@ class _TermsAndConditionScreenState extends State<TermsAndConditionScreen> {
                 Checkbox(
                   onChanged: (bool value) {
                     setState(() {
-                      _provider.setIsTermAgree = value;
+                      _pengajuanProvider.isTermsAgree = value;
                     });
                   },
-                  value: _provider.isTermsAgree,
+                  value: _pengajuanProvider.isTermsAgree,
                 ),
                 Text('Saya setuju dengan syarat dan ketentuan')
               ],

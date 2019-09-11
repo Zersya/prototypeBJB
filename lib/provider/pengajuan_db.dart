@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -74,7 +75,11 @@ class PengajuanProvider {
       thousandSeparator: '.',
       precision: 0,
       decimalSeparator: '');
+
+  final controllerBulan = TextEditingController();
   File image;
+
+
 
   Future open() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();

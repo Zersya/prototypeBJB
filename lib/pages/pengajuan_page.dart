@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:prototype_bjb/provider/pengajuan_db.dart';
 import 'package:prototype_bjb/provider/profile_db.dart';
-import 'package:prototype_bjb/screens/datainstansi_screen.dart';
-import 'package:prototype_bjb/screens/datapemohon_screen.dart';
-import 'package:prototype_bjb/screens/datarekening_screen.dart';
-import 'package:prototype_bjb/screens/penghasilan_screen.dart';
-import 'package:prototype_bjb/screens/rekap_screen.dart';
-import 'package:prototype_bjb/screens/termsandcondition_screen.dart';
+import 'package:prototype_bjb/screens/pengajuan/halaman_1_screen.dart';
+import 'package:prototype_bjb/screens/pengajuan/halaman_2_screen.dart';
+import 'package:prototype_bjb/screens/pengajuan/rekap_screen.dart';
+import 'package:prototype_bjb/screens/pengajuan/termsandcondition_screen.dart';
 import 'package:prototype_bjb/utils/constant.dart';
 import 'package:provider/provider.dart';
 
@@ -18,14 +17,15 @@ class PengajuanPage extends StatefulWidget {
 class _PengajuanPageState extends State<PengajuanPage> {
   PageController _pageController =
       PageController(initialPage: 0, keepPage: true);
-  ProfileProvider _profileProvider;
+  PengajuanProvider _pengajuanProvider;
 
   int indexScreen = 0;
   Widget _step(
     int index,
   ) {
     return CircleAvatar(
-      backgroundColor: index == indexScreen ? Colors.green : Color(COLOR_MAIN),
+      backgroundColor:
+          index == indexScreen + 1 ? Colors.green : Color(COLOR_MAIN),
       radius: 15,
       child: Text(index.toString()),
     );
@@ -43,7 +43,7 @@ class _PengajuanPageState extends State<PengajuanPage> {
 
   @override
   Widget build(BuildContext context) {
-    _profileProvider = Provider.of<ProfileProvider>(context);
+    _pengajuanProvider = Provider.of<PengajuanProvider>(context);
 
     return Scaffold(
       bottomNavigationBar: Column(
@@ -55,8 +55,6 @@ class _PengajuanPageState extends State<PengajuanPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                _step(0),
-                _line(),
                 _step(1),
                 _line(),
                 _step(2),
@@ -64,8 +62,6 @@ class _PengajuanPageState extends State<PengajuanPage> {
                 _step(3),
                 _line(),
                 _step(4),
-                _line(),
-                _step(5),
               ],
             ),
           ),
@@ -78,7 +74,7 @@ class _PengajuanPageState extends State<PengajuanPage> {
                     bottom: true,
                     child: FlatButton(
                       child: Text(
-                        indexScreen == 5 ? 'Ajukan' : 'Selanjutnya',
+                        indexScreen == 3 ? 'Ajukan' : 'Selanjutnya',
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () async {
@@ -100,10 +96,8 @@ class _PengajuanPageState extends State<PengajuanPage> {
           },
           controller: _pageController,
           children: <Widget>[
-            DataPemohonScreen(),
-            DataInstansiScreen(),
-            PenghasilanScreen(),
-            DataRekeningScreen(),
+            Halaman1Screen(),
+            Halaman2Screen(),
             TermsAndConditionScreen(),
             RekapScreen()
           ],
@@ -113,26 +107,48 @@ class _PengajuanPageState extends State<PengajuanPage> {
   }
 
   _showDialog(context) async {
-    if (indexScreen == 5) {
-      if (!_profileProvider.isTermsAgree)
-        Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text('Silahkan setujui syarat dan ketentuan'),
-        ));
-      else {
-        // _pengajuanProvider.insert(_profileProvider.profile);
-        Navigator.of(context).pop(true);
-      }
-    } else {
-      if (indexScreen == 4 && !_profileProvider.isTermsAgree)
-        Scaffold.of(context).showSnackBar(SnackBar(
-          content: Text('Silahkan setujui syarat dan ketentuan'),
-        ));
-      else {
-        await _profileProvider.update(_profileProvider.profile.id);
-
-        _pageController.nextPage(
-            duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
-      }
-    }
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+            title: Text('Konfirmasi'),
+            content: Text('Apakah anda yakin ?'),
+            actions: <Widget>[
+              FlatButton(
+                child: Text('Tidak'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              FlatButton(
+                child: Text('Iya'),
+                onPressed: () {
+                  if (indexScreen == 3) {
+                    if (!_pengajuanProvider.isTermsAgree)
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text('Silahkan setujui syarat dan ketentuan'),
+                      ));
+                    else {
+                      // _pengajuanProvider.insert(_profileProvider.profile);
+                      _pengajuanProvider.isTermsAgree = false;
+                      Navigator.of(context).pop(true);
+                    }
+                  } else {
+                    if (indexScreen == 2 && !_pengajuanProvider.isTermsAgree)
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text('Silahkan setujui syarat dan ketentuan'),
+                      ));
+                    else {
+                      _pageController.nextPage(
+                          duration: Duration(milliseconds: 200),
+                          curve: Curves.easeInOut);
+                    }
+                  }
+                },
+              )
+            ],
+          );
+        });
   }
 }

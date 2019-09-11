@@ -1,7 +1,9 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:prototype_bjb/pages/daftar_pengajuan_page.dart';
+import 'package:prototype_bjb/pages/pengajuan_page.dart';
 import 'package:prototype_bjb/pages/profile_page.dart';
 import 'package:prototype_bjb/pages/revisi_pengajuan_page.dart';
 import 'package:prototype_bjb/provider/pengajuan_db.dart';
@@ -74,25 +76,46 @@ class _DashboardPageState extends State<DashboardPage> {
                       'assets/images/bank_bjb.png',
                       scale: MediaQuery.of(context).size.width / 45,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => Provider.value(
-                                value: _profileProvider,
-                                child: ProfilePage())));
-                      },
-                      child: RichText(
-                        text: TextSpan(
-                          style: TextStyle(color: Colors.black),
-                          children: [
-                            TextSpan(text: 'Selamat datang\n'),
-                            TextSpan(
-                              text: _profileProvider.profile?.nama ?? '-',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                          ],
+                    Row(
+                      children: <Widget>[
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => Provider.value(
+                                    value: _profileProvider,
+                                    child: ProfilePage())));
+                          },
+                          child: Icon(
+                            Icons.person,
+                            size: MediaQuery.of(context).size.width / 15,
+                          ),
+                          // child: RichText(
+                          //   text: TextSpan(
+                          //     style: TextStyle(color: Colors.black),
+                          //     children: [
+                          //       TextSpan(text: 'Selamat datang\n'),
+                          //       TextSpan(
+                          //         text: _profileProvider.profile?.nama ?? '-',
+                          //         style: TextStyle(fontWeight: FontWeight.bold),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                         ),
-                      ),
+                        SizedBox(
+                          width: 30.0,
+                        ),
+                        Badge(
+                          badgeContent: Text(
+                            '1',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          child: Icon(
+                            Icons.notifications,
+                            size: MediaQuery.of(context).size.width / 15,
+                          ),
+                        )
+                      ],
                     )
                   ],
                 ),
@@ -187,7 +210,7 @@ class _DashboardPageState extends State<DashboardPage> {
                                       Provider.value(
                                         value: _pengajuanProvider,
                                       )
-                                    ], child: RevisiPengajuanPage()),
+                                    ], child: PengajuanPage()),
                                   ),
                                 );
                                 if (isInsert != null)
