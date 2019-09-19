@@ -30,8 +30,7 @@ class _DataKtpNpwpScreenState extends State<DataKtpNpwpScreen> {
         // bytesKTP = base64Decode(_provider.profile.imgktp);
         _provider.setImageKtp = File(_provider.profile.imgktp);
       if (_provider.profile.imgnpwp != null)
-        _provider.setImageNpwp = File(_provider.profile.imgktp);
-        print(_provider.profile.imgktp);
+        _provider.setImageNpwp = File(_provider.profile.imgnpwp);
         // bytesNPWP = base64Decode(_provider.profile.imgnpwp);
     }
   }

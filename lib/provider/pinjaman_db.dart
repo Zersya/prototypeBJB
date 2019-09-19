@@ -90,10 +90,9 @@ class Pinjaman {
 class PinjamanProvider {
   Database db;
   Pinjaman pinjaman;
-  List<Pinjaman> _listPinjaman;
+  List<Pinjaman> _listPinjaman = List();
 
   bool isTermsAgree = false;
-
 
   String jenisPinjaman;
   String jenisPeminjam;
@@ -142,13 +141,17 @@ class PinjamanProvider {
   }
 
   String pickStatus(int rand) {
-    if (rand == 0) return 'Pengajuan';
-    else if (rand == 1) return 'Vertifikasi Data';
-    else if (rand == 2) return 'Tinjauan';
-    else if (rand == 3) return 'Survey';
-    else if (rand == 4) return 'Akad';
+    if (rand == 0)
+      return 'Pengajuan';
+    else if (rand == 1)
+      return 'Vertifikasi Data';
+    else if (rand == 2)
+      return 'Tinjauan';
+    else if (rand == 3)
+      return 'Survey';
+    else if (rand == 4)
+      return 'Akad';
     else if (rand == 5) return 'Pencairan';
-
 
     return 'Pinjaman Ditolak';
   }
@@ -197,11 +200,41 @@ class PinjamanProvider {
     List<Map> maps = await db.query(
       tablePinjaman,
     );
+
     if (maps.length > 0) {
       _listPinjaman = maps.map((val) => Pinjaman.fromMap(val)).toList();
-
+      // _listPinjaman.add(Pinjaman(
+      //   nikProfile: '123',
+      //   jenisPeminjam: 'Badan Usaha',
+      //   jenisPinjaman: 'BJB KUKM',
+      //   tujuanPinjaman: 'Tanah/Bangunan',
+      //   pengajuanPinjaman: 'Suplesi',
+      //   imgRekeningKoran: '',
+      //   imgSuratKeterangan: '',
+      //   imgSuratIzinUsaha: '',
+      //   waktuDiajukan: '1568248757168',
+      //   nominalPinjaman: 'IDR 20.000.000',
+      //   bulanPinjaman: '12',
+      //   statusPinjaman: 'Vertifikasi Data',
+      //   idPinjaman: 2001,
+      // ));
       return _listPinjaman;
     }
-    return List();
+    // _listPinjaman.add(Pinjaman(
+    //   nikProfile: '123',
+    //   jenisPeminjam: 'Perorangan',
+    //   jenisPinjaman: 'BJB Kredit Mikro Utama',
+    //   tujuanPinjaman: 'Pendidikan',
+    //   pengajuanPinjaman: 'Baru',
+    //   imgRekeningKoran: '',
+    //   imgSuratKeterangan: '',
+    //   imgSuratIzinUsaha: '',
+    //   waktuDiajukan: '1568248757168',
+    //   nominalPinjaman: 'IDR 20.000.000',
+    //   bulanPinjaman: '12',
+    //   statusPinjaman: 'Vertifikasi Data',
+    //   idPinjaman: 2000,
+    // ));
+    return _listPinjaman;
   }
 }
