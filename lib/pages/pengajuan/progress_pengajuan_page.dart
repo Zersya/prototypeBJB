@@ -13,7 +13,7 @@ class ProgressPengajuanPage extends StatefulWidget {
 class _ProgressPengajuanPageState extends State<ProgressPengajuanPage> {
   static const double customPadding = 30;
   static const double edgeWidth = 1.5;
-  int currentStep = 0;
+  int currentStep = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -38,61 +38,70 @@ class _ProgressPengajuanPageState extends State<ProgressPengajuanPage> {
                 color: Colors.black,
                 height: 30.0,
               ),
-              Stepper(
-                currentStep: currentStep,
-                controlsBuilder: (BuildContext context,
-                    {VoidCallback onStepContinue, VoidCallback onStepCancel}) {
-                  return Container();
-                },
-                physics: ScrollPhysics(),
-                onStepTapped: (index) {
-                  setState(() {
-                    currentStep = index;
-                  });
-                },
-                onStepContinue: () {
-                  setState(() {
-                    currentStep++;
-                  });
-                },
-                onStepCancel: () {
-                  if (currentStep > 0)
-                    setState(() {
-                      currentStep--;
-                    });
-                },
-                steps: [
-                  Step(
-                    isActive: true,
-                    state: StepState.complete,
-                    title: Text('Pengajuan'),
-                    content: Container(),
-                  ),
-                  Step(
-                    isActive: true,
-                    state: StepState.complete,
-                    title: Text('Vertifikasi Data'),
-                    content: Container(),
-                  ),
-                  Step(
-                    isActive: true,
-                    state: StepState.complete,
-                    title: Text('Tinjauan'),
-                    content: Container(),
-                  ),
-                  Step(
-                    title: Text('Survey'),
-                    content: Container(),
-                  ),
-                  Step(
-                    title: Text('Akad'),
-                    content: Container(),
-                  ),
-                  Step(
-                    title: Text('Pencairan'),
-                    content: Container(),
-                  ),
-                ],
+              Theme(
+                data: ThemeData(primaryColor: Colors.green),
+                child: Stepper(
+                  currentStep: currentStep,
+                  controlsBuilder: (BuildContext context,
+                      {VoidCallback onStepContinue,
+                      VoidCallback onStepCancel}) {
+                    return Container();
+                  },
+                  physics: ScrollPhysics(),
+                  steps: [
+                    Step(
+                      isActive: true,
+                      state: StepState.complete,
+                      title: Text('Pengajuan'),
+                      subtitle: Text('10 Sep 2019',
+                          style:
+                              TextStyle(fontSize: 12, color: Colors.black54)),
+                      content: Container(),
+                    ),
+                    Step(
+                      isActive: true,
+                      state: StepState.error,
+                      title: Text('Vertifikasi Data'),
+                      subtitle: Text('10 Sep 2019',
+                          style:
+                              TextStyle(fontSize: 12, color: Colors.black54)),
+                      content: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                          ),
+                          child: Text('Lengkapi Data',
+                              style:
+                                  TextStyle(fontSize: 12, color: Colors.white)),
+                        ),
+                      ),
+                    ),
+                    Step(
+                      isActive: true,
+                      state: StepState.complete,
+                      title: Text('Tinjauan'),
+                      subtitle: Text('10 Sep 2019',
+                          style:
+                              TextStyle(fontSize: 12, color: Colors.black54)),
+                      content: Container(),
+                    ),
+                    Step(
+                      title: Text('Survey'),
+                      content: Container(),
+                    ),
+                    Step(
+                      title: Text('Akad'),
+                      content: Container(),
+                    ),
+                    Step(
+                      title: Text('Pencairan'),
+                      content: Container(),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
