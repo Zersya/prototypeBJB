@@ -152,7 +152,7 @@ class PinjamanProvider {
       return 'Akad';
     else if (rand == 5) return 'Pencairan';
 
-    return 'Pinjaman Ditolak';
+    return 'Ditolak';
   }
 
   Future<Pinjaman> insert(

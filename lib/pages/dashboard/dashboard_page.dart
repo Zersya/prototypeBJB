@@ -73,7 +73,7 @@ class _DashboardPageState extends State<DashboardPage> {
               children: <Widget>[
                 Image.asset(
                   'assets/images/bank_bjb.png',
-                  scale: MediaQuery.of(context).size.width / 45,
+                  height: MediaQuery.of(context).size.width / 7,
                 ),
                 Badge(
                   badgeContent: Text(

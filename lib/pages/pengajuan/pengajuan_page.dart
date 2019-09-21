@@ -59,7 +59,7 @@ class _PengajuanPageState extends State<PengajuanPage> {
         elevation: 0,
         title: Image.asset(
           'assets/images/bank_bjb.png',
-          scale: MediaQuery.of(context).size.width / 45,
+          height: MediaQuery.of(context).size.width / 7,
         ),
         centerTitle: true,
         leading: InkWell(
