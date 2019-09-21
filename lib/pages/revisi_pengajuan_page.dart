@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:prototype_bjb/provider/pinjaman_db.dart';
-import 'package:prototype_bjb/provider/profile_db.dart';
 import 'package:prototype_bjb/screens/pengajuan/termsandcondition_screen.dart';
 import 'package:prototype_bjb/utils/constant.dart';
 import 'package:provider/provider.dart';
@@ -14,7 +13,6 @@ class RevisiPengajuanPage extends StatefulWidget {
 }
 
 class _RevisiPengajuanPageState extends State<RevisiPengajuanPage> {
-  ProfileProvider _profileProvider;
   PinjamanProvider _pengajuanProvider;
 
   final _controllerTujuan = TextEditingController();
@@ -71,7 +69,6 @@ class _RevisiPengajuanPageState extends State<RevisiPengajuanPage> {
 
   @override
   Widget build(BuildContext context) {
-    _profileProvider = Provider.of<ProfileProvider>(context);
     _pengajuanProvider = Provider.of<PinjamanProvider>(context);
 
     return Scaffold(

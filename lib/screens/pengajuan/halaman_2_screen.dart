@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:prototype_bjb/provider/pinjaman_db.dart';
-import 'package:prototype_bjb/provider/profile_db.dart';
 import 'package:provider/provider.dart';
 
 class Halaman2Screen extends StatefulWidget {
@@ -13,13 +10,11 @@ class Halaman2Screen extends StatefulWidget {
 }
 
 class _Halaman2ScreenState extends State<Halaman2Screen> {
-  ProfileProvider _profileProvider;
   PinjamanProvider _pinjamanProvider;
 
 
   @override
   Widget build(BuildContext context) {
-    _profileProvider = Provider.of<ProfileProvider>(context);
     _pinjamanProvider = Provider.of<PinjamanProvider>(context);
 
     return Scaffold(

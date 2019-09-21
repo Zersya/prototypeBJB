@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prototype_bjb/provider/pinjaman_db.dart';
-import 'package:prototype_bjb/provider/profile_db.dart';
 import 'package:provider/provider.dart';
 
 class Halaman1Screen extends StatefulWidget {
@@ -11,12 +10,10 @@ class Halaman1Screen extends StatefulWidget {
 }
 
 class _Halaman1ScreenState extends State<Halaman1Screen> {
-  ProfileProvider _profileProvider;
   PinjamanProvider _pinjamanProvider;
 
   @override
   Widget build(BuildContext context) {
-    _profileProvider = Provider.of<ProfileProvider>(context);
     _pinjamanProvider = Provider.of<PinjamanProvider>(context);
 
     return Scaffold(

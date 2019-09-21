@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:prototype_bjb/provider/pinjaman_db.dart';
-import 'package:prototype_bjb/provider/profile_db.dart';
 import 'package:prototype_bjb/utils/constant.dart';
 import 'package:provider/provider.dart';
 
@@ -11,12 +10,10 @@ class RekapScreen extends StatefulWidget {
 }
 
 class _RekapScreenState extends State<RekapScreen> {
-  ProfileProvider _provider;
   PinjamanProvider _pinjamanProvider;
 
   @override
   Widget build(BuildContext context) {
-    _provider = Provider.of<ProfileProvider>(context);
     _pinjamanProvider = Provider.of<PinjamanProvider>(context);
 
     return Padding(
