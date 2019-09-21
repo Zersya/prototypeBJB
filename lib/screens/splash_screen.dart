@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prototype_bjb/pages/dashboard_page.dart';
+import 'package:prototype_bjb/pages/dashboard/dashboard_page.dart';
 import 'package:prototype_bjb/provider/profile_db.dart';
 import 'package:prototype_bjb/utils/constant.dart';
 import 'package:provider/provider.dart';

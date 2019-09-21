@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:prototype_bjb/provider/profile_db.dart';
-import 'package:prototype_bjb/screens/datainstansi_screen.dart';
-import 'package:prototype_bjb/screens/dataktpnpwp_screen.dart';
-import 'package:prototype_bjb/screens/datapemohon_screen.dart';
-import 'package:prototype_bjb/screens/datarekening_screen.dart';
-import 'package:prototype_bjb/screens/penghasilan_screen.dart';
+import 'package:prototype_bjb/screens/profile/datainstansi_screen.dart';
+import 'package:prototype_bjb/screens/profile/dataktpnpwp_screen.dart';
+import 'package:prototype_bjb/screens/profile/datapemohon_screen.dart';
+import 'package:prototype_bjb/screens/profile/datarekening_screen.dart';
+import 'package:prototype_bjb/screens/profile/penghasilan_screen.dart';
 import 'package:prototype_bjb/utils/constant.dart';
 import 'package:provider/provider.dart';
 
