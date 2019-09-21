@@ -28,15 +28,7 @@ class _RiwayatPinjamanPageState extends State<RiwayatPinjamanPage> {
   Widget build(BuildContext context) {
     _profileProvider = Provider.of<ProfileProvider>(context);
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        backgroundColor: Colors.orange,
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (_) => Provider.value(
-                  value: _profileProvider, child: PengajuanPage())));
-        },
-      ),
+      
       body: StreamProvider.value(
         value: _pinjamanProvider.open().asStream(),
         child: Consumer(
