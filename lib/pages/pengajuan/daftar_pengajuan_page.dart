@@ -245,6 +245,7 @@ class _DaftarPengajuanPageState extends State<DaftarPengajuanPage> {
         return Colors.green;
       case 'pinjaman ditolak':
         return Colors.red;
+      default: return Colors.red;
     }
   }
 }
