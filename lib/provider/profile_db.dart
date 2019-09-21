@@ -267,7 +267,7 @@ class ProfileProvider {
     if (_imageKTP != null) await encodeImage(_imageKTP, TypeImage.ktp);
 
     profile = Profile(
-        nama: controllerNama.text,
+        nama: controllerNama.text.isEmpty ? 'Eykeu' : controllerNama.text,
         alamat: controllerAlamat.text,
         nik: controllerNIK.text,
         npwp: controllerNPWP.text,
