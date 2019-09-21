@@ -159,7 +159,7 @@ class _ProgressPengajuanPageState extends State<ProgressPengajuanPage> {
       children: <Widget>[
         CircleAvatar(
           backgroundColor:
-              index == currentStep ? Colors.green : Color(COLOR_MAIN),
+              index == currentStep ? Colors.green : Color(kColorMain),
           radius: customPadding,
           child: Text(index.toString()),
         ),

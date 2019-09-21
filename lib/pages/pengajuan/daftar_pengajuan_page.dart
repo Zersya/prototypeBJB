@@ -30,7 +30,7 @@ class _DaftarPengajuanPageState extends State<DaftarPengajuanPage> {
         builder: (_, data, child) {
           if (data == null)
             return CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Color(COLOR_MAIN)),
+              valueColor: AlwaysStoppedAnimation<Color>(Color(kColorMain)),
             );
           else
             return Padding(
@@ -64,7 +64,7 @@ class _DaftarPengajuanPageState extends State<DaftarPengajuanPage> {
                             if (data == null) {
                               return CircularProgressIndicator(
                                 valueColor: AlwaysStoppedAnimation<Color>(
-                                    Color(COLOR_MAIN)),
+                                    Color(kColorMain)),
                               );
                             }
                             if (data.length == 0)
@@ -152,7 +152,7 @@ class _DaftarPengajuanPageState extends State<DaftarPengajuanPage> {
                                       },
                                       child: Container(
                                         decoration: BoxDecoration(
-                                            color: Color(COLOR_MAIN),
+                                            color: Color(kColorMain),
                                             borderRadius:
                                                 BorderRadius.circular(30)),
                                         child: Padding(
@@ -168,7 +168,7 @@ class _DaftarPengajuanPageState extends State<DaftarPengajuanPage> {
                                   leading: Material(
                                     elevation: 4,
                                     child: Container(
-                                      color: Color(COLOR_MAIN),
+                                      color: Color(kColorMain),
                                       width: MediaQuery.of(context).size.width /
                                           40,
                                     ),

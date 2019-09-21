@@ -26,7 +26,7 @@ class _PengajuanPageState extends State<PengajuanPage> {
   ) {
     return CircleAvatar(
       backgroundColor:
-          index == indexScreen + 1 ? Colors.green : Color(COLOR_MAIN),
+          index == indexScreen + 1 ? Colors.green : Color(kColorMain),
       radius: 15,
       child: Text(index.toString()),
     );
@@ -74,7 +74,7 @@ class _PengajuanPageState extends State<PengajuanPage> {
           ),
           Container(
               width: double.infinity,
-              color: Color(COLOR_MAIN),
+              color: Color(kColorMain),
               child: Builder(
                 builder: (context) {
                   return SafeArea(

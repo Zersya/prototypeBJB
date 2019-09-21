@@ -5,6 +5,7 @@ import 'package:prototype_bjb/screens/profile/dataktpnpwp_screen.dart';
 import 'package:prototype_bjb/screens/profile/datapemohon_screen.dart';
 import 'package:prototype_bjb/screens/profile/datarekening_screen.dart';
 import 'package:prototype_bjb/screens/profile/penghasilan_screen.dart';
+import 'package:prototype_bjb/utils/colors.dart';
 import 'package:prototype_bjb/utils/constant.dart';
 import 'package:provider/provider.dart';
 
@@ -23,57 +24,46 @@ class _ProfilePageState extends State<ProfilePage> {
     _provider = Provider.of<ProfileProvider>(context);
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Data Kamu',
-            style: TextStyle(color: Colors.black),
-          ),
-          leading: GestureDetector(
-            onTap: () {
-              Navigator.of(context).pop();
-            },
-            child: Icon(
-              Icons.arrow_back_ios,
-              color: Colors.black,
-            ),
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(48.0),
-            child: Row(
-              children: <Widget>[
-                itemMenu(Icons.add_a_photo, 0),
-                itemMenu(Icons.person, 1),
-                itemMenu(Icons.business, 2),
-                itemMenu(Icons.account_balance_wallet, 3),
-                itemMenu(Icons.account_balance, 4),
-              ],
-            ),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(48.0),
+          child: Row(
+            children: <Widget>[
+              itemMenu('Profil', 0),
+              itemMenu('Instansi', 1),
+              itemMenu('Finansial', 2),
+              itemMenu('Rekening', 3),
+              itemMenu('Dokumen', 4),
+            ],
           ),
         ),
         bottomNavigationBar: Builder(
           builder: (context) {
-            return Container(
-              width: double.infinity,
-              color: Color(COLOR_MAIN),
-              child: SafeArea(
-                bottom: true,
-                child: FlatButton(
-                  child: Text(
-                    'SIMPAN',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () {
-                    if (_provider.profile == null)
-                      _provider.insert();
-                    else
-                      _provider.update(_provider.profile.id);
+            return Padding(
+              padding:
+                  const EdgeInsets.only(bottom: 16.0, left: 16.0, right: 16.0),
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Color(kColorButtonSimpan),
+                    borderRadius: BorderRadius.circular(10)),
+                child: SafeArea(
+                  bottom: true,
+                  child: FlatButton(
+                    child: Text(
+                      'SIMPAN',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    onPressed: () {
+                      if (_provider.profile == null)
+                        _provider.insert();
+                      else
+                        _provider.update(_provider.profile.id);
 
-                    Scaffold.of(context).showSnackBar(SnackBar(
-                      content: Text('Berhasil Memperbaharui Profile'),
-                    ));
-                  },
+                      Scaffold.of(context).showSnackBar(SnackBar(
+                        content: Text('Berhasil Memperbaharui Profile'),
+                      ));
+                    },
+                  ),
                 ),
               ),
             );
@@ -83,17 +73,17 @@ class _ProfilePageState extends State<ProfilePage> {
           index: indexPage,
           alignment: Alignment.topCenter,
           children: <Widget>[
-            DataKtpNpwpScreen(),
             DataPemohonScreen(),
             DataInstansiScreen(),
             PenghasilanScreen(),
             DataRekeningScreen(),
+            DataKtpNpwpScreen(),
           ],
           sizing: StackFit.loose,
         ));
   }
 
-  Widget itemMenu(IconData _icon, int index) {
+  Widget itemMenu(String text, int index) {
     bool isActive = index == indexPage;
     return Expanded(
       flex: 1,
@@ -106,30 +96,21 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Container(
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    topRight: Radius.circular(15)),
-                border: Border.all(
-                    color: Colors.black26, width: isActive ? 1 : 1.25),
-                // border: Border(
-                //     top: BorderSide(
-                //       color: Colors.black26,
-                //       width: 1.25,
-                //     ),
-                //     bottom: BorderSide(
-                //       color: isActive ? Colors.white : Colors.black12,
-                //       width: 1.25,
-                //     ),
-                //     left: BorderSide(
-                //       color: Colors.black26,
-                //       width: 1.25,
-                //     ),
-                //     right: BorderSide(
-                //       color: Colors.black26,
-                //       width: 1.25,
-                //     )),
-                color: isActive ? Colors.white : Colors.black12),
-            child: Icon(_icon)),
+              color: kcolorPrimary[900],
+              border: Border(
+                bottom: BorderSide(
+                  width: 4,
+                  color: isActive ? Colors.orange : Colors.transparent,
+                ),
+              ),
+            ),
+            child: Text(
+              text,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: MediaQuery.of(context).size.width / 30),
+            )),
       ),
     );
   }

@@ -143,7 +143,7 @@ class _DashboardPageState extends State<DashboardPage> {
             Container(child: Center(child: Text('2'))),
             Container(child: Center(child: Text('3'))),
             Container(child: Center(child: Text('4'))),
-            Container(child: Center(child: Text('5')))
+            ProfilePage()
           ],
         ),
       ),

@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
             height: 32,
           ),
           CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Color(COLOR_MAIN)),
+            valueColor: AlwaysStoppedAnimation<Color>(Color(kColorMain)),
           )
         ],
       )),

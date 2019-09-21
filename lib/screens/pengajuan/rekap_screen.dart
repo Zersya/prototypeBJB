@@ -157,7 +157,7 @@ class _RekapScreenState extends State<RekapScreen> {
           padding: EdgeInsets.all(8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.0),
-            color: Color(COLOR_MAIN),
+            color: Color(kColorMain),
           ),
           child: Align(
             alignment: Alignment.centerLeft,
@@ -234,7 +234,7 @@ class _RekapScreenState extends State<RekapScreen> {
           padding: EdgeInsets.all(8),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8.0),
-            color: Color(COLOR_MAIN),
+            color: Color(kColorMain),
           ),
           child: Align(
             alignment: Alignment.centerLeft,

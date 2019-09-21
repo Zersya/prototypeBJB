@@ -47,7 +47,7 @@ class _DataPemohonScreenState extends State<DataPemohonScreen> {
               height: 30.0,
             ),
             CircleAvatar(
-                backgroundColor: Color(COLOR_MAIN),
+                backgroundColor: Color(kColorMain),
                 radius: 70.0,
                 child: _provider.profile == null
                     ? Icon(
