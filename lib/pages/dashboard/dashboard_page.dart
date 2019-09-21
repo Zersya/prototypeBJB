@@ -1,15 +1,11 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:prototype_bjb/pages/pengajuan/daftar_pengajuan_page.dart';
-import 'package:prototype_bjb/pages/pengajuan/pengajuan_page.dart';
 import 'package:prototype_bjb/pages/profile/profile_page.dart';
 import 'package:prototype_bjb/provider/profile_db.dart';
-import 'package:prototype_bjb/utils/constant.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:prototype_bjb/utils/colors.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class DashboardPage extends StatefulWidget {
   DashboardPage({Key key}) : super(key: key);
@@ -19,7 +15,10 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   ProfileProvider _profileProvider;
+  PageController _pageController = PageController();
   bool isAlreadyshowed = false;
+  int currentScreen = 0;
+  double smallPhone = 400;
 
   @override
   void initState() {
@@ -56,227 +55,360 @@ class _DashboardPageState extends State<DashboardPage> {
         );
     });
     return Scaffold(
-      body: SingleChildScrollView(
-        physics: ScrollPhysics(),
-        child: Column(
+      appBar: PreferredSize(
+        preferredSize: Size(100, 120),
+        child: SafeArea(
+          top: true,
+          child: Container(
+            padding: EdgeInsets.all(16.0),
+            height: MediaQuery.of(context).size.height / 8,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Image.asset(
+                  'assets/images/bank_bjb.png',
+                  scale: MediaQuery.of(context).size.width / 45,
+                ),
+                Badge(
+                  badgeContent: Text(
+                    '1',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  child: Icon(
+                    Icons.notifications,
+                    size: MediaQuery.of(context).size.width / 12,
+                    color: kcolorPrimary[900],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+      bottomNavigationBar: Container(
+        child: Theme(
+          data: Theme.of(context).copyWith(
+              canvasColor: kcolorPrimary[900],
+              primaryColor: Colors.white,
+              textTheme: Theme.of(context)
+                  .textTheme
+                  .copyWith(caption: new TextStyle(color: Colors.black))),
+          child: BottomNavigationBar(
+            onTap: (index) {
+              setState(() {
+                currentScreen = index;
+                _pageController.animateToPage(currentScreen, duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
+              });
+            },
+            currentIndex: currentScreen,
+            type: MediaQuery.of(context).size.width < smallPhone
+                ? BottomNavigationBarType.shifting
+                : BottomNavigationBarType.fixed,
+            backgroundColor: kcolorPrimary[900],
+            selectedFontSize: 16,
+            items: [
+              BottomNavigationBarItem(
+                  icon: Image.asset("assets/icons/home.png"),
+                  title:
+                      Text('Beranda', style: TextStyle(color: Colors.white))),
+              BottomNavigationBarItem(
+                  icon: Image.asset("assets/icons/money.png"),
+                  title:
+                      Text('Pinjaman', style: TextStyle(color: Colors.white))),
+              BottomNavigationBarItem(
+                  icon: Image.asset("assets/icons/credit-card.png"),
+                  title:
+                      Text('Rekening', style: TextStyle(color: Colors.white))),
+              BottomNavigationBarItem(
+                  icon: Image.asset("assets/icons/history.png"),
+                  title:
+                      Text('Riwayat', style: TextStyle(color: Colors.white))),
+              BottomNavigationBarItem(
+                  icon: Image.asset("assets/icons/user.png"),
+                  title: Text('Profil', style: TextStyle(color: Colors.white)))
+            ],
+          ),
+        ),
+      ),
+      body: SafeArea(
+        top: true,
+        child: PageView(
+          controller: _pageController,
+          pageSnapping: true,
+          physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
-            SafeArea(
-              top: true,
-              child: Container(
-                padding: EdgeInsets.all(16.0),
-                height: MediaQuery.of(context).size.height / 8,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Image.asset(
-                      'assets/images/bank_bjb.png',
-                      scale: MediaQuery.of(context).size.width / 45,
-                    ),
-                    Row(
-                      children: <Widget>[
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => Provider.value(
-                                    value: _profileProvider,
-                                    child: ProfilePage())));
-                          },
-                          child: Icon(
-                            Icons.person,
-                            size: MediaQuery.of(context).size.width / 15,
-                          ),
-                          // child: RichText(
-                          //   text: TextSpan(
-                          //     style: TextStyle(color: Colors.black),
-                          //     children: [
-                          //       TextSpan(text: 'Selamat datang\n'),
-                          //       TextSpan(
-                          //         text: _profileProvider.profile?.nama ?? '-',
-                          //         style: TextStyle(fontWeight: FontWeight.bold),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
-                        ),
-                        SizedBox(
-                          width: 30.0,
-                        ),
-                        Badge(
-                          badgeContent: Text(
-                            '1',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          child: Icon(
-                            Icons.notifications,
-                            size: MediaQuery.of(context).size.width / 15,
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
+            new Home(
+              smallPhone: smallPhone,
             ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height / 2.5,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [Color(COLOR_MAIN), Color(COLOR_GRAD)],
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Text(
-                      'NEWS',
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Stack(
-                    children: <Widget>[
-                      CarouselSlider(
-                        height: MediaQuery.of(context).size.height / 3.5,
-                        aspectRatio: 16 / 9,
-                        autoPlay: true,
-                        enlargeCenterPage: true,
-                        enableInfiniteScroll: true,
-                        items: [1, 2, 3, 4, 5, 6].map((i) {
-                          return Builder(
-                            builder: (BuildContext context) {
-                              return Container(
-                                width: MediaQuery.of(context).size.width,
-                                margin: EdgeInsets.symmetric(horizontal: 5.0),
-                                child: GestureDetector(
-                                  onTap: () => _launchURL(i),
-                                  child: Card(
-                                    child: Image.asset(
-                                      'assets/images/img-$i.jpeg',
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-                        }).toList(),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
-            Builder(
-              builder: (context) {
-                return Container(
-                  padding: EdgeInsets.only(top: 16.0, left: 16.0, right: 16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        'FITUR UTAMA',
-                        style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
-                      ),
-                      ListView(
-                        physics: ScrollPhysics(),
-                        shrinkWrap: true,
-                        children: <Widget>[
-                          ListTile(
-                            leading: Icon(MdiIcons.fileDocumentOutline),
-                            title: Text('Pengajuan kredit',
-                                style: TextStyle(color: Colors.black54)),
-                            trailing: Icon(Icons.arrow_forward_ios),
-                            onTap: () async {
-                              if (_profileProvider.profile != null) {
-                                final isInsert =
-                                    await Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        MultiProvider(providers: [
-                                      Provider.value(
-                                        value: _profileProvider,
-                                      ),
-                                    ], child: PengajuanPage()),
-                                  ),
-                                );
-                                if (isInsert != null)
-                                  Scaffold.of(context).showSnackBar(SnackBar(
-                                    content: Text(
-                                        'Berhasil mengajukan kredit, silahkan lihat pada daftar pengajuan kredit'),
-                                  ));
-                              } else {
-                                Scaffold.of(context).showSnackBar(SnackBar(
-                                  content: Text(
-                                      'Silahkan lengkapi profil terlebih dahulu'),
-                                ));
-                              }
-                            },
-                          ),
-                          Divider(
-                            color: Colors.black87,
-                          ),
-                          ListTile(
-                            leading: Icon(MdiIcons.viewList),
-                            title: Text('Daftar pengajuan kredit',
-                                style: TextStyle(color: Colors.black54)),
-                            trailing: Icon(Icons.arrow_forward_ios),
-                            onTap: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => DaftarPengajuanPage()));
-                            },
-                          ),
-                          Divider(
-                            color: Colors.black87,
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                );
-              },
-            )
+            Container(child: Center(child: Text('2'))),
+            Container(child: Center(child: Text('3'))),
+            Container(child: Center(child: Text('4'))),
+            Container(child: Center(child: Text('5')))
           ],
         ),
       ),
     );
   }
+}
 
-  _launchURL(index) async {
-    String url;
-    switch (index) {
-      case 1:
-        url = 'https://twitter.com/infobankbjb/status/1011553228696137728';
-        break;
-      case 2:
-        url = 'https://twitter.com/infobankbjb/status/1170170804547403776';
-        break;
-      case 3:
-        url = 'https://twitter.com/infobankbjb/status/1168443843915612161';
-        break;
-      case 4:
-        url = 'https://twitter.com/infobankbjb/status/1168003769503633409';
-        break;
-      case 5:
-        url = 'https://twitter.com/infobankbjb/status/1167986472168779776';
-        break;
-      case 6:
-        url = 'https://twitter.com/infobankbjb/status/1166220870152359936';
-        break;
-      case 8:
-        url = 'https://twitter.com/infobankbjb/status/1165912331114536960';
-        break;
-    }
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      throw 'Could not launch $url';
-    }
+class Home extends StatelessWidget {
+  const Home({
+    Key key,
+    @required this.smallPhone,
+  }) : super(key: key);
+
+  final double smallPhone;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: 10,
+      itemBuilder: (_, index) {
+        return Card(
+          elevation: 2,
+          margin: EdgeInsets.all(16),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: <Widget>[
+                columnOne(context),
+                Divider(color: Colors.black26, height: 20),
+                columnTwo()
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Padding columnTwo() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: <Widget>[
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'Angsuran Bulan ini',
+              style: TextStyle(color: Colors.black54, fontSize: 18.0),
+            ),
+          ),
+          SizedBox(
+            height: 16,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Cicilan ke-14',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14.0),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    'Rp475.940',
+                    style: TextStyle(color: kcolorPrimary[900], fontSize: 16.0),
+                  ),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Batas akhir bayar',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14.0),
+                  ),
+                  SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    '23 Sep 2019',
+                    style: TextStyle(color: kcolorPrimary[900], fontSize: 16.0),
+                  ),
+                ],
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget columnOne(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: <Widget>[
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              'BJB Kredit Mikro Utama',
+              style: TextStyle(color: kcolorPrimary[900], fontSize: 18.0),
+            ),
+          ),
+          SizedBox(
+            height: 12,
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              'Belum Terbayar',
+              style: TextStyle(color: Colors.black54, fontSize: 14.0),
+            ),
+          ),
+          SizedBox(
+            height: 12,
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Text(
+              'Rp5.000.000',
+              style: TextStyle(color: kcolorPrimary[900], fontSize: 25.0),
+            ),
+          ),
+          SizedBox(
+            height: 12,
+          ),
+          rowBuild(context),
+          SizedBox(
+            height: 12,
+          ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: SmoothStarRating(
+                allowHalfRating: false,
+                onRatingChanged: (v) {},
+                starCount: 5,
+                rating: 4,
+                size: 25.0,
+                color: Colors.orange,
+                borderColor: Colors.orange,
+                spacing: 0.0),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget rowBuild(BuildContext context) {
+    if (MediaQuery.of(context).size.width < smallPhone)
+      return Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Container(
+                  width: 20,
+                  height: 20,
+                  padding: EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30.0),
+                      color: kcolorPrimary[900]),
+                  child: Icon(
+                    Icons.refresh,
+                    color: Colors.white,
+                    size: 14,
+                  )),
+              SizedBox(
+                width: 8,
+              ),
+              Text(
+                '11 Kali angsuran lagi',
+                style: TextStyle(color: Colors.black54, fontSize: 14.0),
+              ),
+            ],
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          Row(
+            children: <Widget>[
+              Container(
+                width: 20,
+                height: 20,
+                padding: EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30.0),
+                    color: kcolorPrimary[900]),
+                child: Text(
+                  'Rp',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              Text(
+                'Rp475.940/bulan',
+                style: TextStyle(color: Colors.black54, fontSize: 14.0),
+              ),
+            ],
+          )
+        ],
+      );
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Row(
+          children: <Widget>[
+            Container(
+                padding: EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30.0),
+                    color: kcolorPrimary[900]),
+                child: Icon(
+                  Icons.refresh,
+                  color: Colors.white,
+                  size: MediaQuery.of(context).size.width / 25,
+                )),
+            SizedBox(
+              width: 8,
+            ),
+            Text(
+              '11 Kali angsuran lagi',
+              style: TextStyle(color: Colors.black54, fontSize: 14.0),
+            ),
+          ],
+        ),
+        Row(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30.0),
+                  color: kcolorPrimary[900]),
+              child: Text(
+                'Rp',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            SizedBox(
+              width: 8,
+            ),
+            Text(
+              'Rp475.940/bulan',
+              style: TextStyle(color: Colors.black54, fontSize: 14.0),
+            ),
+          ],
+        )
+      ],
+    );
   }
 }
