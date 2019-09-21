@@ -1,9 +1,11 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:prototype_bjb/pages/notifikasi/notifikasi_page.dart';
 import 'package:prototype_bjb/pages/pengajuan/daftar_pengajuan_page.dart';
 import 'package:prototype_bjb/pages/profile/profile_page.dart';
 import 'package:prototype_bjb/provider/profile_db.dart';
+import 'package:prototype_bjb/screens/riwayat/riwayat_screen.dart';
 import 'package:prototype_bjb/utils/colors.dart';
 import 'package:prototype_bjb/utils/constant.dart';
 import 'package:provider/provider.dart';
@@ -80,10 +82,16 @@ class _DashboardPageState extends State<DashboardPage> {
                     '1',
                     style: TextStyle(color: Colors.white),
                   ),
-                  child: Icon(
-                    Icons.notifications,
-                    size: MediaQuery.of(context).size.width / 12,
-                    color: kcolorPrimary[900],
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (_) => NotifikasiPage()));
+                    },
+                    child: Icon(
+                      Icons.notifications,
+                      size: MediaQuery.of(context).size.width / 12,
+                      color: kcolorPrimary[900],
+                    ),
                   ),
                 )
               ],
@@ -149,8 +157,8 @@ class _DashboardPageState extends State<DashboardPage> {
               smallPhone: kSmallPhone,
             ),
             DaftarPengajuanPage(),
-            Container(child: Center(child: Text('3'))),
-            Container(child: Center(child: Text('4'))),
+            Container(child: Center(child: Text('Rekening'))),
+            RiwayatPinjamanPage(),
             ProfilePage()
           ],
         ),

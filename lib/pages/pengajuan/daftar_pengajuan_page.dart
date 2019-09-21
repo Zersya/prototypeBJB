@@ -243,7 +243,7 @@ class _DaftarPengajuanPageState extends State<DaftarPengajuanPage> {
         return Colors.green;
       case 'pencairan':
         return Colors.green;
-      case 'ditolak':
+      case 'pinjaman ditolak':
         return Colors.red;
     }
   }
