@@ -24,26 +24,15 @@ class _RekapScreenState extends State<RekapScreen> {
             SizedBox(
               height: 25,
             ),
-            Text(
-              'Rekap Pengajuan',
-              style: TextStyle(
-                color: Colors.black54,
-                fontSize: 21.0,
-              ),
-            ),
-            Divider(
-              color: Colors.black,
-              height: 50.0,
-            ),
-            _dataPinjaman(),
+            (MediaQuery.of(context).size.width < kSmallPhone)
+                ? _dataPinjamanSmallPhone()
+                : _dataPinjamanWidePhone(),
             SizedBox(
               height: MediaQuery.of(context).size.width / 10,
             ),
-            _nominalPinjam(),
-            SizedBox(
-              height: MediaQuery.of(context).size.width / 10,
-            ),
-            _berkas()
+            (MediaQuery.of(context).size.width < kSmallPhone)
+                ? _dataDebiturSmallPhone()
+                : _dataDebiturWidePhone(),
           ],
         ),
       ),
@@ -150,197 +139,459 @@ class _RekapScreenState extends State<RekapScreen> {
     );
   }
 
-  Column _nominalPinjam() {
+Column _dataDebiturSmallPhone() {
     return Column(
       children: <Widget>[
-        Container(
-          padding: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.0),
-            color: Color(kColorMain),
-          ),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Nominal Pinjaman',
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-              ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'Debitur',
+            textAlign: TextAlign.start,
+            style: TextStyle(
+              color: Colors.black54,
+              fontSize: 18.0,
             ),
           ),
         ),
         Divider(
           color: Colors.transparent,
-          height: 10.0,
+          height: 20.0,
         ),
-        Container(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                ListTile(
-                  title: Text(
-                    'Jumlah Pinjam',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  subtitle: Text(
-                    _pinjamanProvider?.controllerNominal?.text ?? '-',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                ),
-                Divider(
-                  color: Colors.black26,
-                  height: 30.0,
-                ),
-                ListTile(
-                  title: Text(
-                    'Jangka Waktu',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  subtitle: Text(
-                    '${_pinjamanProvider?.controllerBulan?.text} Bulan' ?? '-',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                ),
-              ],
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Nama Badan Usaha',
+              style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold),
             ),
-          ),
+            SizedBox(
+              height: 8.0,
+            ),
+            Text(
+              'PT. KitaCode',
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 18.0,
+              ),
+            ),
+            Divider(
+              color: Colors.black26,
+              height: 25.0,
+            ),
+            Text(
+              'Penanggung Jawab',
+              style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 8.0,
+            ),
+            Text(
+              'Irvan Maulana',
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 18.0,
+              ),
+            ),
+          ],
         )
       ],
     );
   }
 
-  Column _dataPinjaman() {
+
+  Column _dataDebiturWidePhone() {
     return Column(
       children: <Widget>[
-        Container(
-          padding: EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8.0),
-            color: Color(kColorMain),
-          ),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Data Pinjaman',
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-              ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'Debitur',
+            textAlign: TextAlign.start,
+            style: TextStyle(
+              color: Colors.black54,
+              fontSize: 18.0,
             ),
           ),
         ),
         Divider(
           color: Colors.transparent,
-          height: 10.0,
+          height: 20.0,
         ),
-        Container(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                ListTile(
-                  title: Text(
-                    'Jenis Peminjam',
-                    style: TextStyle(
+                Text(
+                  'Nama Badan Usaha',
+                  style: TextStyle(
                       color: Colors.black54,
                       fontSize: 18.0,
-                    ),
-                  ),
-                  subtitle: Text(
-                    _pinjamanProvider?.jenisPeminjam ?? '-',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                    ),
-                  ),
+                      fontWeight: FontWeight.bold),
                 ),
-                Divider(
-                  color: Colors.black26,
-                  height: 30.0,
-                ),
-                ListTile(
-                  title: Text(
-                    'Tujuan Pinjam',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  subtitle: Text(
-                    _pinjamanProvider?.tujuanPinjaman ?? '-',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                ),
-                Divider(
-                  color: Colors.black26,
-                  height: 30.0,
-                ),
-                ListTile(
-                  title: Text(
-                    'Jenis Pinjam',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  subtitle: Text(
-                    _pinjamanProvider?.jenisPinjaman ?? '-',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                ),
-                Divider(
-                  color: Colors.black26,
-                  height: 30.0,
-                ),
-                ListTile(
-                  title: Text(
-                    'Pengajuan Pinjam',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                  subtitle: Text(
-                    _pinjamanProvider?.pengajuanPinjaman ?? '-',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18.0,
-                    ),
+                Text(
+                  'PT. KitaCode',
+                  style: TextStyle(
+                    color: Colors.black54,
+                    fontSize: 18.0,
                   ),
                 ),
               ],
             ),
+            Divider(
+              color: Colors.black26,
+              height: 25.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  'Penanggung Jawab',
+                  style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  'Irvan Maulana',
+                  style: TextStyle(
+                    color: Colors.black54,
+                    fontSize: 18.0,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        )
+      ],
+    );
+}
+
+
+  Column _dataPinjamanSmallPhone() {
+    return Column(
+      children: <Widget>[
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'Pinjaman',
+            textAlign: TextAlign.start,
+            style: TextStyle(
+              color: Colors.black54,
+              fontSize: 18.0,
+            ),
           ),
+        ),
+        Divider(
+          color: Colors.transparent,
+          height: 20.0,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              'Produk',
+              style: TextStyle(
+                color: Colors.black54,
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+              ),
+            ),
+            SizedBox(
+              height: 8.0,
+            ),
+            Text(
+              _pinjamanProvider?.jenisPinjaman ?? '-',
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 18.0,
+              ),
+            ),
+            Divider(
+              color: Colors.black26,
+              height: 25.0,
+            ),
+            Text(
+              'Jenis Peminjam',
+              style: TextStyle(
+                  color: Colors.black54,
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold),
+            ),
+            SizedBox(
+              height: 8.0,
+            ),
+            Text(
+              _pinjamanProvider?.jenisPeminjam ?? '-',
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 18.0,
+              ),
+            ),
+            Divider(
+              color: Colors.black26,
+              height: 25.0,
+            ),
+            Text(
+              'Tujuan Pinjaman',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black54,
+                fontSize: 18.0,
+              ),
+            ),
+            SizedBox(
+              height: 8.0,
+            ),
+            Text(
+              _pinjamanProvider?.tujuanPinjaman ?? '-',
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 18.0,
+              ),
+            ),
+            Divider(
+              color: Colors.black26,
+              height: 25.0,
+            ),
+            
+            Text(
+              'Jenis Pengajuan',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black54,
+                fontSize: 18.0,
+              ),
+            ),
+            SizedBox(
+              height: 8.0,
+            ),
+            Text(
+              _pinjamanProvider?.pengajuanPinjaman ?? '-',
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 18.0,
+              ),
+            ),
+            Divider(
+              color: Colors.black26,
+              height: 25.0,
+            ),
+            Text(
+              'Nominal',
+              style: TextStyle(
+                color: Colors.black54,
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+              ),
+            ),
+            SizedBox(
+              height: 8.0,
+            ),
+            Text(
+              _pinjamanProvider?.controllerNominal?.text ?? '-',
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 18.0,
+              ),
+            ),
+            Divider(
+              color: Colors.black26,
+              height: 25.0,
+            ),
+            Text(
+              'Jangka Waktu',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                color: Colors.black54,
+                fontSize: 18.0,
+              ),
+            ),
+            SizedBox(
+              height: 8.0,
+            ),
+            Text(
+              '${_pinjamanProvider?.controllerBulan?.text} Bulan' ?? '-',
+              style: TextStyle(
+                color: Colors.black54,
+                fontSize: 18.0,
+              ),
+            ),
+          ],
+        )
+      ],
+    );
+  }
+
+  Column _dataPinjamanWidePhone() {
+    return Column(
+      children: <Widget>[
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'Pinjaman',
+            textAlign: TextAlign.start,
+            style: TextStyle(
+              color: Colors.black54,
+              fontSize: 18.0,
+            ),
+          ),
+        ),
+        Divider(
+          color: Colors.transparent,
+          height: 20.0,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  'Produk',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black54,
+                    fontSize: 18.0,
+                  ),
+                ),
+                Text(
+                  _pinjamanProvider?.jenisPinjaman ?? '-',
+                  style: TextStyle(
+                    color: Colors.black54,
+                    fontSize: 18.0,
+                  ),
+                ),
+              ],
+            ),
+            Divider(
+              color: Colors.black26,
+              height: 25.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  'Jenis Peminjaman',
+                  style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  _pinjamanProvider?.jenisPeminjam ?? '-',
+                  style: TextStyle(
+                    color: Colors.black54,
+                    fontSize: 18.0,
+                  ),
+                ),
+              ],
+            ),
+            Divider(
+              color: Colors.black26,
+              height: 25.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  'Tujuan Pinjaman',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black54,
+                    fontSize: 18.0,
+                  ),
+                ),
+                Text(
+                  _pinjamanProvider?.tujuanPinjaman ?? '-',
+                  style: TextStyle(
+                    color: Colors.black54,
+                    fontSize: 18.0,
+                  ),
+                ),
+              ],
+            ),
+            Divider(
+              color: Colors.black26,
+              height: 25.0,
+            ),
+            
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  'Pengajuan Pinjam',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black54,
+                    fontSize: 18.0,
+                  ),
+                ),
+                Text(
+                  _pinjamanProvider?.pengajuanPinjaman ?? '-',
+                  style: TextStyle(
+                    color: Colors.black54,
+                    fontSize: 18.0,
+                  ),
+                ),
+              ],
+            ),
+            Divider(
+              color: Colors.black26,
+              height: 25.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  'Nominal',
+                  style: TextStyle(
+                    color: Colors.black54,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                  ),
+                ),
+                Text(
+                  _pinjamanProvider?.controllerNominal?.text ?? '-',
+                  style: TextStyle(
+                    color: Colors.black54,
+                    fontSize: 18.0,
+                  ),
+                ),
+              ],
+            ),
+            Divider(
+              color: Colors.black26,
+              height: 25.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  'Jangka Waktu',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black54,
+                    fontSize: 18.0,
+                  ),
+                ),
+                Text(
+                  '${_pinjamanProvider?.controllerBulan?.text} Bulan' ?? '-',
+                  style: TextStyle(
+                    color: Colors.black54,
+                    fontSize: 18.0,
+                  ),
+                ),
+              ],
+            )
+          ],
         )
       ],
     );

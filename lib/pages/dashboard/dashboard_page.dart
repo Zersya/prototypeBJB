@@ -1,9 +1,11 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:prototype_bjb/pages/pengajuan/daftar_pengajuan_page.dart';
 import 'package:prototype_bjb/pages/profile/profile_page.dart';
 import 'package:prototype_bjb/provider/profile_db.dart';
 import 'package:prototype_bjb/utils/colors.dart';
+import 'package:prototype_bjb/utils/constant.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 
@@ -18,7 +20,6 @@ class _DashboardPageState extends State<DashboardPage> {
   PageController _pageController = PageController();
   bool isAlreadyshowed = false;
   int currentScreen = 0;
-  double smallPhone = 400;
 
   @override
   void initState() {
@@ -43,11 +44,16 @@ class _DashboardPageState extends State<DashboardPage> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onPressed: () async {
-                    await Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => Provider.value(
-                            value: _profileProvider, child: ProfilePage())));
-                    Profile _profile = await _profileProvider.getAccount();
-                    if (_profile != null) Navigator.of(context).pop();
+                    setState(() {
+                      _pageController.animateToPage(4,
+                          duration: Duration(milliseconds: 200),
+                          curve: Curves.easeInOut);
+                      currentScreen = 4;
+                      Navigator.of(context).pop();
+                    });
+                    // await Navigator.of(context).push(MaterialPageRoute(
+                    //     builder: (context) => Provider.value(
+                    //         value: _profileProvider, child: ProfilePage())));
                   },
                   child: Text('Silahkan isi data profil')),
             );
@@ -97,11 +103,13 @@ class _DashboardPageState extends State<DashboardPage> {
             onTap: (index) {
               setState(() {
                 currentScreen = index;
-                _pageController.animateToPage(currentScreen, duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
+                _pageController.animateToPage(currentScreen,
+                    duration: Duration(milliseconds: 200),
+                    curve: Curves.easeInOut);
               });
             },
             currentIndex: currentScreen,
-            type: MediaQuery.of(context).size.width < smallPhone
+            type: MediaQuery.of(context).size.width < kSmallPhone
                 ? BottomNavigationBarType.shifting
                 : BottomNavigationBarType.fixed,
             backgroundColor: kcolorPrimary[900],
@@ -138,9 +146,9 @@ class _DashboardPageState extends State<DashboardPage> {
           physics: NeverScrollableScrollPhysics(),
           children: <Widget>[
             new Home(
-              smallPhone: smallPhone,
+              smallPhone: kSmallPhone,
             ),
-            Container(child: Center(child: Text('2'))),
+            DaftarPengajuanPage(),
             Container(child: Center(child: Text('3'))),
             Container(child: Center(child: Text('4'))),
             ProfilePage()

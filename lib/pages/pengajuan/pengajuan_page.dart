@@ -5,6 +5,7 @@ import 'package:prototype_bjb/screens/pengajuan/halaman_1_screen.dart';
 import 'package:prototype_bjb/screens/pengajuan/halaman_2_screen.dart';
 import 'package:prototype_bjb/screens/pengajuan/rekap_screen.dart';
 import 'package:prototype_bjb/screens/pengajuan/termsandcondition_screen.dart';
+import 'package:prototype_bjb/utils/colors.dart';
 import 'package:prototype_bjb/utils/constant.dart';
 import 'package:provider/provider.dart';
 
@@ -53,45 +54,44 @@ class _PengajuanPageState extends State<PengajuanPage> {
     _profileProvider = Provider.of<ProfileProvider>(context);
 
     return Scaffold(
-      bottomNavigationBar: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          Container(
-            color: Colors.black12,
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                _step(1),
-                _line(),
-                _step(2),
-                _line(),
-                _step(3),
-                _line(),
-                _step(4),
-              ],
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Image.asset(
+          'assets/images/bank_bjb.png',
+          scale: MediaQuery.of(context).size.width / 45,
+        ),
+        centerTitle: true,
+        leading: InkWell(
+          onTap: (){
+            Navigator.of(context).pop();
+          },
+            child: Icon(Icons.arrow_back_ios, color: kcolorPrimary[900])),
+      ),
+      bottomNavigationBar: SafeArea(
+        bottom: true,
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+                color: Color(kColorButtonSimpan),
+                borderRadius: BorderRadius.circular(10)),
+            child: Builder(
+              builder: (context) {
+                return FlatButton(
+                  child: Text(
+                    indexScreen == 3 ? 'Ajukan' : 'Selanjutnya',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () async {
+                    await _showDialog(context);
+                  },
+                );
+              },
             ),
           ),
-          Container(
-              width: double.infinity,
-              color: Color(kColorMain),
-              child: Builder(
-                builder: (context) {
-                  return SafeArea(
-                    bottom: true,
-                    child: FlatButton(
-                      child: Text(
-                        indexScreen == 3 ? 'Ajukan' : 'Selanjutnya',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      onPressed: () async {
-                        await _showDialog(context);
-                      },
-                    ),
-                  );
-                },
-              )),
-        ],
+        ),
       ),
       body: SafeArea(
         top: true,
@@ -151,8 +151,8 @@ class _PengajuanPageState extends State<PengajuanPage> {
                       Scaffold.of(_context).showSnackBar(SnackBar(
                         content: Text('Silahkan setujui syarat dan ketentuan'),
                       ));
-                    } else if (_pinjamanProvider.suratIzinUsaha == null &&
-                        _pinjamanProvider.rekeningKoran == null &&
+                    } else if (_pinjamanProvider.suratIzinUsaha == null ||
+                        _pinjamanProvider.rekeningKoran == null ||
                         _pinjamanProvider.suratKeterangan == null) {
                       Navigator.of(context).pop();
                       Scaffold.of(_context).showSnackBar(SnackBar(
