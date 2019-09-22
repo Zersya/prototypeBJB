@@ -24,18 +24,17 @@ class _Halaman2ScreenState extends State<Halaman2Screen> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: <Widget>[
-                SizedBox(
-                  height: 30,
+                Divider(
+                  height: 20,
+                  color: Colors.black,
                 ),
-                Card(
-                  elevation: 4.0,
-                  child: InkWell(
-                    onTap: () async {
-                      await showChoices(0);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Center(
+                InkWell(
+                  onTap: () async {
+                    await showChoices(0);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Center(
                         child: _pinjamanProvider.rekeningKoran == null
                             ? Row(
                                 mainAxisAlignment:
@@ -45,27 +44,32 @@ class _Halaman2ScreenState extends State<Halaman2Screen> {
                                   SizedBox(
                                     width: 15.0,
                                   ),
-                                  Icon(Icons.add_a_photo),
+                                  Image.asset("assets/icons/photo-camera.png"),
                                 ],
                               )
-                            : Image.file(_pinjamanProvider.rekeningKoran,
-                                fit: BoxFit.cover),
-                      ),
-                    ),
+                            : Column(
+                                children: <Widget>[
+                                  Text('Rekening Koran Anda'),
+                                  SizedBox(
+                                    width: 15.0,
+                                  ),
+                                  Image.file(_pinjamanProvider.rekeningKoran,
+                                      fit: BoxFit.cover),
+                                ],
+                              )),
                   ),
                 ),
-                SizedBox(
-                  height: 15,
+                Divider(
+                  height: 20,
+                  color: Colors.black,
                 ),
-                Card(
-                  elevation: 4.0,
-                  child: InkWell(
-                    onTap: () async {
-                      await showChoices(1);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Center(
+                InkWell(
+                  onTap: () async {
+                    await showChoices(1);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Center(
                         child: _pinjamanProvider.suratKeterangan == null
                             ? Row(
                                 mainAxisAlignment:
@@ -75,42 +79,56 @@ class _Halaman2ScreenState extends State<Halaman2Screen> {
                                   SizedBox(
                                     width: 15.0,
                                   ),
-                                  Icon(Icons.add_a_photo),
+                                  Image.asset("assets/icons/photo-camera.png"),
                                 ],
                               )
-                            : Image.file(_pinjamanProvider.suratKeterangan,
-                                fit: BoxFit.cover),
-                      ),
-                    ),
+                            : Column(
+                                children: <Widget>[
+                                  Text('Surat Keterangan Usaha (SKU)'),
+                                  SizedBox(
+                                    width: 15.0,
+                                  ),
+                                  Image.file(_pinjamanProvider.suratKeterangan,
+                                      fit: BoxFit.cover),
+                                ],
+                              )),
                   ),
                 ),
-                SizedBox(
-                  height: 15,
+                Divider(
+                  height: 20,
+                  color: Colors.black,
                 ),
-                Card(
-                  elevation: 4.0,
-                  child: InkWell(
-                    onTap: () async {
-                      await showChoices(2);
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Center(
+                InkWell(
+                  onTap: () async {
+                    await showChoices(2);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Center(
                         child: _pinjamanProvider.suratIzinUsaha == null
                             ? Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Text('Surat Ijin Usaha Pedagang (SIUP)'),
                                   SizedBox(
                                     width: 15.0,
                                   ),
-                                  Icon(Icons.add_a_photo),
+                                  Image.asset("assets/icons/photo-camera.png"),
                                 ],
                               )
-                            : Image.file(_pinjamanProvider.suratIzinUsaha,
-                                fit: BoxFit.cover),
-                      ),
-                    ),
+                            : Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text('Surat Ijin Usaha Pedagang (SIUP)'),
+                                  SizedBox(
+                                    width: 15.0,
+                                  ),
+                                  Image.file(_pinjamanProvider.suratIzinUsaha,
+                                      fit: BoxFit.cover),
+                                ],
+                              )),
                   ),
                 ),
               ],

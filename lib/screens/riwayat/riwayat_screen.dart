@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:prototype_bjb/pages/pengajuan/manajemen_pinjaman_page.dart';
 import 'package:prototype_bjb/pages/pengajuan/pengajuan_page.dart';
 import 'package:prototype_bjb/provider/profile_db.dart';
 import 'package:prototype_bjb/utils/colors.dart';
@@ -28,7 +29,6 @@ class _RiwayatPinjamanPageState extends State<RiwayatPinjamanPage> {
   Widget build(BuildContext context) {
     _profileProvider = Provider.of<ProfileProvider>(context);
     return Scaffold(
-      
       body: StreamProvider.value(
         value: _pinjamanProvider.open().asStream(),
         child: Consumer(
@@ -70,67 +70,85 @@ class _RiwayatPinjamanPageState extends State<RiwayatPinjamanPage> {
                           itemCount: data.length,
                           itemBuilder: (context, index) {
                             return Card(
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    (MediaQuery.of(context).size.width <
-                                            kSmallPhone)
-                                        ? Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Text(
-                                                  data[index]
-                                                      .jenisPinjaman
-                                                      .toString(),
-                                                  style:
-                                                      TextStyle(fontSize: 18)),
-                                              SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                  _dateFormater.format(DateTime
-                                                      .fromMillisecondsSinceEpoch(
-                                                          int.parse(data[index]
-                                                              .waktuDiajukan))),
-                                                  style:
-                                                      TextStyle(fontSize: 18)),
-                                            ],
-                                          )
-                                        : Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: <Widget>[
-                                              Text(
-                                                  data[index]
-                                                      .jenisPinjaman
-                                                      .toString(),
-                                                  style:
-                                                      TextStyle(fontSize: 18)),
-                                              Text(
-                                                  _dateFormater.format(DateTime
-                                                      .fromMillisecondsSinceEpoch(
-                                                          int.parse(data[index]
-                                                              .waktuDiajukan))),
-                                                  style:
-                                                      TextStyle(fontSize: 18)),
-                                            ],
-                                          ),
-                                    SizedBox(
-                                      height: 10,
-                                    ),
-                                    Align(
-                                      alignment: Alignment.centerRight,
-                                      child: Text(
-                                        data[index].nominalPinjaman.toString(),
-                                        style: TextStyle(
-                                            color: kcolorPrimary[900],
-                                            fontSize: 25.0),
+                              child: InkWell(
+                                onTap: () {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          ManajemenPinjamanPage(
+                                        pinjaman: data[index],
                                       ),
                                     ),
-                                  ],
+                                  );
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      (MediaQuery.of(context).size.width <
+                                              kSmallPhone)
+                                          ? Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text(
+                                                    data[index]
+                                                        .jenisPinjaman
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                        fontSize: 18)),
+                                                SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text(
+                                                    _dateFormater.format(DateTime
+                                                        .fromMillisecondsSinceEpoch(
+                                                            int.parse(data[
+                                                                    index]
+                                                                .waktuDiajukan))),
+                                                    style: TextStyle(
+                                                        fontSize: 18)),
+                                              ],
+                                            )
+                                          : Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: <Widget>[
+                                                Text(
+                                                    data[index]
+                                                        .jenisPinjaman
+                                                        .toString(),
+                                                    style: TextStyle(
+                                                        fontSize: 18)),
+                                                Text(
+                                                    _dateFormater.format(DateTime
+                                                        .fromMillisecondsSinceEpoch(
+                                                            int.parse(data[
+                                                                    index]
+                                                                .waktuDiajukan))),
+                                                    style: TextStyle(
+                                                        fontSize: 18)),
+                                              ],
+                                            ),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      Align(
+                                        alignment: Alignment.centerRight,
+                                        child: Text(
+                                          data[index]
+                                              .nominalPinjaman
+                                              .toString(),
+                                          style: TextStyle(
+                                              color: kcolorPrimary[900],
+                                              fontSize: 25.0),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             );

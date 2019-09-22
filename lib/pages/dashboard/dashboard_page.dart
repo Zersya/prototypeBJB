@@ -117,11 +117,10 @@ class _DashboardPageState extends State<DashboardPage> {
               });
             },
             currentIndex: currentScreen,
-            type: MediaQuery.of(context).size.width < kSmallPhone
-                ? BottomNavigationBarType.shifting
-                : BottomNavigationBarType.fixed,
+            type: BottomNavigationBarType.fixed,
             backgroundColor: kcolorPrimary[900],
-            selectedFontSize: 16,
+            selectedFontSize: 14,
+            selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
             items: [
               BottomNavigationBarItem(
                   icon: Image.asset("assets/icons/home.png"),

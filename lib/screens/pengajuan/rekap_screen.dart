@@ -46,7 +46,7 @@ class _RekapScreenState extends State<RekapScreen> {
           'Rekening Koran',
           style: TextStyle(
             color: Colors.black54,
-            fontSize: 18.0,
+            fontSize: 14.0,
           ),
         ),
         Padding(
@@ -77,7 +77,7 @@ class _RekapScreenState extends State<RekapScreen> {
           'Surat Keterangan Usaha',
           style: TextStyle(
             color: Colors.black54,
-            fontSize: 18.0,
+            fontSize: 14.0,
           ),
         ),
         Padding(
@@ -108,7 +108,7 @@ class _RekapScreenState extends State<RekapScreen> {
           'Surat Izin Usaha',
           style: TextStyle(
             color: Colors.black54,
-            fontSize: 18.0,
+            fontSize: 14.0,
           ),
         ),
         Padding(
@@ -149,7 +149,7 @@ Column _dataDebiturSmallPhone() {
             textAlign: TextAlign.start,
             style: TextStyle(
               color: Colors.black54,
-              fontSize: 18.0,
+              fontSize: 14.0,
             ),
           ),
         ),
@@ -164,7 +164,7 @@ Column _dataDebiturSmallPhone() {
               'Nama Badan Usaha',
               style: TextStyle(
                   color: Colors.black54,
-                  fontSize: 18.0,
+                  fontSize: 14.0,
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(
@@ -174,7 +174,7 @@ Column _dataDebiturSmallPhone() {
               'PT. KitaCode',
               style: TextStyle(
                 color: Colors.black54,
-                fontSize: 18.0,
+                fontSize: 14.0,
               ),
             ),
             Divider(
@@ -185,7 +185,7 @@ Column _dataDebiturSmallPhone() {
               'Penanggung Jawab',
               style: TextStyle(
                   color: Colors.black54,
-                  fontSize: 18.0,
+                  fontSize: 14.0,
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(
@@ -195,7 +195,7 @@ Column _dataDebiturSmallPhone() {
               'Irvan Maulana',
               style: TextStyle(
                 color: Colors.black54,
-                fontSize: 18.0,
+                fontSize: 14.0,
               ),
             ),
           ],
@@ -215,7 +215,7 @@ Column _dataDebiturSmallPhone() {
             textAlign: TextAlign.start,
             style: TextStyle(
               color: Colors.black54,
-              fontSize: 18.0,
+              fontSize: 14.0,
             ),
           ),
         ),
@@ -233,14 +233,14 @@ Column _dataDebiturSmallPhone() {
                   'Nama Badan Usaha',
                   style: TextStyle(
                       color: Colors.black54,
-                      fontSize: 18.0,
+                      fontSize: 14.0,
                       fontWeight: FontWeight.bold),
                 ),
                 Text(
                   'PT. KitaCode',
                   style: TextStyle(
                     color: Colors.black54,
-                    fontSize: 18.0,
+                    fontSize: 14.0,
                   ),
                 ),
               ],
@@ -256,14 +256,14 @@ Column _dataDebiturSmallPhone() {
                   'Penanggung Jawab',
                   style: TextStyle(
                       color: Colors.black54,
-                      fontSize: 18.0,
+                      fontSize: 14.0,
                       fontWeight: FontWeight.bold),
                 ),
                 Text(
                   'Irvan Maulana',
                   style: TextStyle(
                     color: Colors.black54,
-                    fontSize: 18.0,
+                    fontSize: 14.0,
                   ),
                 ),
               ],
@@ -285,7 +285,7 @@ Column _dataDebiturSmallPhone() {
             textAlign: TextAlign.start,
             style: TextStyle(
               color: Colors.black54,
-              fontSize: 18.0,
+              fontSize: 14.0,
             ),
           ),
         ),
@@ -301,7 +301,7 @@ Column _dataDebiturSmallPhone() {
               style: TextStyle(
                 color: Colors.black54,
                 fontWeight: FontWeight.bold,
-                fontSize: 18.0,
+                fontSize: 14.0,
               ),
             ),
             SizedBox(
@@ -311,7 +311,7 @@ Column _dataDebiturSmallPhone() {
               _pinjamanProvider?.jenisPinjaman ?? '-',
               style: TextStyle(
                 color: Colors.black54,
-                fontSize: 18.0,
+                fontSize: 12.0,
               ),
             ),
             Divider(
@@ -322,7 +322,7 @@ Column _dataDebiturSmallPhone() {
               'Jenis Peminjam',
               style: TextStyle(
                   color: Colors.black54,
-                  fontSize: 18.0,
+                  fontSize: 14.0,
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(
@@ -332,7 +332,7 @@ Column _dataDebiturSmallPhone() {
               _pinjamanProvider?.jenisPeminjam ?? '-',
               style: TextStyle(
                 color: Colors.black54,
-                fontSize: 18.0,
+                fontSize: 12.0,
               ),
             ),
             Divider(
@@ -344,7 +344,7 @@ Column _dataDebiturSmallPhone() {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.black54,
-                fontSize: 18.0,
+                fontSize: 14.0,
               ),
             ),
             SizedBox(
@@ -354,7 +354,7 @@ Column _dataDebiturSmallPhone() {
               _pinjamanProvider?.tujuanPinjaman ?? '-',
               style: TextStyle(
                 color: Colors.black54,
-                fontSize: 18.0,
+                fontSize: 12.0,
               ),
             ),
             Divider(
@@ -367,7 +367,7 @@ Column _dataDebiturSmallPhone() {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.black54,
-                fontSize: 18.0,
+                fontSize: 14.0,
               ),
             ),
             SizedBox(
@@ -377,7 +377,7 @@ Column _dataDebiturSmallPhone() {
               _pinjamanProvider?.pengajuanPinjaman ?? '-',
               style: TextStyle(
                 color: Colors.black54,
-                fontSize: 18.0,
+                fontSize: 12.0,
               ),
             ),
             Divider(
@@ -389,7 +389,7 @@ Column _dataDebiturSmallPhone() {
               style: TextStyle(
                 color: Colors.black54,
                 fontWeight: FontWeight.bold,
-                fontSize: 18.0,
+                fontSize: 14.0,
               ),
             ),
             SizedBox(
@@ -399,7 +399,7 @@ Column _dataDebiturSmallPhone() {
               _pinjamanProvider?.controllerNominal?.text ?? '-',
               style: TextStyle(
                 color: Colors.black54,
-                fontSize: 18.0,
+                fontSize: 12.0,
               ),
             ),
             Divider(
@@ -411,7 +411,7 @@ Column _dataDebiturSmallPhone() {
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: Colors.black54,
-                fontSize: 18.0,
+                fontSize: 14.0,
               ),
             ),
             SizedBox(
@@ -421,7 +421,7 @@ Column _dataDebiturSmallPhone() {
               '${_pinjamanProvider?.controllerBulan?.text} Bulan' ?? '-',
               style: TextStyle(
                 color: Colors.black54,
-                fontSize: 18.0,
+                fontSize: 12.0,
               ),
             ),
           ],
@@ -440,7 +440,7 @@ Column _dataDebiturSmallPhone() {
             textAlign: TextAlign.start,
             style: TextStyle(
               color: Colors.black54,
-              fontSize: 18.0,
+              fontSize: 14.0,
             ),
           ),
         ),
@@ -459,14 +459,14 @@ Column _dataDebiturSmallPhone() {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black54,
-                    fontSize: 18.0,
+                    fontSize: 14.0,
                   ),
                 ),
                 Text(
                   _pinjamanProvider?.jenisPinjaman ?? '-',
                   style: TextStyle(
                     color: Colors.black54,
-                    fontSize: 18.0,
+                    fontSize: 12.0,
                   ),
                 ),
               ],
@@ -482,14 +482,14 @@ Column _dataDebiturSmallPhone() {
                   'Jenis Peminjaman',
                   style: TextStyle(
                       color: Colors.black54,
-                      fontSize: 18.0,
+                      fontSize: 14.0,
                       fontWeight: FontWeight.bold),
                 ),
                 Text(
                   _pinjamanProvider?.jenisPeminjam ?? '-',
                   style: TextStyle(
                     color: Colors.black54,
-                    fontSize: 18.0,
+                    fontSize: 12.0,
                   ),
                 ),
               ],
@@ -506,14 +506,14 @@ Column _dataDebiturSmallPhone() {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black54,
-                    fontSize: 18.0,
+                    fontSize: 14.0,
                   ),
                 ),
                 Text(
                   _pinjamanProvider?.tujuanPinjaman ?? '-',
                   style: TextStyle(
                     color: Colors.black54,
-                    fontSize: 18.0,
+                    fontSize: 12.0,
                   ),
                 ),
               ],
@@ -531,14 +531,14 @@ Column _dataDebiturSmallPhone() {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black54,
-                    fontSize: 18.0,
+                    fontSize: 14.0,
                   ),
                 ),
                 Text(
                   _pinjamanProvider?.pengajuanPinjaman ?? '-',
                   style: TextStyle(
                     color: Colors.black54,
-                    fontSize: 18.0,
+                    fontSize: 12.0,
                   ),
                 ),
               ],
@@ -555,14 +555,14 @@ Column _dataDebiturSmallPhone() {
                   style: TextStyle(
                     color: Colors.black54,
                     fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
+                    fontSize: 14.0,
                   ),
                 ),
                 Text(
                   _pinjamanProvider?.controllerNominal?.text ?? '-',
                   style: TextStyle(
                     color: Colors.black54,
-                    fontSize: 18.0,
+                    fontSize: 12.0,
                   ),
                 ),
               ],
@@ -579,14 +579,14 @@ Column _dataDebiturSmallPhone() {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Colors.black54,
-                    fontSize: 18.0,
+                    fontSize: 14.0,
                   ),
                 ),
                 Text(
                   '${_pinjamanProvider?.controllerBulan?.text} Bulan' ?? '-',
                   style: TextStyle(
                     color: Colors.black54,
-                    fontSize: 18.0,
+                    fontSize: 12.0,
                   ),
                 ),
               ],

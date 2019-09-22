@@ -154,7 +154,8 @@ class _DaftarPengajuanPageState extends State<DaftarPengajuanPage> {
                                       Align(
                                         alignment: Alignment.centerRight,
                                         child: Text(
-                                          data[index].statusPinjaman.toString(),
+                                          _convertStatus(
+                                              data[index].statusPinjaman),
                                           style: TextStyle(
                                               color: _selectColorStatus(
                                                   data[index].statusPinjaman),
@@ -165,53 +166,14 @@ class _DaftarPengajuanPageState extends State<DaftarPengajuanPage> {
                                   ),
                                 ),
                                 onTap: () {
-                                  showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return AlertDialog(
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(15)),
-                                          title: Text('Menu'),
-                                          content: Column(
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: <Widget>[
-                                              ListTile(
-                                                title: Text('Detail Pinjaman'),
-                                                onTap: () {
-                                                  Navigator.of(context).pop();
-                                                  Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ManajemenPinjamanPage(
-                                                        pinjaman: data[index],
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                              ),
-                                              Divider(
-                                                color: Colors.black87,
-                                              ),
-                                              ListTile(
-                                                title:
-                                                    Text('Progress Pengajuan'),
-                                                onTap: () {
-                                                  Navigator.of(context).pop();
-                                                  Navigator.of(context).push(
-                                                    MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ProgressPengajuanPage(
-                                                        pinjaman: data[index],
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                              )
-                                            ],
-                                          ),
-                                        );
-                                      });
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          ProgressPengajuanPage(
+                                        pinjaman: data[index],
+                                      ),
+                                    ),
+                                  );
                                 },
                               ),
                             );
@@ -226,6 +188,28 @@ class _DaftarPengajuanPageState extends State<DaftarPengajuanPage> {
         ),
       ),
     );
+  }
+
+  String _convertStatus(String status) {
+    status = status.toLowerCase();
+    switch (status) {
+      case 'pengajuan':
+        return 'Menunggu';
+      case 'vertifikasi data':
+        return 'Menunggu';
+      case 'tinjauan':
+        return 'Menunggu';
+      case 'survey':
+        return 'Menunggu';
+      case 'akad':
+        return 'Menunggu';
+      case 'pencairan':
+        return 'Menunggu';
+      case 'pinjaman ditolak':
+        return 'Ditolak';
+      default:
+        return 'Ditolak';
+    }
   }
 
   MaterialColor _selectColorStatus(String status) {
@@ -245,7 +229,8 @@ class _DaftarPengajuanPageState extends State<DaftarPengajuanPage> {
         return Colors.green;
       case 'pinjaman ditolak':
         return Colors.red;
-      default: return Colors.red;
+      default:
+        return Colors.red;
     }
   }
 }
