@@ -49,138 +49,136 @@ class _DaftarPengajuanPageState extends State<DaftarPengajuanPage> {
                 valueColor: AlwaysStoppedAnimation<Color>(Color(kColorMain)),
               );
             else
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: SafeArea(
-                  top: true,
-                  bottom: true,
-                  child: StreamProvider.value(
-                    value: _pinjamanProvider.getPinjaman().asStream(),
-                    child: Consumer<List<Pinjaman>>(
-                      builder: (_, data, child) {
-                        if (data == null) {
-                          return CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                                Color(kColorMain)),
+              return SafeArea(
+                top: true,
+                bottom: true,
+                child: StreamProvider.value(
+                  value: _pinjamanProvider.getPinjaman().asStream(),
+                  child: Consumer<List<Pinjaman>>(
+                    builder: (_, data, child) {
+                      if (data == null) {
+                        return CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                              Color(kColorMain)),
+                        );
+                      }
+                      if (data.length == 0)
+                        return Container(
+                          child: Center(
+                            child: Text('Tidak ada data'),
+                          ),
+                        );
+                      return ListView.separated(
+                        physics: ScrollPhysics(),
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        separatorBuilder: (context, index) {
+                          return Divider(
+                            color: Colors.black54,
                           );
-                        }
-                        if (data.length == 0)
-                          return Container(
-                            child: Center(
-                              child: Text('Tidak ada data'),
-                            ),
-                          );
-                        return ListView.separated(
-                          physics: ScrollPhysics(),
-                          separatorBuilder: (context, index) {
-                            return Divider(
-                              color: Colors.black54,
-                            );
-                          },
-                          shrinkWrap: true,
-                          itemCount: data.length,
-                          itemBuilder: (context, index) {
-                            return Card(
-                              child: InkWell(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      (MediaQuery.of(context).size.width <
-                                              kSmallPhone)
-                                          ? Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Text(
-                                                    data[index]
-                                                        .jenisPinjaman
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                        fontSize: 18)),
-                                                SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Text(
-                                                    _dateFormater.format(DateTime
-                                                        .fromMillisecondsSinceEpoch(
-                                                            int.parse(data[
-                                                                    index]
-                                                                .waktuDiajukan))),
-                                                    style: TextStyle(
-                                                        fontSize: 18)),
-                                              ],
-                                            )
-                                          : Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: <Widget>[
-                                                Text(
-                                                    data[index]
-                                                        .jenisPinjaman
-                                                        .toString(),
-                                                    style: TextStyle(
-                                                        fontSize: 18)),
-                                                Text(
-                                                    _dateFormater.format(DateTime
-                                                        .fromMillisecondsSinceEpoch(
-                                                            int.parse(data[
-                                                                    index]
-                                                                .waktuDiajukan))),
-                                                    style: TextStyle(
-                                                        fontSize: 18)),
-                                              ],
-                                            ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Align(
-                                        alignment: Alignment.centerRight,
-                                        child: Text(
-                                          data[index]
-                                              .nominalPinjaman
-                                              .toString(),
-                                          style: TextStyle(
-                                              color: kcolorPrimary[900],
-                                              fontSize: 25.0),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Align(
-                                        alignment: Alignment.centerRight,
-                                        child: Text(
-                                          _convertStatus(
-                                              data[index].statusPinjaman),
-                                          style: TextStyle(
-                                              color: _selectColorStatus(
-                                                  data[index].statusPinjaman),
-                                              fontSize: 18.0),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                onTap: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          ProgressPengajuanPage(
-                                        pinjaman: data[index],
+                        },
+                        shrinkWrap: true,
+                        itemCount: data.length,
+                        itemBuilder: (context, index) {
+                          return Card(
+                            child: InkWell(
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    (MediaQuery.of(context).size.width <
+                                            kSmallPhone)
+                                        ? Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              Text(
+                                                  data[index]
+                                                      .jenisPinjaman
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                      fontSize: 18)),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(
+                                                  _dateFormater.format(DateTime
+                                                      .fromMillisecondsSinceEpoch(
+                                                          int.parse(data[
+                                                                  index]
+                                                              .waktuDiajukan))),
+                                                  style: TextStyle(
+                                                      fontSize: 18)),
+                                            ],
+                                          )
+                                        : Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .spaceBetween,
+                                            children: <Widget>[
+                                              Text(
+                                                  data[index]
+                                                      .jenisPinjaman
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                      fontSize: 18)),
+                                              Text(
+                                                  _dateFormater.format(DateTime
+                                                      .fromMillisecondsSinceEpoch(
+                                                          int.parse(data[
+                                                                  index]
+                                                              .waktuDiajukan))),
+                                                  style: TextStyle(
+                                                      fontSize: 18)),
+                                            ],
+                                          ),
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        data[index]
+                                            .nominalPinjaman
+                                            .toString(),
+                                        style: TextStyle(
+                                            color: kcolorPrimary[900],
+                                            fontSize: 25.0),
                                       ),
                                     ),
-                                  );
-                                },
+                                    SizedBox(
+                                      height: 10,
+                                    ),
+                                    Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        _convertStatus(
+                                            data[index].statusPinjaman),
+                                        style: TextStyle(
+                                            color: _selectColorStatus(
+                                                data[index].statusPinjaman),
+                                            fontSize: 18.0),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            );
-                          },
-                        );
-                      },
-                    ),
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ProgressPengajuanPage(
+                                      pinjaman: data[index],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        },
+                      );
+                    },
                   ),
                 ),
               );
@@ -224,9 +222,9 @@ class _DaftarPengajuanPageState extends State<DaftarPengajuanPage> {
       case 'survey':
         return Colors.orange;
       case 'akad':
-        return Colors.green;
+        return Colors.orange;
       case 'pencairan':
-        return Colors.green;
+        return Colors.orange;
       case 'pinjaman ditolak':
         return Colors.red;
       default:

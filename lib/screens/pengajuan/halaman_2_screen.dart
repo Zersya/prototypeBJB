@@ -24,10 +24,7 @@ class _Halaman2ScreenState extends State<Halaman2Screen> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: <Widget>[
-                Divider(
-                  height: 20,
-                  color: Colors.black,
-                ),
+                
                 InkWell(
                   onTap: () async {
                     await showChoices(0);
@@ -51,7 +48,7 @@ class _Halaman2ScreenState extends State<Halaman2Screen> {
                                 children: <Widget>[
                                   Text('Rekening Koran Anda'),
                                   SizedBox(
-                                    width: 15.0,
+                                    height: 15.0,
                                   ),
                                   Image.file(_pinjamanProvider.rekeningKoran,
                                       fit: BoxFit.cover),
@@ -61,7 +58,7 @@ class _Halaman2ScreenState extends State<Halaman2Screen> {
                 ),
                 Divider(
                   height: 20,
-                  color: Colors.black,
+                  color: Colors.black38,
                 ),
                 InkWell(
                   onTap: () async {
@@ -77,7 +74,7 @@ class _Halaman2ScreenState extends State<Halaman2Screen> {
                                 children: <Widget>[
                                   Text('Surat Keterangan Usaha (SKU)'),
                                   SizedBox(
-                                    width: 15.0,
+                                    height: 15.0,
                                   ),
                                   Image.asset("assets/icons/photo-camera.png"),
                                 ],
@@ -86,7 +83,7 @@ class _Halaman2ScreenState extends State<Halaman2Screen> {
                                 children: <Widget>[
                                   Text('Surat Keterangan Usaha (SKU)'),
                                   SizedBox(
-                                    width: 15.0,
+                                    height: 15.0,
                                   ),
                                   Image.file(_pinjamanProvider.suratKeterangan,
                                       fit: BoxFit.cover),
@@ -96,7 +93,7 @@ class _Halaman2ScreenState extends State<Halaman2Screen> {
                 ),
                 Divider(
                   height: 20,
-                  color: Colors.black,
+                  color: Colors.black38,
                 ),
                 InkWell(
                   onTap: () async {
@@ -117,19 +114,23 @@ class _Halaman2ScreenState extends State<Halaman2Screen> {
                                   Image.asset("assets/icons/photo-camera.png"),
                                 ],
                               )
-                            : Row(
+                            : Column(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Text('Surat Ijin Usaha Pedagang (SIUP)'),
                                   SizedBox(
-                                    width: 15.0,
+                                    height: 15.0,
                                   ),
                                   Image.file(_pinjamanProvider.suratIzinUsaha,
                                       fit: BoxFit.cover),
                                 ],
                               )),
                   ),
+                ),
+                Divider(
+                  height: 20,
+                  color: Colors.black38,
                 ),
               ],
             ),

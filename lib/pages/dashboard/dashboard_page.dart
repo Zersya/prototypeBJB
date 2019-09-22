@@ -123,23 +123,30 @@ class _DashboardPageState extends State<DashboardPage> {
             selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
             items: [
               BottomNavigationBarItem(
-                  icon: Image.asset("assets/icons/home.png"),
+                  icon: Image.asset(
+                    "assets/icons/home.png",
+                    height: MediaQuery.of(context).size.height / 20,
+                  ),
                   title:
                       Text('Beranda', style: TextStyle(color: Colors.white))),
               BottomNavigationBarItem(
-                  icon: Image.asset("assets/icons/money.png"),
+                  icon: Image.asset("assets/icons/money.png",
+                      height: MediaQuery.of(context).size.height / 20),
                   title:
                       Text('Pinjaman', style: TextStyle(color: Colors.white))),
               BottomNavigationBarItem(
-                  icon: Image.asset("assets/icons/credit-card.png"),
+                  icon: Image.asset("assets/icons/credit-card.png",
+                      height: MediaQuery.of(context).size.height / 20),
                   title:
                       Text('Rekening', style: TextStyle(color: Colors.white))),
               BottomNavigationBarItem(
-                  icon: Image.asset("assets/icons/history.png"),
+                  icon: Image.asset("assets/icons/history.png",
+                      height: MediaQuery.of(context).size.height / 20),
                   title:
                       Text('Riwayat', style: TextStyle(color: Colors.white))),
               BottomNavigationBarItem(
-                  icon: Image.asset("assets/icons/user.png"),
+                  icon: Image.asset("assets/icons/user.png",
+                      height: MediaQuery.of(context).size.height / 20),
                   title: Text('Profil', style: TextStyle(color: Colors.white)))
             ],
           ),
