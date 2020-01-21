@@ -43,18 +43,6 @@ class _Halaman1ScreenState extends State<Halaman1Screen> {
   Widget _section2() {
     return Column(
       children: <Widget>[
-        Text(
-          'Nominal Pinjaman',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.black54,
-            fontSize: 21.0,
-          ),
-        ),
-        Divider(
-          color: Colors.black,
-          height: 30.0,
-        ),
         TextFormField(
           controller: _pinjamanProvider.controllerNominal,
           keyboardType: TextInputType.number,
@@ -66,7 +54,7 @@ class _Halaman1ScreenState extends State<Halaman1Screen> {
           keyboardType: TextInputType.number,
           inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
           decoration:
-              InputDecoration(labelText: 'Jangka waktu', hintText: 'Bulan'),
+              InputDecoration(labelText: 'Jangka waktu', hintText: 'Bulan', ),
         )
       ],
     );
@@ -75,184 +63,126 @@ class _Halaman1ScreenState extends State<Halaman1Screen> {
   Widget _section1() {
     return Column(
       children: <Widget>[
-        Text(
-          'Data Pinjaman',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.black54,
-            fontSize: 21.0,
-          ),
-        ),
-        Divider(
-          color: Colors.black,
-          height: 30.0,
-        ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            'Jenis Peminjam',
-            style: TextStyle(
-              color: Colors.black54,
-              fontSize: 18.0,
-            ),
-          ),
-        ),
-        Column(
-          children: <Widget>[
-            RadioListTile(
-              value: 'Perorangan',
-              title: Text('Perorangan'),
-              groupValue: _pinjamanProvider.jenisPeminjam,
-              onChanged: (String value) {
-                setState(() {
-                  _pinjamanProvider.jenisPeminjam = value;
-                });
-              },
-            ),
-            RadioListTile(
-              value: 'Badan Usaha',
-              title: Text('Badan Usaha'),
-              groupValue: _pinjamanProvider.jenisPeminjam,
-              onChanged: (String value) {
-                setState(() {
-                  _pinjamanProvider.jenisPeminjam = value;
-                });
-              },
-            ),
-          ],
-        ),
+        
         SizedBox(
-          height: 30,
-        ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            'Tujuan Pinjaman',
-            style: TextStyle(
-              color: Colors.black54,
-              fontSize: 18.0,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SizedBox(
-            width: double.infinity,
-            child: DropdownButton(
-              hint: Text('Pilih Tujuan'),
-              onChanged: (value) {
-                setState(() {
-                  _pinjamanProvider.tujuanPinjaman = value;
-                });
-              },
-              value: _pinjamanProvider.tujuanPinjaman,
-              items: [
-                DropdownMenuItem(
-                  child: Text('Pendidikan'),
-                  value: 'Pendidikan',
-                ),
-                DropdownMenuItem(
-                  child: Text('Kendaraan'),
-                  value: 'Kendaraan',
-                ),
-                DropdownMenuItem(
-                  child: Text('Tanah/Bangunan'),
-                  value: 'Tanah/Bangunan',
-                ),
-                DropdownMenuItem(
-                  child: Text('Modal Usaha'),
-                  value: 'Modal Usaha',
-                ),
-                DropdownMenuItem(
-                  child: Text('Lainnya'),
-                  value: 'Lainnya',
-                )
-              ],
-            ),
+          width: double.infinity,
+          child: DropdownButton(
+            isExpanded: true,
+            hint: Text('Produk Pinjaman', style:TextStyle(color:Colors.black54)),
+            onChanged: (value) {
+              setState(() {
+                _pinjamanProvider.jenisPinjaman = value;
+              });
+            },
+            value: _pinjamanProvider.jenisPinjaman,
+            items: [
+              DropdownMenuItem(
+                child: Text('BJB Kredit Mikro Utama'),
+                value: 'BJB Kredit Mikro Utama',
+              ),
+              DropdownMenuItem(
+                child: Text('Kredit Cinta Rakyat'),
+                value: 'Kredit Cinta Rakyat',
+              ),
+              DropdownMenuItem(
+                child: Text('BJB KUKM'),
+                value: 'BJB KUKM',
+              ),
+            ],
           ),
         ),
         SizedBox(
-          height: 30,
+          height: 20,
         ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            'Jenis Pinjaman',
-            style: TextStyle(
-              color: Colors.black54,
-              fontSize: 18.0,
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SizedBox(
-            width: double.infinity,
-            child: DropdownButton(
-              hint: Text('Pilih Jenis'),
-              onChanged: (value) {
-                setState(() {
-                  _pinjamanProvider.jenisPinjaman = value;
-                });
-              },
-              value: _pinjamanProvider.jenisPinjaman,
-              items: [
-                DropdownMenuItem(
-                  child: Text('BJB Kredit Mikro Utama'),
-                  value: 'BJB Kredit Mikro Utama',
-                ),
-                DropdownMenuItem(
-                  child: Text('Kredit Cinta Rakyat'),
-                  value: 'Kredit Cinta Rakyat',
-                ),
-                DropdownMenuItem(
-                  child: Text('BJB KUKM'),
-                  value: 'BJB KUKM',
-                ),
-              ],
-            ),
+        SizedBox(
+          width: double.infinity,
+          child: DropdownButton(
+            isExpanded: true,
+            hint: Text('Jenis Peminjam', style:TextStyle(color:Colors.black54)),
+            onChanged: (value) {
+              setState(() {
+                _pinjamanProvider.jenisPeminjam = value;
+              });
+            },
+            value: _pinjamanProvider.jenisPeminjam,
+            items: [
+              DropdownMenuItem(
+                child: Text('Perorangan'),
+                value: 'Perorangan',
+              ),
+              DropdownMenuItem(
+                child: Text('Badan Usaha'),
+                value: 'Badan Usaha',
+              ),
+            ],
           ),
         ),
         SizedBox(
-          height: 30,
+          height: 20,
         ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            'Pengajuan Pinjaman',
-            style: TextStyle(
-              color: Colors.black54,
-              fontSize: 18.0,
-            ),
+        SizedBox(
+          width: double.infinity,
+          child: DropdownButton(
+            isExpanded: true,
+            hint: Text('Tujuan Pinjaman', style:TextStyle(color:Colors.black54)),
+            onChanged: (value) {
+              setState(() {
+                _pinjamanProvider.tujuanPinjaman = value;
+              });
+            },
+            value: _pinjamanProvider.tujuanPinjaman,
+            items: [
+              DropdownMenuItem(
+                child: Text('Pendidikan'),
+                value: 'Pendidikan',
+              ),
+              DropdownMenuItem(
+                child: Text('Kendaraan'),
+                value: 'Kendaraan',
+              ),
+              DropdownMenuItem(
+                child: Text('Tanah/Bangunan'),
+                value: 'Tanah/Bangunan',
+              ),
+              DropdownMenuItem(
+                child: Text('Modal Usaha'),
+                value: 'Modal Usaha',
+              ),
+              DropdownMenuItem(
+                child: Text('Lainnya'),
+                value: 'Lainnya',
+              )
+            ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SizedBox(
-            width: double.infinity,
-            child: DropdownButton(
-              hint: Text('Pilih Pengajuan'),
-              onChanged: (value) {
-                setState(() {
-                  _pinjamanProvider.pengajuanPinjaman = value;
-                });
-              },
-              value: _pinjamanProvider.pengajuanPinjaman,
-              items: [
-                DropdownMenuItem(
-                  child: Text('Baru'),
-                  value: 'Baru',
-                ),
-                DropdownMenuItem(
-                  child: Text('Suplesi'),
-                  value: 'Suplesi',
-                ),
-                DropdownMenuItem(
-                  child: Text('Take Over'),
-                  value: 'Take Over',
-                ),
-              ],
-            ),
+        SizedBox(
+          height: 20,
+        ),
+        SizedBox(
+          width: double.infinity,
+          child: DropdownButton(
+            isExpanded: true,
+            hint: Text('Pengajuan Pinjaman', style:TextStyle(color:Colors.black54)),
+            onChanged: (value) {
+              setState(() {
+                _pinjamanProvider.pengajuanPinjaman = value;
+              });
+            },
+            value: _pinjamanProvider.pengajuanPinjaman,
+            items: [
+              DropdownMenuItem(
+                child: Text('Baru'),
+                value: 'Baru',
+              ),
+              DropdownMenuItem(
+                child: Text('Suplesi'),
+                value: 'Suplesi',
+              ),
+              DropdownMenuItem(
+                child: Text('Take Over'),
+                value: 'Take Over',
+              ),
+            ],
           ),
         ),
       ],

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:prototype_bjb/provider/pinjaman_db.dart';
-import 'package:prototype_bjb/screens/dataktpnpwp_screen.dart';
+import 'package:prototype_bjb/screens/profile/dataktpnpwp_screen.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 import 'package:path/path.dart';
@@ -267,7 +267,7 @@ class ProfileProvider {
     if (_imageKTP != null) await encodeImage(_imageKTP, TypeImage.ktp);
 
     profile = Profile(
-        nama: controllerNama.text,
+        nama: controllerNama.text.isEmpty ? 'Eykeu' : controllerNama.text,
         alamat: controllerAlamat.text,
         nik: controllerNIK.text,
         npwp: controllerNPWP.text,

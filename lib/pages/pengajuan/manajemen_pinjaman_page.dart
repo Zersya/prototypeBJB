@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:prototype_bjb/provider/pinjaman_db.dart';
+import 'package:prototype_bjb/utils/colors.dart';
 
 class ManajemenPinjamanPage extends StatefulWidget {
   ManajemenPinjamanPage({Key key, this.pinjaman}) : super(key: key);
@@ -17,6 +18,20 @@ class _ManajemenPinjamanPageState extends State<ManajemenPinjamanPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: Image.asset(
+          'assets/images/bank_bjb.png',
+          height: MediaQuery.of(context).size.width / 7,
+        ),
+        centerTitle: true,
+        leading: InkWell(
+          onTap: (){
+            Navigator.of(context).pop();
+          },
+            child: Icon(Icons.arrow_back_ios, color: kcolorPrimary[900])),
+      ),
       body: SafeArea(
         top: true,
         child: Center(
@@ -29,7 +44,7 @@ class _ManajemenPinjamanPageState extends State<ManajemenPinjamanPage> {
                     height: 25,
                   ),
                   Text(
-                    'Manajemen Pinjaman',
+                    'Detail Pinjaman',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.black54,

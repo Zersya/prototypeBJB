@@ -47,7 +47,7 @@ class _PenghasilanScreenState extends State<PenghasilanScreen> {
               height: 30.0,
             ),
             CircleAvatar(
-                backgroundColor: Color(COLOR_MAIN),
+                backgroundColor: Color(kColorMain),
                 radius: 70.0,
                 child: Icon(
                   Icons.account_balance_wallet,

@@ -12,7 +12,6 @@ class Halaman2Screen extends StatefulWidget {
 class _Halaman2ScreenState extends State<Halaman2Screen> {
   PinjamanProvider _pinjamanProvider;
 
-
   @override
   Widget build(BuildContext context) {
     _pinjamanProvider = Provider.of<PinjamanProvider>(context);
@@ -25,198 +24,113 @@ class _Halaman2ScreenState extends State<Halaman2Screen> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: <Widget>[
-                SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  'Unggah Berkas',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.black54,
-                    fontSize: 21.0,
+                
+                InkWell(
+                  onTap: () async {
+                    await showChoices(0);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Center(
+                        child: _pinjamanProvider.rekeningKoran == null
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text('Rekening Koran Anda'),
+                                  SizedBox(
+                                    width: 15.0,
+                                  ),
+                                  Image.asset("assets/icons/photo-camera.png"),
+                                ],
+                              )
+                            : Column(
+                                children: <Widget>[
+                                  Text('Rekening Koran Anda'),
+                                  SizedBox(
+                                    height: 15.0,
+                                  ),
+                                  Image.file(_pinjamanProvider.rekeningKoran,
+                                      fit: BoxFit.cover),
+                                ],
+                              )),
                   ),
                 ),
                 Divider(
-                  color: Colors.black,
-                  height: 30.0,
+                  height: 20,
+                  color: Colors.black38,
                 ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Unggah Rekening Koran',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1.2, color: Colors.black38)),
-                  child: Column(
-                    children: <Widget>[
-                      Card(
-                        elevation: 4.0,
-                        child: InkWell(
-                          onTap: () async {
-                            await showChoices(0);
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Center(
-                              child: _pinjamanProvider.rekeningKoran == null
-                                  ? Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Icon(Icons.add_a_photo),
-                                        SizedBox(
-                                          height: 15.0,
-                                        ),
-                                        Text('Rekening Koran Anda')
-                                      ],
-                                    )
-                                  : Image.file(_pinjamanProvider.rekeningKoran,
+                InkWell(
+                  onTap: () async {
+                    await showChoices(1);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Center(
+                        child: _pinjamanProvider.suratKeterangan == null
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text('Surat Keterangan Usaha (SKU)'),
+                                  SizedBox(
+                                    height: 15.0,
+                                  ),
+                                  Image.asset("assets/icons/photo-camera.png"),
+                                ],
+                              )
+                            : Column(
+                                children: <Widget>[
+                                  Text('Surat Keterangan Usaha (SKU)'),
+                                  SizedBox(
+                                    height: 15.0,
+                                  ),
+                                  Image.file(_pinjamanProvider.suratKeterangan,
                                       fit: BoxFit.cover),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Card(
-                        elevation: 4.0,
-                        child: InkWell(
-                          onTap: () async {
-                            await showChoices(0);
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Center(
-                                child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(Icons.add_box),
-                                SizedBox(
-                                  height: 15.0,
-                                ),
-                                Text('Tambah Berkas')
-                              ],
-                            )),
-                          ),
-                        ),
-                      ),
-                    ],
+                                ],
+                              )),
                   ),
                 ),
-                SizedBox(
-                  height: 15,
+                Divider(
+                  height: 20,
+                  color: Colors.black38,
                 ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Unggah Surat Keterangan Usaha',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1.2, color: Colors.black38)),
-                  child: Column(
-                    children: <Widget>[
-                      Card(
-                        elevation: 4.0,
-                        child: InkWell(
-                          onTap: () async {
-                            await showChoices(1);
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Center(
-                              child: _pinjamanProvider.suratKeterangan == null
-                                  ? Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Icon(Icons.add_a_photo),
-                                        SizedBox(
-                                          height: 15.0,
-                                        ),
-                                        Text('Surat Keterangan Usaha Anda')
-                                      ],
-                                    )
-                                  : Image.file(_pinjamanProvider.suratKeterangan,
+                InkWell(
+                  onTap: () async {
+                    await showChoices(2);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Center(
+                        child: _pinjamanProvider.suratIzinUsaha == null
+                            ? Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text('Surat Ijin Usaha Pedagang (SIUP)'),
+                                  SizedBox(
+                                    width: 15.0,
+                                  ),
+                                  Image.asset("assets/icons/photo-camera.png"),
+                                ],
+                              )
+                            : Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text('Surat Ijin Usaha Pedagang (SIUP)'),
+                                  SizedBox(
+                                    height: 15.0,
+                                  ),
+                                  Image.file(_pinjamanProvider.suratIzinUsaha,
                                       fit: BoxFit.cover),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
+                                ],
+                              )),
                   ),
                 ),
-                SizedBox(
-                  height: 15,
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Unggah Surat Ijin Usaha Pedagang',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 18.0,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Container(
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                      border: Border.all(width: 1.2, color: Colors.black38)),
-                  child: Column(
-                    children: <Widget>[
-                      Card(
-                        elevation: 4.0,
-                        child: InkWell(
-                          onTap: () async {
-                            await showChoices(2);
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Center(
-                              child: _pinjamanProvider.suratIzinUsaha == null
-                                  ? Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Icon(Icons.add_a_photo),
-                                        SizedBox(
-                                          height: 15.0,
-                                        ),
-                                        Text('Surat Ijin Usaha anda')
-                                      ],
-                                    )
-                                  : Image.file(_pinjamanProvider.suratIzinUsaha,
-                                      fit: BoxFit.cover),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                Divider(
+                  height: 20,
+                  color: Colors.black38,
                 ),
               ],
             ),
@@ -248,13 +162,16 @@ class _Halaman2ScreenState extends State<Halaman2Screen> {
                   Navigator.of(context).pop();
                   switch (type) {
                     case 0:
-                      _pinjamanProvider.rekeningKoran = await getImage(ImageSource.camera);
+                      _pinjamanProvider.rekeningKoran =
+                          await getImage(ImageSource.camera);
                       break;
                     case 1:
-                      _pinjamanProvider.suratKeterangan = await getImage(ImageSource.camera);
+                      _pinjamanProvider.suratKeterangan =
+                          await getImage(ImageSource.camera);
                       break;
                     case 2:
-                      _pinjamanProvider.suratIzinUsaha = await getImage(ImageSource.camera);
+                      _pinjamanProvider.suratIzinUsaha =
+                          await getImage(ImageSource.camera);
                       break;
                   }
 
@@ -271,13 +188,16 @@ class _Halaman2ScreenState extends State<Halaman2Screen> {
 
                   switch (type) {
                     case 0:
-                      _pinjamanProvider.rekeningKoran = await getImage(ImageSource.gallery);
+                      _pinjamanProvider.rekeningKoran =
+                          await getImage(ImageSource.gallery);
                       break;
                     case 1:
-                      _pinjamanProvider.suratKeterangan = await getImage(ImageSource.gallery);
+                      _pinjamanProvider.suratKeterangan =
+                          await getImage(ImageSource.gallery);
                       break;
                     case 2:
-                      _pinjamanProvider.suratIzinUsaha = await getImage(ImageSource.gallery);
+                      _pinjamanProvider.suratIzinUsaha =
+                          await getImage(ImageSource.gallery);
                       break;
                   }
 
